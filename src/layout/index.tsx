@@ -1,3 +1,4 @@
+import { Outlet } from "react-router-dom";
 import Footer from "./Footer";
 import Header from "./Header";
 
@@ -6,7 +7,7 @@ export default function Layout() {
         <div>
             <Header />
             <main className="bg-gray-100 min-h-screen">
-                Hello
+                <Outlet />
             </main>
             <Footer />
         </div>

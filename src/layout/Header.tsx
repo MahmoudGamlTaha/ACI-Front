@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { ThemeContext } from "../../contexts/ThemeContext";
+import { ThemeContext } from "../contexts/ThemeContext";
 import { Button } from "@/components/ui/button";
 import { Languages, Moon, Sun } from "lucide-react";
 import Logo from '../../../public/images/logo.png'
