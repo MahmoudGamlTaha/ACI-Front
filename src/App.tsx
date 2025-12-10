@@ -1,10 +1,12 @@
+import React from 'react';
+import { RouterProvider } from 'react-router-dom';
+import router from './routers';
 
-function App() {
+const App: React.FC = () => {
 
   return (
-    <div className='m-5 flex flex-col gap-4 bg-secondary-500'>
-    </div>
-  )
-}
+    <RouterProvider router={router} />
+  );
+};
 
-export default App
+export default App;
