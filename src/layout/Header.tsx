@@ -62,7 +62,7 @@ const Header: React.FC = () => {
                 </div>
 
                 {/* Right Section - Language & Sign In */}
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 bg-primary-500">
                     <Button variant="ghost" size="default">
                         {t('header.commercialGate') || 'Commercial Gate'}
                     </Button>
