@@ -24,14 +24,14 @@ export default function SignUp() {
         console.log(data)
     }
     return (
-        <div className="flex items-center justify-center min-h-[calc(100vh-10rem)] ">
-            <Card className="w-full max-w-5xl shadow-xl">
+        <div className="flex items-center justify-center">
+            <Card className="w-full max-w-5xl shadow-xl ">
                 <CardHeader>
                     <CardTitle className="text-2xl font-bold text-center">{t("auth.newSignUp")}</CardTitle>
                 </CardHeader>
-                <CardContent>
-                    <form onSubmit={handleSubmit(onSubmit)}>
-                        <div className="w-full py-16 px-4 sm:px-6 lg:px-8 ">
+                <CardContent className="h-[calc(80vh-8rem)] overflow-y-auto">
+                    <form onSubmit={handleSubmit(onSubmit)} noValidate>
+                        <div className="w-full px-4 sm:px-6 lg:px-8 ">
                             <div className="max-w-4xl mx-auto">
                                 {/* Timeline Container */}
                                 <div className="relative mb-5">
@@ -92,36 +92,40 @@ export default function SignUp() {
                                             </div>
 
                                             {/* Content */}
-                                            <div className="grid grid-cols-2 items-center justify-center gap-2">
+                                            <div className="grid grid-cols-2 items-start justify-center gap-2">
                                                 <Controller
-                                                    name="email"
+                                                    rules={{ required: { message: t("auth.fieldRequired"), value: true } }}
+                                                    name="companyNameEn"
                                                     control={control}
-                                                    render={({ field }) => (
+                                                    render={({ field, fieldState }) => (
                                                         <Field>
-                                                            <FieldLabel htmlFor="email">
-                                                                {t("auth.email")}
+                                                            <FieldLabel htmlFor="companyNameEn">
+                                                                {t("auth.companyEn")}
                                                             </FieldLabel>
                                                             <Input
                                                                 {...field}
-                                                                id="email"
-                                                                placeholder="userName@Aci.com"
+                                                                error={fieldState.error?.message}
+                                                                id="companyNameEn"
                                                                 required
                                                             />
                                                         </Field>
                                                     )}
                                                 />
                                                 <Controller
-                                                    name="email"
+                                                    name="country"
+                                                    rules={{ required: { message: t("auth.fieldRequired"), value: true } }}
                                                     control={control}
-                                                    render={({ field }) => (
-                                                        <Field>
-                                                            <FieldLabel htmlFor="email">
-                                                                {t("auth.email")}
+                                                    render={({ field, fieldState }) => (
+                                                        <Field >
+                                                            <FieldLabel htmlFor="country">
+                                                                {t("auth.country")}
                                                             </FieldLabel>
                                                             <Input
                                                                 {...field}
-                                                                id="email"
-                                                                placeholder="userName@Aci.com"
+                                                                error={fieldState.error?.message}
+                                                                id="country"
+                                                                value={field.value}
+                                                                onChange={field.onChange}
                                                                 required
                                                             />
                                                         </Field>
@@ -148,24 +152,50 @@ export default function SignUp() {
                                             </div>
 
                                             {/* Content */}
-                                            <div className="grid grid-cols-2 items-center justify-center gap-2">
-                                                <Controller
-                                                    name="email"
-                                                    control={control}
-                                                    render={({ field }) => (
-                                                        <Field>
-                                                            <FieldLabel htmlFor="email">
-                                                                {t("auth.email")}
-                                                            </FieldLabel>
-                                                            <Input
-                                                                {...field}
-                                                                id="email"
-                                                                placeholder="userName@Aci.com"
-                                                                required
-                                                            />
-                                                        </Field>
-                                                    )}
-                                                />
+                                            <div className="grid grid-cols-2 items-start justify-center gap-2">
+                                                {accountType === 'source' ? (
+                                                    <Controller
+                                                        name="idNumber"
+                                                        rules={{ required: { message: t("auth.fieldRequired"), value: true } }}
+                                                        control={control}
+                                                        render={({ field, fieldState }) => (
+                                                            <Field>
+                                                                <FieldLabel htmlFor="idNumber">
+                                                                    {t("auth.idNumber")}
+                                                                </FieldLabel>
+                                                                <Input
+                                                                    {...field}
+                                                                    error={fieldState.error?.message}
+                                                                    id="idNumber"
+                                                                    value={field.value}
+                                                                    onChange={field.onChange}
+                                                                    required
+                                                                />
+                                                            </Field>
+                                                        )}
+                                                    />
+                                                ) : (
+                                                    <Controller
+                                                        name="statisticalCode"
+                                                        control={control}
+                                                        render={({ field, fieldState }) => (
+                                                            <Field>
+                                                                <FieldLabel htmlFor="statisticalCode">
+                                                                    {t("auth.statisticalCode")}
+                                                                </FieldLabel>
+                                                                <Input
+                                                                    {...field}
+                                                                    error={fieldState.error?.message}
+                                                                    id="statisticalCode"
+                                                                    value={field.value}
+                                                                    onChange={field.onChange}
+                                                                    required
+                                                                />
+                                                            </Field>
+                                                        )}
+                                                    />
+                                                )
+                                                }
                                             </div>
                                         </div>
                                     </div>
@@ -187,28 +217,41 @@ export default function SignUp() {
                                             </div>
 
                                             {/* Content */}
-                                            <div className="grid grid-cols-2 items-center justify-center gap-2">
+                                            <div className="grid grid-cols-2 items-start justify-center gap-2">
                                                 <Controller
-                                                    name="email"
+                                                    name="responsibleNameAr"
                                                     control={control}
-                                                    render={({ field }) => (
+                                                    rules={{ required: { message: t("auth.fieldRequired"), value: true } }}
+                                                    render={({ field, fieldState }) => (
                                                         <Field>
-                                                            <FieldLabel htmlFor="email">
-                                                                {t("auth.email")}
+                                                            <FieldLabel htmlFor="responsibleNameAr">
+                                                                {t("auth.responsibleNameAr")}
                                                             </FieldLabel>
                                                             <Input
                                                                 {...field}
-                                                                id="email"
-                                                                placeholder="userName@Aci.com"
+                                                                error={fieldState.error?.message}
+                                                                id="responsibleNameAr"
+                                                                value={field.value}
+                                                                onChange={field.onChange}
                                                                 required
                                                             />
                                                         </Field>
                                                     )}
                                                 />
                                                 <Controller
+                                                    rules={{
+                                                        required: {
+                                                            value: true,
+                                                            message: t("auth.fieldRequired")
+                                                        },
+                                                        pattern: {
+                                                            value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                                                            message: t("auth.invalidEmail")
+                                                        }
+                                                    }}
                                                     name="email"
                                                     control={control}
-                                                    render={({ field }) => (
+                                                    render={({ field, fieldState }) => (
                                                         <Field>
                                                             <FieldLabel htmlFor="email">
                                                                 {t("auth.email")}
@@ -216,32 +259,57 @@ export default function SignUp() {
                                                             <Input
                                                                 {...field}
                                                                 id="email"
-                                                                placeholder="userName@Aci.com"
                                                                 required
+                                                                error={fieldState.error?.message}
+                                                                value={field.value}
+                                                                onChange={field.onChange}
                                                             />
                                                         </Field>
                                                     )}
                                                 />
                                                 <Controller
-                                                    name="email"
+                                                    name="password"
                                                     control={control}
-                                                    render={({ field }) => (
+                                                    rules={{ required: { message: t("auth.fieldRequired"), value: true } }}
+                                                    render={({ field, fieldState }) => (
                                                         <Field>
-                                                            <FieldLabel htmlFor="email">
-                                                                {t("auth.email")}
+                                                            <FieldLabel htmlFor="password">
+                                                                {t("auth.password")}
                                                             </FieldLabel>
                                                             <Input
                                                                 {...field}
-                                                                id="email"
-                                                                placeholder="userName@Aci.com"
+                                                                id="password"
                                                                 required
+                                                                error={fieldState.error?.message}
+                                                                value={field.value}
+                                                                onChange={field.onChange}
+                                                            />
+                                                        </Field>
+                                                    )}
+                                                />
+                                                <Controller
+                                                    name="confirmPassword"
+                                                    control={control}
+                                                    rules={{ required: { message: t("auth.fieldRequired"), value: true } }}
+                                                    render={({ field, fieldState }) => (
+                                                        <Field>
+                                                            <FieldLabel htmlFor="confirmPassword">
+                                                                {t("auth.confirmPassword")}
+                                                            </FieldLabel>
+                                                            <Input
+                                                                {...field}
+                                                                id="confirmPassword"
+                                                                required
+                                                                error={fieldState.error?.message}
+                                                                value={field.value}
+                                                                onChange={field.onChange}
                                                             />
                                                         </Field>
                                                     )}
                                                 />
                                             </div>
                                             <hr className="my-5" />
-
+                                            <p className="text-sm text-gray-500 dark:text-white mb-4">{t("auth.reviewAfterSubmit")}</p>
                                             {/* Terms and Conditions Checkbox */}
                                             <Controller
                                                 name="acceptTerms"
@@ -257,7 +325,7 @@ export default function SignUp() {
                                                             htmlFor="acceptTerms"
                                                             className="text-sm font-medium leading-none cursor-pointer select-none"
                                                         >
-                                                            أوافق على الشروط والأحكام
+                                                            {t("auth.acceptTerms")}
                                                         </label>
                                                     </div>
                                                 )}
@@ -267,21 +335,11 @@ export default function SignUp() {
                                 </div>
                             </div>
                         </div>
+                        <Button size={'lg'} type="submit" className="w-full">
+                            {t("auth.signUp")}
+                        </Button>
                     </form>
                 </CardContent>
-                <CardFooter className="flex-col gap-2">
-                    <Button size={'lg'} type="submit" className="w-full">
-                        {t("auth.signIn")}
-                    </Button>
-                    <p className="text-center">
-                        {t("auth.youDontHaveAccount")}
-                        <span>
-                            <Button variant="link" className="text-sm" size={'sm'}>
-                                {t("auth.signInNow")}
-                            </Button>
-                        </span>
-                    </p>
-                </CardFooter>
             </Card>
         </div>
     )

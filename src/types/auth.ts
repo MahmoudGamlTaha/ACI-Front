@@ -4,6 +4,11 @@ export interface LoginInput {
 }
 
 export interface RegisterInput {
+    companyNameAr: string,
+    companyNameEn: string,
+    idNumber: string,
+    statisticalCode: string,
+    responsibleNameAr: string,
     fullName: string,
     phoneNumber: string,
     gender: string,

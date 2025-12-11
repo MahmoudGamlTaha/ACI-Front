@@ -11,11 +11,12 @@ import { Input } from "@/components/ui/input"
 import { LoginInput } from "@/types/auth"
 import { Controller, useForm } from "react-hook-form"
 import { useTranslation } from "react-i18next"
+import { useNavigate } from "react-router-dom"
 
 export default function LoginPage() {
     const { control, handleSubmit } = useForm<LoginInput>()
     const { t } = useTranslation();
-
+    const navigate = useNavigate();
     const onSubmit = (data: LoginInput) => {
         console.log(data)
     }
@@ -71,7 +72,7 @@ export default function LoginPage() {
                     <p className="text-center">
                         {t("auth.youDontHaveAccount")}
                         <span>
-                            <Button variant="link" className="text-sm" size={'sm'}>
+                            <Button variant="link" className="text-sm" size={'sm'} onClick={() => navigate('/sign-up')}>
                                 {t("auth.signInNow")}
                             </Button>
                         </span>
