@@ -6,6 +6,15 @@
         "darkMode": "Dark Mode",
         "commercialGate": "Commercial Gate"
     },
+    "auth":{
+        "signIn":"Sign In",
+        "signUp":"Sign Up",
+        "email":"Email",
+        "password":"Password",
+        "youDontHaveAccount":"Don't have an account?",
+        "signInNow": "Sign In Now",
+        "newSignUp": "New Sign Up"
+    },
     "welcome": "Welcome to my app!",
     "description": "This is a sample app using i18n."
 }

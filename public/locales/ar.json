@@ -6,6 +6,15 @@
         "darkMode": "الوضع الداكن",
         "commercialGate": "البوابة التجارية"
     },
+    "auth":{
+        "signIn":"تسجيل الدخول",
+        "signUp":"تسجيل جديد",
+        "email":"البريد الالكتروني",
+        "password":"كلمه المرور",
+        "youDontHaveAccount":"ليس لديك حساب؟",
+        "signInNow": "سجل الان",
+        "newSignUp": "تسجيل مستخدم جديد"
+    },
     "welcome": "مرحبا بك في تطبيقي!",
     "description": "هذا تطبيق تجريبي يستخدم i18n."
 }
