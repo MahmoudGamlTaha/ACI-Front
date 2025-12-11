@@ -5,14 +5,14 @@ interface Iprops {
 }
 export default function HeaderCard({ icon, num, title }: Iprops) {
     return (
-        <div className="bg-white shadow-lg rounded-lg min-h-[50px]">
+        <div className="bg-white p-5 rounded-xl shadow-lg flex items-center gap-4 transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
             <div className="flex items-center">
-                <div>
+                <div className="me-4">
                     {icon}
                 </div>
                 <div>
-                    <p className="text-sm text-gray-500">{title}</p>
-                    <p className="text-lg font-bold">{num}</p>
+                    <h4 className="text-gray-500 text-sm font-semibold">{title}</h4>
+                    <p className="text-3xl font-bold text-black">{num}</p>
                 </div>
             </div>
         </div>

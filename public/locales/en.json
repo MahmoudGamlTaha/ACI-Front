@@ -6,6 +6,18 @@
         "darkMode": "Dark Mode",
         "commercialGate": "Commercial Gate"
     },
+    "home": {
+       "welcome": "Welcome to ACI Libya",
+       "register": "Register Now",
+       "login": "Login Now",
+       "totalShipments": "Total Shipments Processed",
+       "activeShipments": "Active Shipments",
+       "recordedCompanies": "Recorded Companies",
+       "systemWork": "How System Work",
+       "finalAciRelease": "A simplified process from application to final ACI release.",
+       "createRequest": "1. Create Request",
+       "createRequestDesc": "The exporter or importer creates an ACI order with all the shipment details and financial data."
+    },
     "welcome": "Welcome to my app!",
     "description": "This is a sample app using i18n."
 }

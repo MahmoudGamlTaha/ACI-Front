@@ -6,6 +6,18 @@
         "darkMode": "الوضع الداكن",
         "commercialGate": "البوابة التجارية"
     },
+    "home": {
+       "welcome": "أهلاً بكم في منصة ACI ليبيا",
+       "register": "ابدأ التسجيل الآن",
+       "login": "لدي حساب بالفعل",
+       "totalShipments": "إجمالي الشحنات المعالجة",
+       "activeShipments": "الشحنات النشطة",
+       "recordedCompanies": "الشركات المسجلة",
+       "systemWork": "كيف يعمل النظام",
+       "finalAciRelease": "عملية مبسطة من الطلب إلى إصدار ACI النهائي.",
+       "createRequest": "1. انشاء الطلب",
+       "createRequestDesc": "المصدر او المستورد يقوم بانشاء طلب ACI بكافة تفاصيل الشحنة والبيانات المالية."
+    },
     "welcome": "مرحبا بك في تطبيقي!",
     "description": "هذا تطبيق تجريبي يستخدم i18n."
 }
