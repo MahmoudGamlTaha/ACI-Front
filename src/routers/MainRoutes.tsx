@@ -1,4 +1,7 @@
 import Layout from "@/layout";
+import { lazy } from "react";
+const LazyHome = lazy(() => import("@/pages/home"));
+const LazyLogin = lazy(() => import("@/pages/auth/LoginPage"));
 import { RouteObject, useRoutes } from "react-router-dom";
 
 export default function MainRoutes() {
@@ -6,6 +9,16 @@ export default function MainRoutes() {
         {
             path: "/",
             element: <Layout />,
+            children: [
+                {
+                    path: "/",
+                    element: <LazyHome />,
+                },
+                {
+                    path: "/login",
+                    element: <LazyLogin />,
+                },
+            ],
         },
     ];
 
