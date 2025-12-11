@@ -1,8 +1,11 @@
 import { Earth } from 'lucide-react';
 import { Activity } from 'lucide-react';
+import { useTranslation } from "react-i18next";
+
 
 
 export default function GlobalTradeSection() {
+    const {t} = useTranslation()
   return (
     <div className="grid md:grid-cols-2 gap-8 lg:gap-12 bg-white p-8 rounded-xl shadow-lg">
       <div className="flex ">
@@ -11,7 +14,7 @@ export default function GlobalTradeSection() {
         </div>
         <div>
           <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
-            أهم الشراء التجاريين
+            {t('home.importantCustomers')}
           </h3>
         </div>
       </div>
@@ -22,8 +25,9 @@ export default function GlobalTradeSection() {
           </div>
           <div>
             <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
-              {" "}
-              النشاط الأخير
+               
+            {t('home.lastActivity')}
+               
             </h3>
           </div>
         </div>
@@ -37,9 +41,9 @@ export default function GlobalTradeSection() {
             </div>
             <div>
               <p className="text-sm text-gray-800">
-                انضمت شركة جديدة من Egypt إلى المنصة.
+                {t('home.newCompanyEntry')}
               </p>
-              <p className="text-xs text-gray-400">15 minutes ago</p>
+              <p className="text-xs text-gray-400">{t('home.minutesDate')}</p>
             </div>
           </div>
         </div>
