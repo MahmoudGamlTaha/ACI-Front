@@ -6,6 +6,42 @@
         "darkMode": "الوضع الداكن",
         "commercialGate": "البوابة التجارية"
     },
+    "home": {
+       "welcome": "أهلاً بكم في منصة ACI ليبيا",
+       "register": "ابدأ التسجيل الآن",
+       "login": "لدي حساب بالفعل",
+       "totalShipments": "إجمالي الشحنات المعالجة",
+       "activeShipments": "الشحنات النشطة",
+       "recordedCompanies": "الشركات المسجلة",
+       "systemWork": "كيف يعمل النظام",
+       "finalAciRelease": "عملية مبسطة من الطلب إلى إصدار ACI النهائي.",
+       "createRequest": "1. انشاء الطلب",
+       "createRequestDesc": "المصدر او المستورد يقوم بانشاء طلب ACI بكافة تفاصيل الشحنة والبيانات المالية.",
+       "importerAgree": "2. موافقة المستورد",
+       "importerAgreeDesc": "يراجع المستورد بيانات ACI الكاملة ويوافق عليها.",
+       "customsReview": "3. مراجعة الجمارك",
+       "customsAgreeDesc": "تراجع الجمارك بيانات ACI وتوافق على دخول الشحنة.",
+       "issueAci": "4. إصدار ACI",
+       "issueAciDesc": "بمجرد الموافقة، يتم إصدار رقم ACI نهائي، ويمكن شحن البضائع.",
+       "globalTradeTitle": " التجارة العالمية قيد التنفيذ ",
+       "importantCustomers": " أهم الشراء التجاريين",
+       "lastActivity": "النشاط الاخير",
+       "newCompanyEntry": "انضمت شركة جديدة من Egypt إلى المنصة.",
+       "minutesDate": "منذ 15 دقيقة",
+       "forWhoTitle": "لمن هذه المنصة؟",
+       "forWhoDesc": "تخدم منصة ACI الأطراف الرئيسية المشاركة في عملية الاستيراد والتصدير.",
+       "exporters": "المصدرين",
+       "exportersDesc": "الجهات خارج ليبيا التي تبيع وتشحن البضائع إلى المستوردين الليبيين.",
+       "importers": "المستوردين",
+       "importersDesc": "الجهات الليبية التي تشتري وتستلم البضائع من المصدرين الدوليين.",
+       "aciVervcation": "التحقق من رقم ACI",
+       "aciVervcationDesc": "التحقق من صلاحية رقم ACI.",
+       "enterAciNumber": "ادخل رقم ACI",
+       "GOVerfication": "تحقق"
+
+
+
+    },
     "auth":{
         "signIn":"تسجيل الدخول",
         "signUp":"تسجيل جديد",
