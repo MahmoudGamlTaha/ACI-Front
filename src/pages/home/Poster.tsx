@@ -7,7 +7,6 @@ export default function Poster() {
     return (
         <div>
             <div className="grid grid-cols-1">
-
                 <PosterCard buttonLog={t('home.login')} buttonReg={t('home.register')} title={t('home.welcome')}  />
             </div>
         </div>
