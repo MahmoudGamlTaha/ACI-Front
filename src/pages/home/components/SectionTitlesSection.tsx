@@ -5,8 +5,8 @@ interface Iprops {
 export default function SectionTitlesSection({ desc, title }: Iprops) {
     return (
             <div className="flex items-center justify-center flex-col">
-                    <p className="text-3xl font-bold text-black">{title}</p>
-                    <p className="text-lg text-gray-500 max-w-2xl mx-auto mt-2">{desc}</p>
+                    <h3 className=" font-bold text-black dark:text-white">{title}</h3>
+                    <h6 style={{color:'var(--color-neutral-500)'}} className="  max-w-2xl mx-auto mt-2">{desc}</h6>
 
             </div>
     );

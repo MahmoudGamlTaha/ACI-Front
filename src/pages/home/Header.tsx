@@ -14,9 +14,9 @@ export default function Header() {
         <div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 my-14">
 
-                <HeaderCard icon={<div className="p-3 rounded-full text-indigo-600 bg-indigo-100"><Earth /></div>} title={t('home.totalShipments')} num={0} />
-                <HeaderCard icon={<div className="p-3 rounded-full text-orange-500 bg-orange-100"><CalendarClock /></div>} title={t('home.activeShipments')} num={0} />
-                <HeaderCard icon={<div className="p-3 rounded-full text-purple-600 bg-purple-100"><Users /></div>} title={t('home.recordedCompanies')} num={10} />
+                <HeaderCard icon={<div style={{color:'var(--color-primary-600)',background:'var(--color-primary-100)'}} className="p-3 rounded-full  "><Earth /></div>} title={t('home.totalShipments')} num={0} />
+                <HeaderCard icon={<div style={{color:'var(--color-secondary-500)',background:'var(--color-secondary-100)'}} className="p-3 rounded-full  "><CalendarClock /></div>} title={t('home.activeShipments')} num={0} />
+                <HeaderCard icon={<div style={{color:'var(--text-purple-600)',background:'var(--bg-purple-100)'}} className="p-3 rounded-full "><Users /></div>} title={t('home.recordedCompanies')} num={10} />
             </div>
         </div>
     );

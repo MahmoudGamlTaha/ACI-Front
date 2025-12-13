@@ -12,7 +12,7 @@ export default function ForwhoSection() {
         <div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-14">
 
-                <ForWhoCard icon={<Upload className="text-3xl" />} title= {t('home.exporters')} desc={t('home.exportersDesc')} />
+                <ForWhoCard icon={<Upload  />} title= {t('home.exporters')} desc={t('home.exportersDesc')} />
                 <ForWhoCard icon={<Download />} title={t('home.importers')} desc={t('home.importersDesc')} />
             </div>
         </div>
