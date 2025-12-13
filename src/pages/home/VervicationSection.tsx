@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ShieldCheck } from 'lucide-react';
 import { useTranslation } from "react-i18next";
@@ -7,15 +8,15 @@ export default function VervicationSection() {
     const {t} = useTranslation()
 
     return (
-<div className="bg-gray-50 rounded-xl shadow-lg p-8 md:p-12">
+<div  className="bg-white dark:bg-popover rounded-xl shadow-lg p-8 md:p-12">
   <div className="max-w-xl mx-auto text-center">
-    <h2 className="text-2xl font-bold mb-4 text-black flex items-center justify-center gap-2">
-      <span className="material-symbols-outlined text-cyan-600">
+    <h3 className=" font-bold mb-4 text-black dark:text-white flex items-center justify-center gap-2">
+      <span style={{color:'var(--color-primary-600)'}} className="material-symbols-outlined">
         <ShieldCheck />
       </span>
    {t('home.aciVervcation')}
-    </h2>
-    <p className="mb-4 text-gray-600">
+    </h3>
+    <p style={{color:'var(--color-neutral-600)'}} className="mb-4">
    {t('home.aciVervcationDesc')}
 
     </p>
@@ -26,11 +27,11 @@ export default function VervicationSection() {
         type="text"
         value=""
       />
-      <button className="bg-cyan-600 text-white font-bold px-6 py-2 rounded hover:bg-cyan-700 transition-transform hover:scale-105">
+      <Button variant="primary">
         {t('home.GOVerfication')}
-      </button>
+      </Button>
     </div>
-    <div className="mt-3 text-sm font-semibold h-5 "></div>
+    <div className="mt-3  font-semibold h-5 "></div>
   </div>
 </div>
     );
