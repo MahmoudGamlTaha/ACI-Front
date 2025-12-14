@@ -46,7 +46,9 @@
         "exporterDashboard": "لوحة تحكم (مصدر)",
         "totalRequests": "اجمالي الطلبات",
         "requiredSteps": "إجراءات مطلوبة",
-        "compeletedShipments": "الشحنات المكتملة"
+        "compeletedShipments": "الشحنات المكتملة",
+        "draftsRequests": "طلبات المسودة",
+        "waitingForImporterAgree": "انتظار موافقة المستورد"
     },
     "auth":{
         "signIn":"تسجيل الدخول",

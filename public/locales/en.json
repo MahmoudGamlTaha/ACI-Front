@@ -43,7 +43,9 @@
         "exporterDashboard": "Dashbord (Exporter)",
         "totalRequests": "Total Requests",
         "requiredSteps": "Required Steps",
-        "compeletedShipments": "Completed Shipments"
+        "compeletedShipments": "Completed Shipments",
+        "draftsRequests": "Drafts Requests",
+        "waitingForImporterAgree": "Waiting For Importer Agree"
     },
     "auth":{
         "signIn":"Sign In",

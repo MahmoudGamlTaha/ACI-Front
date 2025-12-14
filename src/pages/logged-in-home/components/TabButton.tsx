@@ -13,7 +13,7 @@ function TabButton({ label, isActive, onClick , icon }: TabButtonProps) {
       onClick={onClick}
       variant={
         isActive
-          ? "default"
+          ? "primary"
           : "ghost"
       }
 

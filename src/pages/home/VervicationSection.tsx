@@ -8,7 +8,7 @@ export default function VervicationSection() {
     const {t} = useTranslation()
 
     return (
-<div  className="bg-white dark:bg-popover rounded-xl shadow-lg p-8 md:p-12">
+<div  className="bg-white dark:bg-popover rounded-xl shadow-lg p-8 md:p-12 mb-5">
   <div className="max-w-xl mx-auto text-center">
     <h3 className=" font-bold mb-4 text-black dark:text-white flex items-center justify-center gap-2">
       <span style={{color:'var(--color-primary-600)'}} className="material-symbols-outlined">

@@ -5,10 +5,16 @@ import Tab2Content from "./Tab2Content";
 import Tab3Content from "./Tab3Content";
 import { Earth } from 'lucide-react';
 import MainPosterContent from "./MainPosterContent";
+import { FilePlus } from 'lucide-react';
+import { useTranslation } from "react-i18next";
+import { CalendarClock } from 'lucide-react';
+
+
 
 
 export default function SideTabsLayout() {
   const [activeTab, setActiveTab] = useState("tab1");
+    const { t } = useTranslation()
 
   return (
     <>
@@ -16,19 +22,19 @@ export default function SideTabsLayout() {
         <div dir="rtl" className="flex flex-col md:flex-row h-screen  my-6">
   
       {/* Sidebar */}
-      <div className="w-100 md:w-64 flex flex-col border-r space-y-2 bg-white dark:bg-popover p-3 rounded-xl shadow-lg">
+      <div className="w-100 md:w-64 flex flex-col border-r space-y-2 bg-white dark:bg-popover p-3 rounded-xl shadow-lg items-start">
         <TabButton
-          label="تاب 1"
+          label={t("loggedInHome.draftsRequests")}
           isActive={activeTab === "tab1"}
           onClick={() => setActiveTab("tab1")}
-          icon={<span className="material-symbols-outlined">home</span>}
+          icon={<FilePlus />}
         />
 
         <TabButton
-          label="تاب 2"
+          label={t("loggedInHome.waitingForImporterAgree")}
           isActive={activeTab === "tab2"}
           onClick={() => setActiveTab("tab2")}
-          icon={<span className="material-symbols-outlined">person</span>}
+          icon={<CalendarClock />}
         />
 
         <TabButton
