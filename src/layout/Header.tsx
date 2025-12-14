@@ -68,7 +68,7 @@ const Header: React.FC = () => {
                         {t('header.commercialGate') || 'Commercial Gate'}
                     </Button>
                     {/* Sign In Button */}
-                    <Button variant="default" size="default" onClick={() => navigate('/login')}>
+                    <Button variant="primary" size="default" onClick={() => navigate('/login')}>
                         {t('header.signIn') || 'Sign In'}
                     </Button>
                     <Button variant="ghost" size="default" onClick={() => navigate('/sign-up')}>
