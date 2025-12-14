@@ -9,7 +9,7 @@ import {
 import { Field, FieldLabel } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
 import { Checkbox } from "@/components/ui/checkbox"
-import { RegisterInput } from "@/types/auth"
+import { RegisterInput } from "@/models/auth"
 import { Controller, useForm } from "react-hook-form"
 import { useTranslation } from "react-i18next"
 import { ArrowDownFromLine, ArrowUpFromLine } from "lucide-react"
