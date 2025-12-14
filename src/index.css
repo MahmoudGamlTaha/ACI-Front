@@ -51,6 +51,9 @@
   --color-accent-800: #854d0e;
   --color-accent-900: #713f12;
 
+  /* purple */
+  --text-purple-600:#9333ea;
+  --bg-purple-100:#f3e8ff;
   /* Neutral Colors */
   --color-neutral-50: #fafafa;
   --color-neutral-100: #f5f5f5;
@@ -136,7 +139,7 @@ h6 {
 }
 
 h1 {
-  font-size: 2.5rem;
+  font-size: 3rem;
 }
 
 h2 {
@@ -148,7 +151,7 @@ h3 {
 }
 
 h4 {
-  font-size: 1.5rem;
+  font-size: 0.875rem;
 }
 
 h5 {
@@ -436,6 +439,7 @@ a:hover {
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
+  --color-neutral-800:oklch(0.556 0 0);
 }
 
 @layer base {
