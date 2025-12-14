@@ -335,7 +335,7 @@ export default function SignUp() {
                                 </div>
                             </div>
                         </div>
-                        <Button size={'lg'} type="submit" className="w-full">
+                        <Button variant="primary" size={'lg'} type="submit" className="w-full">
                             {t("auth.signUp")}
                         </Button>
                     </form>
