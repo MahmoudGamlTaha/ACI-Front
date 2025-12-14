@@ -12,6 +12,10 @@ import { SharedTable, TableAction, TableColumn } from "@/components/SharedTabel"
 import { useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { useTranslation } from "react-i18next";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@radix-ui/react-label";
+import { SharedDialog } from "@/components/SharedDialog";
 
 interface User {
     id: number
@@ -68,6 +72,7 @@ const sampleData: User[] = [
 export default function Home() {
     const { t } = useTranslation()
     const [selectedUser, setSelectedUser] = useState<User | null>(null)
+    const [formDialog, setFormDialog] = useState(false)
 
     const columns: TableColumn<User>[] = [
         {
@@ -137,6 +142,27 @@ export default function Home() {
     return (
         <div>
             <div className="bg-background p-2 rounded-lg my-4 shadow-lg">
+                <Button variant={"primary"} onClick={() => setFormDialog(true)}>Create New Project</Button>
+                <SharedDialog
+                    open={formDialog}
+                    onOpenChange={setFormDialog}
+                    title="Create New Project"
+                    description="Fill in the details to create a new project"
+                    size="md"
+                    footer={
+                        <div className="flex w-full justify-end gap-2">
+                            <Button variant="ghost" onClick={() => setFormDialog(false)}>
+                                Cancel
+                            </Button>
+                            <Button variant="primary" onClick={() => setFormDialog(false)}>Create Project</Button>
+                        </div>
+                    }
+                >
+                    <div className="space-y-4">
+                        <h4>Writing any jsx code</h4>
+                        <p>Write any jsx code</p>
+                    </div>
+                </SharedDialog>
                 <SharedTable
                     data={sampleData}
                     columns={columns}
