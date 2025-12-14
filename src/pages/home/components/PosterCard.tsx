@@ -15,7 +15,7 @@ export default function PosterCard({ buttonReg, buttonLog, title }: Iprops) {
                     <Button
                     variant="primary">{buttonReg}</Button>
                     <Button
-                    variant="default">{buttonLog}</Button>
+                    variant="ghost">{buttonLog}</Button>
                 </div>
                 </div>
 

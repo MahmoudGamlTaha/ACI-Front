@@ -3,9 +3,10 @@ interface Iprops {
     num: number;
     icon: React.ReactNode;
 }
-export default function HeaderCard({ icon, num, title }: Iprops) {
+export default function MainPoster({ icon, num, title }: Iprops) {
     return (
-        <div className="bg-white dark:bg-popover p-1 px-4 rounded-xl shadow-lg flex items-center gap-4 transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
+        <>
+          <div className="bg-white dark:bg-popover p-1 px-4 rounded-xl shadow-lg flex items-center gap-4 transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
             <div className="flex items-center">
                 <div className="me-4">
                     {icon}
@@ -16,5 +17,7 @@ export default function HeaderCard({ icon, num, title }: Iprops) {
                 </div>
             </div>
         </div>
+        </>
+      
     );
 }

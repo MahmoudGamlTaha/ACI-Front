@@ -42,6 +42,12 @@
 
 
     },
+    "loggedInHome":{
+        "exporterDashboard": "لوحة تحكم (مصدر)",
+        "totalRequests": "اجمالي الطلبات",
+        "requiredSteps": "إجراءات مطلوبة",
+        "compeletedShipments": "الشحنات المكتملة"
+    },
     "auth":{
         "signIn":"تسجيل الدخول",
         "signUp":"تسجيل جديد",

@@ -39,6 +39,12 @@
        "enterAciNumber": "Enter ACI Number",
        "GOVerfication": "Validate"
     },
+    "loggedInHome":{
+        "exporterDashboard": "Dashbord (Exporter)",
+        "totalRequests": "Total Requests",
+        "requiredSteps": "Required Steps",
+        "compeletedShipments": "Completed Shipments"
+    },
     "auth":{
         "signIn":"Sign In",
         "signUp":"Sign Up",
