@@ -1,5 +1,5 @@
-import { LoginInput } from "@/types/auth";
-import { apiFetch, IResponse } from "./client";
+import { LoginInput } from "@/models/auth";
+import { apiFetch, IResponse } from "../client";
 
 
 
@@ -7,7 +7,7 @@ import { apiFetch, IResponse } from "./client";
 export interface LoginResponse {
     token: string;
 }
-        loadingMessage: 'Fetching users...'
+loadingMessage: 'Fetching users...'
 
 // export interface IFunProps<T> {
 //     onSuccess?: (res: T) => void;

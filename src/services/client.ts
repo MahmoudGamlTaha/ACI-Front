@@ -30,7 +30,7 @@ export async function apiFetch<T>(
     headers, 
     showLoading = true, 
     loadingMessage = 'Loading...', 
-    showError = true,
+    showError = true,    
     ...rest 
   } = options;
 
