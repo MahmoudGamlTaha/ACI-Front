@@ -15,6 +15,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@radix-ui/react-label";
 import { SharedDialog } from "@/components/SharedDialog";
+import { Edit, Eye,  Trash2 } from "lucide-react";
 
 interface User {
     id: number
