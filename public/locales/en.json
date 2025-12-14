@@ -45,7 +45,10 @@
         "requiredSteps": "Required Steps",
         "compeletedShipments": "Completed Shipments",
         "draftsRequests": "Drafts Requests",
-        "waitingForImporterAgree": "Waiting For Importer Agree"
+        "waitingForImporterAgree": "Waiting For Importer Agree",
+        "pendingCustomsReview": "Pending Customs Review",
+        "rejectedRequests": "Rejected Requests",
+        "newRequest": "+ New ACI Request"
     },
     "auth":{
         "signIn":"Sign In",

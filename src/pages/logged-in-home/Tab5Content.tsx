@@ -7,12 +7,12 @@ import { Button } from "@/components/ui/button";
 
 
 
-export default function Tab3Content() {
+export default function Tab5Content() {
     const {t} = useTranslation()
     return (
         <div>
             <div className="grid grid-cols-1">
-                <ContentCard  title={t('loggedInHome.pendingCustomsReview')}  hr={<hr/>}/>
+                <ContentCard  title={t('loggedInHome.rejectedRequests')}  hr={<hr/>}/>
             </div>
         </div>
     );

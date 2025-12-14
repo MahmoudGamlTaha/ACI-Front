@@ -48,7 +48,10 @@
         "requiredSteps": "إجراءات مطلوبة",
         "compeletedShipments": "الشحنات المكتملة",
         "draftsRequests": "طلبات المسودة",
-        "waitingForImporterAgree": "انتظار موافقة المستورد"
+        "waitingForImporterAgree": "انتظار موافقة المستورد",
+        "pendingCustomsReview": "انتظار المراجعة",
+        "rejectedRequests": "طلبات مرفوضة",
+        "newRequest": "+ طلب ACI جديد"
     },
     "auth":{
         "signIn":"تسجيل الدخول",

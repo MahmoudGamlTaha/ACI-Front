@@ -13,7 +13,7 @@ export default function Tab2Content() {
         <div>
             <div className="grid grid-cols-1">
 
-                <ContentCard  title={'sama'} btn={<Button/>} hr={<hr/>}/>
+                <ContentCard  title={t('loggedInHome.waitingForImporterAgree')}  hr={<hr/>}/>
             </div>
         </div>
     );

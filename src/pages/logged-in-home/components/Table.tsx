@@ -126,7 +126,7 @@ export default function Table() {
     ]
 
     return (
-            <div className="bg-background p-2 rounded-lg  shadow-lg">
+            <div>
                 <SharedTable
                     data={sampleData}
                     columns={columns}
