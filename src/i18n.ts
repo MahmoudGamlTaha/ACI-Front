@@ -7,7 +7,8 @@ i18n
     .use(HttpBackend) // loads translation files
     .use(LanguageDetector) // detects user language
     .use(initReactI18next) // passes i18n down to react-i18next
-    .init({
+    .init({        
+        supportedLngs: ['en', 'ar', 'fr'], // Explicitly supported languages
         fallbackLng: 'en',
         debug: true,
         interpolation: {

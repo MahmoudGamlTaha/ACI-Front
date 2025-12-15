@@ -16,6 +16,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@radix-ui/react-label";
 import { SharedDialog } from "@/components/SharedDialog";
+import { SearchableSelect } from "@/components/CustomSelect";
 
 interface User {
     id: number
@@ -69,10 +70,37 @@ const sampleData: User[] = [
     },
 ]
 
+const frameworks = [
+    { value: "next.js", label: "Next.js" },
+    { value: "react", label: "React" },
+    { value: "vue", label: "Vue" },
+    { value: "svelte", label: "Svelte" },
+    { value: "angular", label: "Angular" },
+    { value: "remix", label: "Remix" },
+    { value: "astro", label: "Astro" },
+    { value: "nuxt", label: "Nuxt.js" },
+]
+interface ICountry {
+    name: string;
+    codeChar: string;
+}
+
+const countries: ICountry[] = [
+    { name: "United States", codeChar: "us" },
+    { name: "United Kingdom", codeChar: "uk" },
+    { name: "Canada", codeChar: "ca" },
+    { name: "Australia", codeChar: "au" },
+    { name: "Germany", codeChar: "de" },
+    { name: "France", codeChar: "fr" },
+    { name: "Japan", codeChar: "jp" },
+    { name: "India", codeChar: "in" },
+]
+
 export default function Home() {
     const { t } = useTranslation()
     const [selectedUser, setSelectedUser] = useState<User | null>(null)
     const [formDialog, setFormDialog] = useState(false)
+    const [selectedCountry, setSelectedCountry] = useState<ICountry>()
 
     const columns: TableColumn<User>[] = [
         {
@@ -143,6 +171,25 @@ export default function Home() {
         <div>
             <div className="bg-background p-2 rounded-lg my-4 shadow-lg">
                 <Button variant={"primary"} onClick={() => setFormDialog(true)}>Create New Project</Button>
+                <div className="flex flex-col gap-2 ">
+                    <label className="text-sm font-medium">Select Country</label>
+                    <SearchableSelect
+                        inputClassName="min-w-sm"
+                        displayKey={"name"}
+                        valueKey={"codeChar"}
+                        options={countries}
+                        value={selectedCountry}
+                        onChange={(st) => setSelectedCountry(st)}
+                        placeholder="Choose a country..."
+                        searchPlaceholder="Search countries..."
+                        emptyText="No country found."
+                    />
+                    {selectedCountry && (
+                        <p className="text-sm text-muted-foreground">
+                            Selected: <span className="font-medium text-foreground">{selectedCountry.name}</span>
+                        </p>
+                    )}
+                </div>
                 <SharedDialog
                     open={formDialog}
                     onOpenChange={setFormDialog}
