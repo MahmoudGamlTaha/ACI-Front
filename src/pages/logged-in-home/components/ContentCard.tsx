@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { SharedDialog } from "@/components/SharedDialog";
 import { useTranslation } from "react-i18next";
+import AddAciPopup from "./AddAciPopup";
 
 
 
@@ -18,7 +19,7 @@ export default function ContentCard({ title,   hr }: Iprops) {
     
 
   return (
-    <div className="bg-white dark:bg-popover p-6 rounded-xl shadow-lg transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
+    <div className="bg-white dark:bg-popover p-6 rounded-xl shadow-lg transition-all duration-300 hover:shadow-xl ">
       
       <div className="flex items-center justify-between">
         <h5
@@ -32,22 +33,23 @@ export default function ContentCard({ title,   hr }: Iprops) {
                 <SharedDialog
                     open={formDialog}
                     onOpenChange={setFormDialog}
-                    title="Create New Project"
-                    description="Fill in the details to create a new project"
-                    size="md"
+                    title="طلب ACI جديد"
+                    // description="Fill in the details to create a new project"
+                    size="lg"
                     footer={
                         <div className="flex w-full justify-end gap-2">
-                            <Button variant="ghost" onClick={() => setFormDialog(false)}>
+                            {/* <Button variant="ghost" onClick={() => setFormDialog(false)}>
                                 Cancel
-                            </Button>
-                            <Button variant="primary" onClick={() => setFormDialog(false)}>Create Project</Button>
+                            </Button> */}
+                            <Button variant="primary" onClick={() => setFormDialog(false)}>ارسال للموافقة</Button>
                         </div>
                     }
                 >
-                    <div className="space-y-4">
+                    {/* <div className="space-y-4">
                         <h4>Writing any jsx code</h4>
                         <p>Write any jsx code</p>
-                    </div>
+                    </div> */}
+                    <AddAciPopup />
                 </SharedDialog>
         </div>
       </div>

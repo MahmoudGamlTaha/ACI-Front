@@ -443,6 +443,7 @@ a:hover {
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
   --color-neutral-800:oklch(0.556 0 0);
+  --color-neutral-50:#171717;
 }
 
 @layer base {
