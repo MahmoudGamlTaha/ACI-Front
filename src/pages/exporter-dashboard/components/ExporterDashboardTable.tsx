@@ -12,7 +12,9 @@ interface User {
     status: "active" | "inactive"
     joinedDate: string
 }
-
+interface TableWrapperProps {
+  searchable?: boolean;
+}
 const sampleData: User[] = [
     {
         id: 1,
@@ -56,7 +58,9 @@ const sampleData: User[] = [
     },
 ]
 
-export default function Table() {
+export default function Table({
+  searchable = true, 
+}: TableWrapperProps) {
     const { t } = useTranslation()
     const [selectedUser, setSelectedUser] = useState<User | null>(null)
 
@@ -131,7 +135,7 @@ export default function Table() {
                     data={sampleData}
                     columns={columns}
                     actions={actions}
-                    searchable={true}
+                    searchable={searchable}
                     searchPlaceholder="Search by name, email, role, status..."
                     showRowNumbers={true}
                     onRowClick={(user) => console.log("Row clicked:", user)}

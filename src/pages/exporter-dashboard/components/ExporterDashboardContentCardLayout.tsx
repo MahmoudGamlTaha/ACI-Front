@@ -33,7 +33,7 @@ export default function ContentCard({ title,   hr }: Iprops) {
                 <SharedDialog
                     open={formDialog}
                     onOpenChange={setFormDialog}
-                    title="طلب ACI جديد"
+                    title={t('exporterDashboardAddAciRequestPopup.newAciRequest')}
                     // description="Fill in the details to create a new project"
                     size="lg"
                     footer={

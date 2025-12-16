@@ -5,6 +5,7 @@ import { Controller, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useState } from "react";
 import { SearchableSelect } from "@/components/CustomSelect";
+import Table from "./ExporterDashboardTable";
 
 interface ICountry {
   name: string;
@@ -53,6 +54,7 @@ export default function AddAciPopup() {
   const { control, handleSubmit } = useForm<AddAciInput>();
   const { t } = useTranslation();
   const [selectedCountry, setSelectedCountry] = useState<ICountry>();
+    const [showTable, setShowTable] = useState(false);
 
   const onSubmit = (data: AddAciInput) => {
     console.log(data);
@@ -70,14 +72,17 @@ export default function AddAciPopup() {
                   {/* Date */}
                   <div className="mb-3">
                     <p className="text-lg font-medium  py-1 w-fit rounded">
-                      الاطراف
+                      {t("exporterDashboardAddAciRequestPopup.partners")}
                     </p>
                   </div>
 
                   {/* Content */}
                   <div className="grid grid-cols-2 items-center justify-center gap-2">
                     <div className="flex flex-col gap-2 ">
-                      <label className="text-sm font-medium"> مستورد *</label>
+                      <label className="text-sm font-medium"> 
+                      {t("exporterDashboardAddAciRequestPopup.importer")}
+                        
+                         *</label>
                       <SearchableSelect
                         inputClassName="min-w-sm"
                         displayKey={"name"}
@@ -85,7 +90,9 @@ export default function AddAciPopup() {
                         options={countries}
                         value={selectedCountry}
                         onChange={(st) => setSelectedCountry(st)}
-                        placeholder="اختر..."
+                        placeholder={
+                          t('exporterDashboardAddAciRequestPopup.select')
+                        }
                         searchPlaceholder="Search countries..."
                         emptyText="No country found."
                       />
@@ -99,7 +106,10 @@ export default function AddAciPopup() {
                       )}
                     </div>
                     <div className="flex flex-col gap-2 ">
-                      <label className="text-sm font-medium">مصدر *</label>
+                      <label className="text-sm font-medium">
+                      {t("exporterDashboardAddAciRequestPopup.exporter")}
+                        
+                         *</label>
                       <SearchableSelect
                         disabled
                         inputClassName="min-w-sm"
@@ -132,8 +142,8 @@ export default function AddAciPopup() {
                 <div className="relative ">
                   {/* Date */}
                   <div className="mb-3">
-                    <p className="text-lg font-medium  py-1 w-fit rounded">
-                      تفاصيل الشحنة
+                    <p className="text-lg font-medium  py-1 w-fit rounded"> *
+                      {t("exporterDashboardAddAciRequestPopup.shipmentDetails")}
                     </p>
                   </div>
 
@@ -141,8 +151,9 @@ export default function AddAciPopup() {
                   <div className="grid grid-cols-2 items-center justify-center gap-2">
                     <div className="flex flex-col gap-2 ">
                       <label className="text-sm font-medium">
-                        {" "}
-                        نوع الشحنة *
+                        
+                          *
+                        {t("exporterDashboardAddAciRequestPopup.shipmentType")}
                       </label>
                       <SearchableSelect
                         inputClassName="min-w-sm"
@@ -151,7 +162,8 @@ export default function AddAciPopup() {
                         options={countries}
                         value={selectedCountry}
                         onChange={(st) => setSelectedCountry(st)}
-                        placeholder="بحري (حاوية كاملة)"
+                        placeholder=
+                          {t('exporterDashboardAddAciRequestPopup.seashipment')}
                         searchPlaceholder="Search countries..."
                         emptyText="No country found."
                       />
@@ -176,7 +188,8 @@ export default function AddAciPopup() {
                       render={({ field, fieldState }) => (
                         <Field>
                           <FieldLabel htmlFor="ChargerDocumentReference">
-                            مرجع مستند الشاحن *
+                               *
+                            {t("exporterDashboardAddAciRequestPopup.shipmwntFileReview")}
                           </FieldLabel>
                           <Input
                             className="bg-white"
@@ -200,7 +213,9 @@ export default function AddAciPopup() {
                       render={({ field, fieldState }) => (
                         <Field>
                           <FieldLabel htmlFor="ShippingPort">
-                            ميناء الشحن *
+                            
+                              *
+                            {t("exporterDashboardAddAciRequestPopup.shipmentPort")}
                           </FieldLabel>
                           <Input
                             className="bg-white"
@@ -226,7 +241,9 @@ export default function AddAciPopup() {
                       render={({ field, fieldState }) => (
                         <Field>
                           <FieldLabel htmlFor="DischargingPort">
-                            ميناء التفريغ
+                            
+                              *
+                            {t("exporterDashboardAddAciRequestPopup.unloadingPort")}
                           </FieldLabel>
                           <Input
                             className="bg-white"
@@ -252,7 +269,8 @@ export default function AddAciPopup() {
                   {/* Date */}
                   <div className="mb-3">
                     <p className="text-lg font-medium  py-1 w-fit rounded">
-                      تفاصيل البضاعة
+                      *
+                      {t("exporterDashboardAddAciRequestPopup.cargoDetails")}
                     </p>
                   </div>
 
@@ -261,6 +279,7 @@ export default function AddAciPopup() {
                     style={{ background: "var(--color-neutral-50)" }}
                     className="items-center justify-center   p-4 rounded-md border space-y-4"
                   >
+                     {showTable && <Table  searchable={false}/>}
                     <div className="grid grid-cols-2 gap-2">
                       <Controller
                         rules={{
@@ -298,7 +317,8 @@ export default function AddAciPopup() {
                         render={({ field, fieldState }) => (
                           <Field>
                             <FieldLabel htmlFor="description">
-                              الوصف *
+                               *
+                              {t("exporterDashboardAddAciRequestPopup.description")}
                             </FieldLabel>
                             <Input
                               className="bg-white"
@@ -324,7 +344,9 @@ export default function AddAciPopup() {
                         control={control}
                         render={({ field, fieldState }) => (
                           <Field>
-                            <FieldLabel htmlFor="Parcels">الطرود *</FieldLabel>
+                            <FieldLabel htmlFor="Parcels"> *
+                              {t("exporterDashboardAddAciRequestPopup.parcels")}
+                            </FieldLabel>
                             <Input
                               className="bg-white"
                               {...field}
@@ -351,7 +373,8 @@ export default function AddAciPopup() {
                         render={({ field, fieldState }) => (
                           <Field>
                             <FieldLabel htmlFor="ParcelsType">
-                              نوع الطرد *
+                                *
+                              {t("exporterDashboardAddAciRequestPopup.parcelsType")}
                             </FieldLabel>
                             <Input
                               className="bg-white"
@@ -378,7 +401,8 @@ export default function AddAciPopup() {
                         render={({ field, fieldState }) => (
                           <Field>
                             <FieldLabel htmlFor="grossweight">
-                              الوزن القائم (كغ) *
+                           *
+                              {t("exporterDashboardAddAciRequestPopup.grossWeight")}
                             </FieldLabel>
                             <Input
                               className="bg-white"
@@ -406,7 +430,8 @@ export default function AddAciPopup() {
                         render={({ field, fieldState }) => (
                           <Field>
                             <FieldLabel htmlFor="netweight">
-                              الوزن الصافي (كغ) *
+                              *
+                              {t("exporterDashboardAddAciRequestPopup.netWeight")}
                             </FieldLabel>
                             <Input
                               className="bg-white"
@@ -422,8 +447,10 @@ export default function AddAciPopup() {
                         )}
                       />
                     </div>
-                    <Button variant="primary" type="submit">
-                      + اضفة بند{" "}
+                    <Button onClick={() => {
+    setShowTable(true);
+  }} variant="primary" type="submit">
+    + {t("exporterDashboardAddAciRequestPopup.addClause")}
                     </Button>
                   </div>
                 </div>
@@ -437,7 +464,7 @@ export default function AddAciPopup() {
                   {/* Date */}
                   <div className="mb-3">
                     <p className="text-lg font-medium  py-1 w-fit rounded">
-                      المعلومات المالية والبنكية
+                    {t("exporterDashboardAddAciRequestPopup.bankInfo")}
                     </p>
                   </div>
 
@@ -456,7 +483,8 @@ export default function AddAciPopup() {
                         render={({ field, fieldState }) => (
                           <Field>
                             <FieldLabel htmlFor="goodsValue">
-                              قيمة البضاعة *
+                                *
+                              {t("exporterDashboardAddAciRequestPopup.goodsValue")}
                             </FieldLabel>
                             <Input
                               className="bg-white"
@@ -473,7 +501,11 @@ export default function AddAciPopup() {
                       />
 
                       <div className="flex flex-col gap-2 ">
-                        <label className="text-sm font-medium"> العملة *</label>
+                        <label className="text-sm font-medium"> 
+                          
+                         *
+                         {t("exporterDashboardAddAciRequestPopup.coin")}
+                         </label>
                         <SearchableSelect
                           inputClassName="min-w-sm"
                           displayKey={"name"}
@@ -507,7 +539,7 @@ export default function AddAciPopup() {
                         render={({ field, fieldState }) => (
                           <Field>
                             <FieldLabel htmlFor="shippingvalue">
-                              قيمة الشحن
+                               {t("exporterDashboardAddAciRequestPopup.shippingValue")}
                             </FieldLabel>
                             <Input
                               className="bg-white"
@@ -535,7 +567,7 @@ export default function AddAciPopup() {
                         render={({ field, fieldState }) => (
                           <Field>
                             <FieldLabel htmlFor="insurancevalue">
-                              قيمة التامين
+                               {t("exporterDashboardAddAciRequestPopup.insuranceValue")}
                             </FieldLabel>
                             <Input
                               className="bg-white"
@@ -554,7 +586,7 @@ export default function AddAciPopup() {
                     <hr />
                     <div className="mb-3">
                       <p className="text-lg font-medium  py-1 w-fit rounded">
-                        تفاصيل بنك المستورد
+                        {t("exporterDashboardAddAciRequestPopup.importerBankDetails")}
                       </p>
                     </div>
                     <div className="grid grid-cols-2 gap-2">
@@ -570,7 +602,8 @@ export default function AddAciPopup() {
                         render={({ field, fieldState }) => (
                           <Field>
                             <FieldLabel htmlFor="importerBank">
-                              بنك المستورد *
+                                *
+                              {t("exporterDashboardAddAciRequestPopup.importerBank")}
                             </FieldLabel>
                             <Input
                               className="bg-white"
@@ -594,7 +627,8 @@ export default function AddAciPopup() {
                         render={({ field, fieldState }) => (
                           <Field>
                             <FieldLabel htmlFor="bankReference">
-                              المرجع البنكي *
+                                *
+                                {t("exporterDashboardAddAciRequestPopup.bankReference")}
                             </FieldLabel>
                             <Input
                               className="bg-white"
@@ -618,7 +652,7 @@ export default function AddAciPopup() {
                         render={({ field, fieldState }) => (
                           <Field>
                             <FieldLabel htmlFor="importerSwift">
-                              رمز سويفت/BIC للمستورد
+                              {t("exporterDashboardAddAciRequestPopup.importerSwift")}
                             </FieldLabel>
                             <Input
                               className="bg-white"
@@ -642,7 +676,7 @@ export default function AddAciPopup() {
                         render={({ field, fieldState }) => (
                           <Field>
                             <FieldLabel htmlFor="importerAccountNumber">
-                              رقم حساب المستورد
+                           {t("exporterDashboardAddAciRequestPopup.importerAccountNumber")}
                             </FieldLabel>
                             <Input
                               className="bg-white"
@@ -668,7 +702,7 @@ export default function AddAciPopup() {
                         render={({ field, fieldState }) => (
                           <Field>
                             <FieldLabel htmlFor="importerIBAN">
-                              IBAN المستورد
+                              {t("exporterDashboardAddAciRequestPopup.importerIBAN")}
                             </FieldLabel>
                             <Input
                               className="bg-white"
@@ -684,7 +718,7 @@ export default function AddAciPopup() {
 
                     <div className="mb-3">
                       <p className="text-lg font-medium  py-1 w-fit rounded">
-                        تفاصيل بنك المصدر
+{t("exporterDashboardAddAciRequestPopup.exporterBankDetails")}
                       </p>
                     </div>
                     <div className="grid grid-cols-2 gap-2">
@@ -700,7 +734,8 @@ export default function AddAciPopup() {
                         render={({ field, fieldState }) => (
                           <Field>
                             <FieldLabel htmlFor="exporterBank">
-                              بنك المصدر *
+                                *
+                              {t("exporterDashboardAddAciRequestPopup.exporterBank")}
                             </FieldLabel>
                             <Input
                               className="bg-white"
@@ -724,7 +759,7 @@ export default function AddAciPopup() {
                         render={({ field, fieldState }) => (
                           <Field>
                             <FieldLabel htmlFor="exporterSWIFT">
-                              رمز سويفت/BIC للمصدر
+                              {t("exporterDashboardAddAciRequestPopup.exporterSwift")}
                             </FieldLabel>
                             <Input
                               className="bg-white"
@@ -748,7 +783,7 @@ export default function AddAciPopup() {
                         render={({ field, fieldState }) => (
                           <Field>
                             <FieldLabel htmlFor="exporterAccountNumber">
-                              رقم حساب المصدر
+                              {t("exporterDashboardAddAciRequestPopup.exporterAccountNumber")}
                             </FieldLabel>
                             <Input
                               className="bg-white"
@@ -774,7 +809,7 @@ export default function AddAciPopup() {
                         render={({ field, fieldState }) => (
                           <Field>
                             <FieldLabel htmlFor="exporterIBAN">
-                              IBAN المصدر
+                              {t("exporterDashboardAddAciRequestPopup.exporterIBAN")}
                             </FieldLabel>
                             <Input
                               className="bg-white"
@@ -794,7 +829,7 @@ export default function AddAciPopup() {
 
             <div className="p-4 border rounded-lg false">
               <h4 className="font-semibold mb-3 ">
-                فاتورة مبدئية
+                {t("exporterDashboardAddAciRequestPopup.invoice")}
               </h4>
 
               <Controller
@@ -806,7 +841,11 @@ export default function AddAciPopup() {
                 render={({ field, fieldState }) => (
                   <Field>
                     <FieldLabel htmlFor="picture">
-                      إرفاق ملف (PDF, JPG, PNG)
+                      
+{t("exporterDashboardAddAciRequestPopup.attachFile")}
+                      &nbsp;
+
+                       (PDF, JPG, PNG)
                     </FieldLabel>
                     <Input
                       {...field}
