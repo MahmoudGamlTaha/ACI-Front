@@ -4,7 +4,7 @@ import { lazy } from "react";
 const LazyHome = lazy(() => import("@/pages/home"));
 const LazyLogin = lazy(() => import("@/pages/auth/LoginPage"));
 const LazySignUp = lazy(() => import("@/pages/auth/SignUp"));
-const LazySideTabsLayout = lazy(() => import("@/pages/logged-in-home/SideTabsLayout"));
+const LazySideTabsLayout = lazy(() => import("@/pages/exporter-dashboard/ExporterDashboardSideTabsLayout"));
 import { RouteObject, useRoutes } from "react-router-dom";
 
 export default function MainRoutes() {
@@ -26,7 +26,7 @@ export default function MainRoutes() {
                     element: <LazySignUp />,
                 },
                 {
-                    path: "/logged-in-home",
+                    path: "/exporter-dashboard",
                     element: <LazySideTabsLayout />
                 }
             ],

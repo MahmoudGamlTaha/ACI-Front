@@ -1,4 +1,4 @@
-import ForWhoCard from "./components/ForWhoCard";
+import ForWhoCard from "./components/HomePageForWhoCard";
 import { Download } from 'lucide-react';
 import { Upload } from 'lucide-react';
 import { useTranslation } from "react-i18next";

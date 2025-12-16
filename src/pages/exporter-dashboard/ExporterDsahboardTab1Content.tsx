@@ -1,5 +1,5 @@
 
-import ContentCard from "./components/ContentCard";
+import ContentCard from "./components/ExporterDashboardContentCardLayout";
 import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 // import { useTranslation } from "react-i18next";
@@ -7,13 +7,13 @@ import { Button } from "@/components/ui/button";
 
 
 
-export default function Tab2Content() {
+export default function Tab1Content() {
     const {t} = useTranslation()
     return (
         <div>
             <div className="grid grid-cols-1">
 
-                <ContentCard  title={t('loggedInHome.waitingForImporterAgree')}  hr={<hr/>}/>
+                <ContentCard  title={t('loggedInHome.draftsRequests')} hr={<hr/>}/>
             </div>
         </div>
     );

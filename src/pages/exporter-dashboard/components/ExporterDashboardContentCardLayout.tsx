@@ -1,9 +1,9 @@
-import Table from "./Table";
+import Table from "./ExporterDashboardTable";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { SharedDialog } from "@/components/SharedDialog";
 import { useTranslation } from "react-i18next";
-import AddAciPopup from "./AddAciPopup";
+import AddAciPopup from "./ExporterDashboardAddAciPopup";
 
 
 

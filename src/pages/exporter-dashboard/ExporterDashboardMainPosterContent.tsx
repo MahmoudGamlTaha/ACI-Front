@@ -1,7 +1,7 @@
 import { CircleCheckBig, Users } from "lucide-react";
 import { CalendarClock } from 'lucide-react';
 import { useTranslation } from "react-i18next";
-import MainPoster from "./components/MainPoster";
+import MainPoster from "./components/ExporterDashboardMainPosterCard";
 import { Folders } from 'lucide-react';
 // import { useTranslation } from "react-i18next";
 

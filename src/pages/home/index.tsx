@@ -1,12 +1,12 @@
-import ForwhoSection from "./ForWhoSection";
-import ForWhoTitle from "./ForWhoTitle";
-import GlobalTradeSection from "./GlobalTradeSection";
-import GlobalTradeTitle from "./GlobalTradeTitle";
-import Header from "./Header";
-import Poster from "./Poster";
-import SectionTitles from "./SectionTitles";
-import SystemWork from "./SystemWork";
-import VervicationSection from "./VervicationSection";
+import ForwhoSection from "./HomePageForWhoSection";
+import ForWhoTitle from "./HomePageForWhoTitle";
+import GlobalTradeSection from "./HomePageGlobalTradeSection";
+import GlobalTradeTitle from "./HomePageGlobalTradeTitle";
+import Header from "./HomePageHeader";
+import Poster from "./HomePagePoster";
+import SectionTitles from "./HomePageSystemWorkTitleSection";
+import SystemWork from "./HomePageSystemWorkSection";
+import VervicationSection from "./HomePageVervicationSection";
 
 
 

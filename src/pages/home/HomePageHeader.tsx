@@ -1,5 +1,5 @@
 import { Users } from "lucide-react";
-import HeaderCard from "./components/HeaderCard";
+import HeaderCard from "./components/HomePageHeaderCard";
 import { Earth } from 'lucide-react';
 import { CalendarClock } from 'lucide-react';
 import { useTranslation } from "react-i18next";

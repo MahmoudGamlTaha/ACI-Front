@@ -1,4 +1,4 @@
-import SectionTitlesSection from "./components/SectionTitlesSection";
+import SectionTitlesSection from "./components/HomePageTitlesLayout";
 import { useTranslation } from "react-i18next";
 
 export default function SectionTitles() {
