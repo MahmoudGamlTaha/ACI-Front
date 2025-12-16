@@ -95,7 +95,7 @@ export default function LoginPage() {
 
                     </CardContent>
                     <CardFooter className="flex-col gap-2">
-                        <Button size={'lg'} type="submit" className="w-full" variant="primary">
+                        <Button size={'lg'} type="submit" className="w-full" variant="primary" onClick={() => navigate('/exporter-dashboard')}>
                             {t("auth.signIn")}
                         </Button>
                         <p className="text-center">
