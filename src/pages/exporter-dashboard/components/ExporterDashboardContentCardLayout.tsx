@@ -3,7 +3,11 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { SharedDialog } from "@/components/SharedDialog";
 import { useTranslation } from "react-i18next";
-import AddAciPopup from "./ExporterDashboardAddAciPopup";
+import AddAciPopup, { AddAciInput } from "./ExporterDashboardAddAciPopup";
+import { useForm } from "react-hook-form";
+
+
+ 
 
 
 
@@ -16,7 +20,12 @@ interface Iprops {
 export default function ContentCard({ title,   hr }: Iprops) {
     const [formDialog, setFormDialog] = useState(false)
         const {t} = useTranslation()
-    
+      const { handleSubmit } = useForm<AddAciInput>();
+
+  const onSubmit = (data: AddAciInput) => {
+    console.log(data);
+    setFormDialog(false)
+  };
 
   return (
     <div className="bg-white dark:bg-popover p-6 rounded-xl shadow-lg transition-all duration-300 hover:shadow-xl ">
@@ -41,7 +50,7 @@ export default function ContentCard({ title,   hr }: Iprops) {
                             {/* <Button variant="ghost" onClick={() => setFormDialog(false)}>
                                 Cancel
                             </Button> */}
-                            <Button variant="primary" onClick={() => setFormDialog(false)}>ارسال للموافقة</Button>
+                            <Button variant="primary" onClick={handleSubmit(onSubmit)}>ارسال للموافقة</Button>
                         </div>
                     }
                 >
