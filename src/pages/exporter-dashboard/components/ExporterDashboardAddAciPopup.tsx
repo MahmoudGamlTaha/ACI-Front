@@ -59,6 +59,11 @@ export default function AddAciPopup() {
   const onSubmit = (data: AddAciInput) => {
     console.log(data);
   };
+
+  const handleAddClause = () => {
+    setShowTable(true);
+    console.log('Add Clause clicked');
+  };
   return (
     <div>
       <form onSubmit={handleSubmit(onSubmit)} noValidate>
@@ -447,9 +452,7 @@ export default function AddAciPopup() {
                         )}
                       />
                     </div>
-                    <Button onClick={() => {
-    setShowTable(true);
-  }} variant="primary" type="submit">
+                    <Button onClick={handleAddClause} variant="primary" type="button">
     + {t("exporterDashboardAddAciRequestPopup.addClause")}
                     </Button>
                   </div>
