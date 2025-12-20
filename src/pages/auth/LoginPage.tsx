@@ -14,6 +14,7 @@ import { useCallback } from "react"
 import { Controller, useForm } from "react-hook-form"
 import { useTranslation } from "react-i18next"
 import { useNavigate } from "react-router-dom"
+import toast from "react-hot-toast"
 
 export default function LoginPage() {
     const { control, handleSubmit } = useForm<LoginInput>({ defaultValues: { email: "", password: "" } })
@@ -22,16 +23,15 @@ export default function LoginPage() {
 
     const handleLogin = useCallback(async (data: LoginInput) => {
         try {
-            
             const result = await loginApi(data);
             if (result.success) {
-                localStorage.setItem("token", result.data?.token || "");
+                localStorage.setItem("token", result.payload?.token || "");
                 navigate("/");
             } else {
-                console.error(result.message);
+                toast.error(result?.error || '');
             }
         } catch (error) {
-            console.error(error);
+            toast.error(error?.message || 'Something went wrong');
         }
     }, [])
 

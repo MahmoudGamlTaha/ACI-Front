@@ -1,19 +1,20 @@
 import { LoadingContextType } from "@/contexts/LoadingContext";
 
 const API_BASE_URL =
-    import.meta.env.VITE_API_BASE_URL || "http://fady-pc:8080";
+  import.meta.env.VITE_API_BASE_URL || "http://fady-pc:8080";
 
 interface FetchOptions extends RequestInit {
-    body?: any;
-    showLoading?: boolean;
-    loadingMessage?: string;
-    showError?: boolean;
+  body?: any;
+  showLoading?: boolean;
+  loadingMessage?: string;
+  showError?: boolean;
 }
 export interface IResponse<T = any> {
-    success: boolean;
-    data?: T;
-    message?: string;
-    status?: number;
+  success: boolean;
+  error?: string;
+  code?: number;
+  payload?: T;
+  serviceTime?: string;
 }
 
 let globalLoadingContext: LoadingContextType | null = null;
@@ -25,13 +26,13 @@ export async function apiFetch<T>(
   url: string,
   options: FetchOptions = {}
 ): Promise<IResponse<T>> {
-  const { 
-    body, 
-    headers, 
-    showLoading = true, 
-    loadingMessage = 'Loading...', 
-    showError = true,    
-    ...rest 
+  const {
+    body,
+    headers,
+    showLoading = true,
+    loadingMessage = 'Loading...',
+    showError = true,
+    ...rest
   } = options;
 
   // Show loading
@@ -58,7 +59,7 @@ export async function apiFetch<T>(
     }
 
     const data = await res.json();
-    
+
     // Hide loading on success
     if (showLoading && globalLoadingContext) {
       globalLoadingContext.setLoading(false);
@@ -75,7 +76,7 @@ export async function apiFetch<T>(
     if (showError && globalLoadingContext) {
       const errorMessage = error?.message || error?.error || "An error occurred";
       globalLoadingContext.setError(errorMessage);
-      
+
       // Auto-hide error after 5 seconds
       setTimeout(() => {
         if (globalLoadingContext) {
