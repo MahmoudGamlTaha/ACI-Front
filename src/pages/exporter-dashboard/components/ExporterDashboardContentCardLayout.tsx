@@ -126,7 +126,9 @@ export default function ContentCard({ title,   hr }: Iprops) {
         </h5>
 
         <div>
-            <Button variant={"primary"} onClick={() => setFormDialog(true)}>{t("loggedInHome.newRequest")}</Button>
+      <form onSubmit={handleSubmit(onSubmit)} noValidate>
+
+            <Button type="button" variant={"primary"} onClick={() => setFormDialog(true)}>{t("loggedInHome.newRequest")}</Button>
                 <SharedDialog
                     open={formDialog}
                     onOpenChange={setFormDialog}
@@ -138,7 +140,7 @@ export default function ContentCard({ title,   hr }: Iprops) {
                             {/* <Button variant="ghost" onClick={() => setFormDialog(false)}>
                                 Cancel
                             </Button> */}
-                            <Button variant="primary" type="submit" onClick={() => setFormDialog(false)}>ارسال للموافقة</Button>
+                            <Button variant="primary" type="submit" >ارسال للموافقة</Button>
                         </div>
                     }
                 >
@@ -148,7 +150,6 @@ export default function ContentCard({ title,   hr }: Iprops) {
                     </div> */}
                    {/* add aci popup */}
                        <div>
-      <form onSubmit={handleSubmit(onSubmit)} noValidate>
         <div className="w-full ">
           <div className=" mx-auto">
             {/* Timeline Container */}
@@ -232,12 +233,7 @@ export default function ContentCard({ title,   hr }: Iprops) {
                                    <Controller
   name="fromUserId"
   control={control}
-  rules={{
-    required: {
-      value: true,
-      message: t("auth.fieldRequired"),
-    },
-  }}
+ 
   render={({ field, fieldState }) => (
     <div className="flex flex-col gap-2">
       <label className="text-sm font-medium">
@@ -452,7 +448,6 @@ export default function ContentCard({ title,   hr }: Iprops) {
                     style={{ background: "var(--color-neutral-50)" }}
                     className="items-center justify-center   p-4 rounded-md border space-y-4"
                   >
-                     {showTable && <Table  searchable={false}/>}
                     <div className="grid grid-cols-2 gap-2">
                       <Controller
                         rules={{
@@ -1038,9 +1033,10 @@ export default function ContentCard({ title,   hr }: Iprops) {
             </div>
           </div>
         </div>
-      </form>
+    
     </div>
                 </SharedDialog>
+      </form>          
         </div>
       </div>
       <div className="my-6">{hr}</div>
