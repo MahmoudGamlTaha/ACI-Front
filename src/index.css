@@ -54,6 +54,9 @@
   /* purple */
   --text-purple-600:#9333ea;
   --bg-purple-100:#f3e8ff;
+  /* green */
+  --text-green-600:#16a354; 
+  --bg-green-100:rgb(220 252 231);
   /* Neutral Colors */
   --color-neutral-50: #fafafa;
   --color-neutral-100: #f5f5f5;
@@ -440,6 +443,7 @@ a:hover {
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
   --color-neutral-800:oklch(0.556 0 0);
+  --color-neutral-50:#171717;
 }
 
 @layer base {

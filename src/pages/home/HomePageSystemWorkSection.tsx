@@ -1,4 +1,4 @@
-import SystemWorkCard from "./components/SystemWorkCard";
+import SystemWorkCard from "./components/HomePageSystemWorkCard";
 import { Van } from 'lucide-react';
 import { FileSearch } from 'lucide-react';
 import { FilePlusCorner } from 'lucide-react';
