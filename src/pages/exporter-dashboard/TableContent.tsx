@@ -1,8 +1,10 @@
-import { Edit, Eye, Trash2 } from "lucide-react";
+import { Edit, Eye, PlusIcon, Trash2 } from "lucide-react";
 import { SharedTable, TableAction, TableColumn } from "@/components/SharedTabel";
 import { useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { useTranslation } from "react-i18next";
+import { Button } from "@/components/ui/button";
+import AddRequestForm from "./AddRequestForm";
 
 interface User {
     id: number
@@ -12,86 +14,40 @@ interface User {
     status: "active" | "inactive"
     joinedDate: string
 }
-interface TableWrapperProps {
-  searchable?: boolean;
-}
-const sampleData: User[] = [
-    {
-        id: 1,
-        name: "John Doe",
-        email: "john@example.com",
-        role: "Admin",
-        status: "active",
-        joinedDate: "2024-01-15",
-    },
-    {
-        id: 2,
-        name: "Jane Smith",
-        email: "jane@example.com",
-        role: "User",
-        status: "active",
-        joinedDate: "2024-02-20",
-    },
-    {
-        id: 3,
-        name: "Bob Johnson",
-        email: "bob@example.com",
-        role: "Moderator",
-        status: "inactive",
-        joinedDate: "2024-03-10",
-    },
-    {
-        id: 4,
-        name: "Alice Williams",
-        email: "alice@example.com",
-        role: "User",
-        status: "active",
-        joinedDate: "2024-04-05",
-    },
-    {
-        id: 5,
-        name: "Charlie Brown",
-        email: "charlie@example.com",
-        role: "User",
-        status: "inactive",
-        joinedDate: "2024-05-12",
-    },
-]
 
-export default function Table({
-  searchable = true, 
-}: TableWrapperProps) {
+
+
+interface Iprops {
+    status: string;
+}
+export default function TableContent({ status }: Iprops) {
     const { t } = useTranslation()
     const [selectedUser, setSelectedUser] = useState<User | null>(null)
+    const [formDialog, setFormDialog] = useState(false)
 
     const columns: TableColumn<User>[] = [
         {
-            key: "name",
-            header: t("header.commercialGate"),
+            key: "appNumber",
+            header: t("exporterDashboard.appNumber"),
             sortable: true,
             className: "font-medium",
         },
         {
-            key: "email",
-            header: t("auth.email"),
+            key: "importer",
+            header: t("exporterDashboard.importer"),
             sortable: true,
         },
         {
-            key: "role",
-            header: t("role"),
+            key: "status",
+            header: t("exporterDashboard.status"),
             sortable: true,
             render: (user) => <Badge variant={user.role === "Admin" ? "default" : "secondary"}>{user.role}</Badge>,
         },
         {
-            key: "status",
-            header: "Status",
+            key: "aciNumber",
+            header: t("exporterDashboard.aciNumber"),
             sortable: true,
             render: (user) => <Badge variant={user.status === "active" ? "default" : "outline"}>{user.status}</Badge>,
-        },
-        {
-            key: "joinedDate",
-            header: "Joined Date",
-            sortable: true,
         },
     ]
 
@@ -130,19 +86,28 @@ export default function Table({
     ]
 
     return (
-            <div>
-                <SharedTable
-                    data={sampleData}
-                    columns={columns}
-                    actions={actions}
-                    searchable={searchable}
-                    searchPlaceholder="Search by name, email, role, status..."
-                    showRowNumbers={true}
-                    onRowClick={(user) => console.log("Row clicked:", user)}
-                    emptyText="No users found"
-                />
+        <div className="bg-background p-6 rounded-xl shadow-lg  ">
+            <div className="flex items-center justify-between">
+                <h3 className="py-2">{t(`loggedInHome.${status}`)}</h3>
+                <Button variant="primary" onClick={() => setFormDialog(true)}>
+                    {t("loggedInHome.newRequest")}
+                    <PlusIcon className="size-5 ml-3" />
+                </Button>
             </div>
+            <SharedTable
+                data={[]}
+                columns={columns}
+                actions={actions}
+                searchable={true}
+                searchPlaceholder={t("exporterDashboard.tableSearch")}
+                showRowNumbers={true}
+                onRowClick={(user) => console.log("Row clicked:", user)}
+                emptyText={t("exporterDashboard.emptyText")}
+            />
 
-        
+            <AddRequestForm formDialog={formDialog} setFormDialog={setFormDialog} />
+        </div>
+
+
     );
 }

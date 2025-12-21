@@ -1,7 +1,8 @@
 {
     "common": {
         "add": "Add",
-        "delete": "Delete"
+        "delete": "Delete",
+        "actions": "Actions"
     },
     "header": {
         "logOut": "Log Out",
@@ -71,7 +72,7 @@
         "rejectedRequests": "Rejected Requests",
         "newRequest": "+ New ACI Request"
     },
-    "exporterDashboardAddAciRequestPopup": {
+    "exporterDashboard": {
         "partners": "Partners",
         "exporter": "Exporter",
         "importer": "Importer",
@@ -108,7 +109,13 @@
         "invoice": "Invoice",
         "attachFile": "Attach File",
         "addClause": "Add Clause",
-        "newAciRequest": "New ACI Request"
+        "newAciRequest": "New ACI Request",
+        "appNumber": "App Number",
+        "status": "Status",
+        "aciNumber": "ACI Number",
+        "tableSearch": "Search For App Number, Importer, Aci Number, ...",
+        "emptyText": "No requests found",
+        "sendForApproval": "Sending For Approval"
     },
     "auth": {
         "passwordsNotMatch": "Passwords Not Match",

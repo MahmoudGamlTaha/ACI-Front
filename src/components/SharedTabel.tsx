@@ -8,6 +8,7 @@ import { cn } from "@/lib/utils"
 
 import type React from "react"
 import { useMemo, useState } from "react"
+import { useTranslation } from "react-i18next"
 export interface TableColumn<T = any> {
     key: string
     header: string
@@ -81,11 +82,11 @@ export function SharedTable<T extends Record<string, any>>({
     headerClassName,
     rowClassName,
     onRowClick,
-    processingItemId,
+    // processingItemId,
     showRowNumbers = false,
     rowNumberHeader = "#",
     showActionsColumn = true,
-    actionsColumnHeader = "Actions",
+    actionsColumnHeader,
     actionsColumnClassName,
     actionsContainerClassName,
     actionButtonClassName,
@@ -96,6 +97,7 @@ export function SharedTable<T extends Record<string, any>>({
     searchPlaceholder = "Search...",
     onSearch,
 }: StandardTableProps<T>) {
+    const { t } = useTranslation();
     const [searchQuery, setSearchQuery] = useState("")
     const [sortColumn, setSortColumn] = useState<string | null>(null)
     const [sortDirection, setSortDirection] = useState<"asc" | "desc">("asc")
@@ -237,7 +239,7 @@ export function SharedTable<T extends Record<string, any>>({
                                 </TableHead>
                             ))}
                             {hasVisibleActions && showActionsColumn && (
-                                <TableHead className={actionsColumnClassName}>{actionsColumnHeader}</TableHead>
+                                <TableHead className={actionsColumnClassName}>{actionsColumnHeader || t("common.actions")}</TableHead>
                             )}
                         </TableRow>
                     </TableHeader>

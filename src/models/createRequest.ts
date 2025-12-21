@@ -1,16 +1,16 @@
 export interface IRequestDetails {
-  hsCode: string;
-  productName: string;
-  productDescription: string;
-  numberOfParcels: number;
-  parcelType: string;
-  netWeight: number;
-  grossWeight: number;
-  unitOfWeight: string;
-  quantity: number;
-  unitOfQuantity: string;
-  unitValue: number;
-  currency: string;
+  hsCode?: string;
+  productName?: string;
+  productDescription?: string;
+  numberOfParcels?: number;
+  parcelType?: string;
+  netWeight?: number;
+  grossWeight?: number;
+  unitOfWeight?: string;
+  quantity?: number;
+  unitOfQuantity?: string;
+  unitValue?: number;
+  currency?: string;
 }
 
 export interface ICreateRequestPayload {

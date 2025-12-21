@@ -46,7 +46,11 @@ export async function apiFetch<T>(
     const res = await fetch(`${API_BASE_URL}${url}`, {
       ...rest,
       headers: {
-        ...(!isFormData && { "Content-Type": "application/json" }),
+        ...(!isFormData && {
+          "Content-Type": "application/json",
+          "Accept": "application/json",
+          "Authorization": `Bearer ${localStorage.getItem("token")}`
+        }),
         ...headers,
       },
       body: isFormData ? body : (body ? JSON.stringify(body) : undefined),

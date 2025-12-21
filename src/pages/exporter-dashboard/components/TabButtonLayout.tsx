@@ -7,16 +7,16 @@ type TabButtonProps = {
   icon: React.ReactNode;
 };
 
-function TabButton({ label, isActive, onClick , icon }: TabButtonProps) {
+function TabButton({ label, isActive, onClick, icon }: TabButtonProps) {
   return (
     <Button
+      // className="w-full"
       onClick={onClick}
       variant={
         isActive
           ? "primary"
           : "ghost"
       }
-
     >
       {icon}
       {label}
