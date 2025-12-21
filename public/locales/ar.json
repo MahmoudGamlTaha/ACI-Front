@@ -43,11 +43,13 @@
 
     },
     "auth":{
+        "emailPattern": "البريد الالكتروني غير صحيح",
         "signIn":"تسجيل الدخول",
         "signUp":"تسجيل جديد",
         "email":"البريد الالكتروني",
         "password":"كلمه المرور",
         "youDontHaveAccount":"ليس لديك حساب؟",
+        "youHaveAccount":"لدي حساب بالفعل؟",
         "signInNow": "سجل الان",
         "newSignUp": "تسجيل مستخدم جديد",
         "fieldRequired": "هذا الحقل مطلوب",

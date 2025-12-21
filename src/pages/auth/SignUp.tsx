@@ -2,7 +2,6 @@ import { Button } from "@/components/ui/button"
 import {
     Card,
     CardContent,
-    CardFooter,
     CardHeader,
     CardTitle,
 } from "@/components/ui/card"
@@ -14,25 +13,26 @@ import { Controller, useForm } from "react-hook-form"
 import { useTranslation } from "react-i18next"
 import { ArrowDownFromLine, ArrowUpFromLine } from "lucide-react"
 import { useState } from "react"
+import { useNavigate } from "react-router-dom"
 
 export default function SignUp() {
     const [accountType, setAccountType] = useState<'source' | 'importer'>('source')
     const { control, handleSubmit } = useForm<RegisterInput>()
     const { t } = useTranslation();
-
+    const navigate = useNavigate()
     const onSubmit = (data: RegisterInput) => {
         console.log(data)
     }
     return (
         <div className="flex items-center justify-center">
-            <Card className="w-full max-w-5xl shadow-xl ">
+            <Card className="w-full">
                 <CardHeader>
                     <CardTitle className="text-2xl font-bold text-center">{t("auth.newSignUp")}</CardTitle>
                 </CardHeader>
-                <CardContent className="h-[calc(80vh-8rem)] overflow-y-auto">
+                <CardContent className=" overflow-y-auto">
                     <form onSubmit={handleSubmit(onSubmit)} noValidate>
                         <div className="w-full px-4 sm:px-6 lg:px-8 ">
-                            <div className="max-w-4xl mx-auto">
+                            <div className="max-w-5xl mx-auto">
                                 {/* Timeline Container */}
                                 <div className="relative mb-5">
                                     {/* Vertical line */}
@@ -335,9 +335,16 @@ export default function SignUp() {
                                 </div>
                             </div>
                         </div>
-                        <Button variant="primary" size={'lg'} type="submit" className="w-full">
-                            {t("auth.signUp")}
-                        </Button>
+                        <div className="mt-5 flex justify-center items-center gap-3">
+                            <Button variant="primary" size={'lg'} type="submit" className="w-xl">
+                                {t("auth.signUp")}
+                            </Button>
+                            <Button
+                                onClick={() => navigate("/login")}
+                                variant="outline" size={'lg'} type="button" className="w-sm">
+                                {t("auth.youHaveAccount")}
+                            </Button>
+                        </div>
                     </form>
                 </CardContent>
             </Card>

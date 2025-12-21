@@ -15,23 +15,28 @@ import { Controller, useForm } from "react-hook-form"
 import { useTranslation } from "react-i18next"
 import { useNavigate } from "react-router-dom"
 import toast from "react-hot-toast"
+import { useLoading } from "@/contexts/LoadingContext"
 
 export default function LoginPage() {
     const { control, handleSubmit } = useForm<LoginInput>({ defaultValues: { email: "", password: "" } })
     const { t } = useTranslation();
     const navigate = useNavigate();
-
+    const { setLoading } = useLoading();
     const handleLogin = useCallback(async (data: LoginInput) => {
         try {
+            setLoading(true);
             const result = await loginApi(data);
-            if (result.success) {
+            if (result?.success) {
                 localStorage.setItem("token", result.payload?.token || "");
                 navigate("/");
+                setLoading(false);
             } else {
+                setLoading(false);
                 toast.error(result?.error || '');
             }
-        } catch (error) {
-            toast.error(error?.message || 'Something went wrong');
+        } catch (errorMsg: any) {
+            setLoading(false);
+            toast.error(errorMsg?.error || 'Something went wrong');
         }
     }, [])
 
@@ -101,7 +106,7 @@ export default function LoginPage() {
                         <p className="text-center">
                             {t("auth.youDontHaveAccount")}
                             <span>
-                                <Button variant="link" className="text-sm" size={'sm'} onClick={() => navigate('/sign-up')}>
+                                <Button type="button" variant="link" className="text-sm" size={'sm'} onClick={() => navigate('/sign-up')}>
                                     {t("auth.signInNow")}
                                 </Button>
                             </span>

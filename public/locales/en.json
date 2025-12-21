@@ -40,11 +40,13 @@
        "GOVerfication": "Validate"
     },
     "auth":{
+        "emailPattern": "Email Invalid",
         "signIn":"Sign In",
         "signUp":"Sign Up",
         "email":"Email",
         "password":"Password",
         "youDontHaveAccount":"Don't have an account?",
+        "youHaveAccount":"Do you have an account?",
         "signInNow": "Sign In Now",
         "newSignUp": "New Sign Up",
         "fieldRequired": "This field is required",

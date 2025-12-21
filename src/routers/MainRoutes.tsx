@@ -1,4 +1,5 @@
 import Layout from "@/layout";
+import { getToken } from "@/lib/getToken";
 import { lazy } from "react";
 const LazyHome = lazy(() => import("@/pages/home"));
 const LazyLogin = lazy(() => import("@/pages/auth/LoginPage"));
@@ -15,25 +16,21 @@ export default function MainRoutes() {
                     path: "/",
                     element: <LazyHome />,
                 },
-                {
-                    path: "/login",
-                    element: <LazyLogin />,
-                },
-                {
-                    path: "/sign-up",
-                    element: <LazySignUp />,
-                },
             ],
         },
     ];
 
     const authRoutes: RouteObject[] = [
         {
-            path: "/",
-            element: <Layout />,
+            path: "/login",
+            element: <LazyLogin />,
+        },
+        {
+            path: "/sign-up",
+            element: <LazySignUp />,
         },
     ];
 
-    return useRoutes(true ? mainRoutes : authRoutes);
+    return useRoutes(getToken() ? mainRoutes : authRoutes);
 
 }

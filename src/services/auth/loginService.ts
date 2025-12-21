@@ -5,7 +5,6 @@ import { AuthResponse } from "./types";
 export async function loginApi(data: LoginInput): Promise<IResponse<AuthResponse>> {
     return apiFetch("/aci/api/auth/login", {
         method: "POST",
-        loadingMessage: 'Logging in...',
-        body: data,
+        body: data,        
     });
 }
