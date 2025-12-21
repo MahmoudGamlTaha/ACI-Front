@@ -17,7 +17,7 @@ export default function MainRoutes() {
             children: [
                 {
                     path: "/",
-                    element: <LazyHome />,
+                    element: <LazySideTabsLayout />,
                 },
                 {
                     path: "/exporter-dashboard",
@@ -39,7 +39,7 @@ export default function MainRoutes() {
             children: [
                 {
                     path: "/",
-                    element: <LazyLogin />,
+                    element: <LazyHome />,
                 },
                 {
                     path: "/login",
