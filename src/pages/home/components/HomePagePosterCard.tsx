@@ -7,7 +7,7 @@ interface Iprops {
 }
 export default function PosterCard({ buttonReg, buttonLog, title }: Iprops) {
     return (
-        <div className="bg-white dark:bg-popover shadow-lg rounded-lg py-12">
+        <div className="bg-white dark:bg-popover shadow-lg rounded-lg py-12 mt-5">
             <div className="flex items-center justify-center">
                 <div>
                     <h1 className="  text-black dark:text-white font-bold">{title}</h1>
@@ -15,7 +15,7 @@ export default function PosterCard({ buttonReg, buttonLog, title }: Iprops) {
                     <Button
                     variant="primary">{buttonReg}</Button>
                     <Button
-                    variant="default">{buttonLog}</Button>
+                    variant="ghost">{buttonLog}</Button>
                 </div>
                 </div>
 

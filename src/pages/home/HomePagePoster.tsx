@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import PosterCard from "./components/PosterCard";
+import PosterCard from "./components/HomePagePosterCard";
 
 
 export default function Poster() {

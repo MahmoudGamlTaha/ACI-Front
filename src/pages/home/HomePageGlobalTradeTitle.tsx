@@ -1,4 +1,4 @@
-import SectionTitlesSection from "./components/SectionTitlesSection";
+import SectionTitlesSection from "./components/HomePageTitlesLayout";
 import { useTranslation } from "react-i18next";
 
 
@@ -7,7 +7,7 @@ export default function GlobalTradeTitle() {
 
     return (
         <div>
-            <div className="grid grid-cols-1 gap-6 my-14">
+            <div className="grid grid-cols-1 gap-6 my-10 mb-0">
 
                 <SectionTitlesSection  title={t('home.globalTradeTitle')}   />
             </div>
