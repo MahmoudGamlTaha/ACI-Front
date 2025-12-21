@@ -8,20 +8,51 @@ import {
 import { Field, FieldLabel } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
 import { Checkbox } from "@/components/ui/checkbox"
-import { RegisterInput } from "@/models/auth"
+import { UserRegistration } from "@/models/auth"
 import { Controller, useForm } from "react-hook-form"
 import { useTranslation } from "react-i18next"
 import { ArrowDownFromLine, ArrowUpFromLine } from "lucide-react"
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
+import { useLoading } from "@/contexts/LoadingContext"
+import { RegistrationApi } from "@/services/auth/signUpService"
+import toast from "react-hot-toast"
 
+interface UserRegistrationExt extends UserRegistration {
+    confirmPassword: string;
+    acceptTerms: boolean;
+}
 export default function SignUp() {
-    const [accountType, setAccountType] = useState<'source' | 'importer'>('source')
-    const { control, handleSubmit } = useForm<RegisterInput>()
+
+    const [accountType, setAccountType] = useState<'exporter' | 'importer'>('exporter')
+    const { control, handleSubmit, getValues } = useForm<UserRegistrationExt>()
     const { t } = useTranslation();
     const navigate = useNavigate()
-    const onSubmit = (data: RegisterInput) => {
-        console.log(data)
+    const { setLoading } = useLoading();
+
+    const handleRegister = async (data: UserRegistrationExt) => {
+        setLoading(true);
+        try {
+            const result = await RegistrationApi(data);
+            if (result?.success) {
+                setLoading(false);
+                toast.success(t("auth.RegistrationSuccessMsg"))
+                navigate('/login')
+            } else {
+                setLoading(false);
+                toast.error(result?.error || "Something went wrong")
+            }
+        } catch (errorMsg: any) {
+            setLoading(false);
+            toast.error(errorMsg?.error)
+        }
+    }
+    const onSubmit = (data: UserRegistrationExt) => {
+        const userData = {
+            ...data,
+            userType: accountType,
+        }
+        handleRegister(userData);
     }
     return (
         <div className="flex items-center justify-center">
@@ -53,15 +84,15 @@ export default function SignUp() {
 
                                             {/* Content */}
                                             <div className="grid grid-cols-2 items-center justify-center gap-2">
-                                                <div onClick={() => setAccountType('source')}
-                                                    className={`${accountType === 'source' ? 'bg-primary-500' : 'bg-white dark:bg-gray-800'} hover:ring-3 hover:cursor-pointer hover:ring-primary-500
+                                                <div onClick={() => setAccountType('exporter')}
+                                                    className={`${accountType === 'exporter' ? 'bg-primary-500' : 'bg-white dark:bg-gray-800'} hover:ring-3 hover:cursor-pointer hover:ring-primary-500
                                                  transition-all duration-300 w-full border border-border 
                                                  rounded-md-border rounded-md p-4 flex flex-col items-start gap-3 text-foreground`}>
                                                     <div className="p-2 flex justify-start">
-                                                        <ArrowUpFromLine className={`size-8 ${accountType === 'source' ? 'text-white' : 'text-black dark:text-white'}`} />
-                                                        <p className={`font-bold ${accountType === 'source' ? 'text-white' : 'text-black dark:text-white'}`}>مصدر</p>
+                                                        <ArrowUpFromLine className={`size-8 ${accountType === 'exporter' ? 'text-white' : 'text-black dark:text-white'}`} />
+                                                        <p className={`font-bold ${accountType === 'exporter' ? 'text-white' : 'text-black dark:text-white'}`}>مصدر</p>
                                                     </div>
-                                                    <p className={`text-xs text-gray-500 ${accountType === 'source' ? 'text-white' : 'text-black dark:text-white'}`}>الشركات خارج ليبيا المصدرة بضائع إلى ليبيا.</p>
+                                                    <p className={`text-xs text-gray-500 ${accountType === 'exporter' ? 'text-white' : 'text-black dark:text-white'}`}>الشركات خارج ليبيا المصدرة بضائع إلى ليبيا.</p>
                                                 </div>
                                                 <div onClick={() => setAccountType('importer')}
                                                     className={`${accountType === 'importer' ? 'bg-primary-500' : 'bg-white dark:bg-gray-800'} hover:ring-3 hover:cursor-pointer hover:ring-primary-500 transition-all duration-300 w-full border border-border rounded-md-border rounded-md p-4 flex flex-col items-start gap-3 text-foreground`}>
@@ -95,35 +126,53 @@ export default function SignUp() {
                                             <div className="grid grid-cols-2 items-start justify-center gap-2">
                                                 <Controller
                                                     rules={{ required: { message: t("auth.fieldRequired"), value: true } }}
-                                                    name="companyNameEn"
+                                                    name="fullName"
                                                     control={control}
                                                     render={({ field, fieldState }) => (
                                                         <Field>
-                                                            <FieldLabel htmlFor="companyNameEn">
+                                                            <FieldLabel htmlFor="fullName">
                                                                 {t("auth.companyEn")}
                                                             </FieldLabel>
                                                             <Input
                                                                 {...field}
                                                                 error={fieldState.error?.message}
-                                                                id="companyNameEn"
+                                                                id="fullName"
                                                                 required
                                                             />
                                                         </Field>
                                                     )}
                                                 />
                                                 <Controller
-                                                    name="country"
+                                                    rules={{ required: { message: t("auth.fieldRequired"), value: true } }}
+                                                    name="companyName"
+                                                    control={control}
+                                                    render={({ field, fieldState }) => (
+                                                        <Field>
+                                                            <FieldLabel htmlFor="companyName">
+                                                                {t("auth.companyEn")}
+                                                            </FieldLabel>
+                                                            <Input
+                                                                {...field}
+                                                                error={fieldState.error?.message}
+                                                                id="companyName"
+                                                                required
+                                                            />
+                                                        </Field>
+                                                    )}
+                                                />
+                                                <Controller
+                                                    name="countryName"
                                                     rules={{ required: { message: t("auth.fieldRequired"), value: true } }}
                                                     control={control}
                                                     render={({ field, fieldState }) => (
                                                         <Field >
-                                                            <FieldLabel htmlFor="country">
+                                                            <FieldLabel htmlFor="countryName">
                                                                 {t("auth.country")}
                                                             </FieldLabel>
                                                             <Input
                                                                 {...field}
                                                                 error={fieldState.error?.message}
-                                                                id="country"
+                                                                id="countryName"
                                                                 value={field.value}
                                                                 onChange={field.onChange}
                                                                 required
@@ -153,20 +202,49 @@ export default function SignUp() {
 
                                             {/* Content */}
                                             <div className="grid grid-cols-2 items-start justify-center gap-2">
-                                                {accountType === 'source' ? (
+                                                <Controller
+                                                    name="phone"
+                                                    rules={{
+                                                        required: {
+                                                            message: t("auth.fieldRequired"),
+                                                            value: true
+                                                        },
+                                                        pattern: {
+                                                            value: /^\d{4,}$/,
+                                                            message: t("auth.phoneNumberInvalid"),
+                                                        }
+                                                    }}
+                                                    control={control}
+                                                    render={({ field, fieldState }) => (
+                                                        <Field>
+                                                            <FieldLabel htmlFor="phone">
+                                                                {t("auth.phoneNumber")}
+                                                            </FieldLabel>
+                                                            <Input
+                                                                {...field}
+                                                                error={fieldState.error?.message}
+                                                                id="phone"
+                                                                value={field.value}
+                                                                onChange={field.onChange}
+                                                                required
+                                                            />
+                                                        </Field>
+                                                    )}
+                                                />
+                                                {accountType === 'exporter' ? (
                                                     <Controller
-                                                        name="idNumber"
+                                                        name="taxNumber"
                                                         rules={{ required: { message: t("auth.fieldRequired"), value: true } }}
                                                         control={control}
                                                         render={({ field, fieldState }) => (
                                                             <Field>
-                                                                <FieldLabel htmlFor="idNumber">
+                                                                <FieldLabel htmlFor="idtaxNumberNumber">
                                                                     {t("auth.idNumber")}
                                                                 </FieldLabel>
                                                                 <Input
                                                                     {...field}
                                                                     error={fieldState.error?.message}
-                                                                    id="idNumber"
+                                                                    id="taxNumber"
                                                                     value={field.value}
                                                                     onChange={field.onChange}
                                                                     required
@@ -176,17 +254,17 @@ export default function SignUp() {
                                                     />
                                                 ) : (
                                                     <Controller
-                                                        name="statisticalCode"
+                                                            name="taxNumber"
                                                         control={control}
                                                         render={({ field, fieldState }) => (
                                                             <Field>
-                                                                <FieldLabel htmlFor="statisticalCode">
+                                                                <FieldLabel htmlFor="taxNumber">
                                                                     {t("auth.statisticalCode")}
                                                                 </FieldLabel>
                                                                 <Input
                                                                     {...field}
                                                                     error={fieldState.error?.message}
-                                                                    id="statisticalCode"
+                                                                    id="taxNumber"
                                                                     value={field.value}
                                                                     onChange={field.onChange}
                                                                     required
@@ -218,8 +296,8 @@ export default function SignUp() {
 
                                             {/* Content */}
                                             <div className="grid grid-cols-2 items-start justify-center gap-2">
-                                                <Controller
-                                                    name="responsibleNameAr"
+                                                {/* <Controller
+                                                    name=""
                                                     control={control}
                                                     rules={{ required: { message: t("auth.fieldRequired"), value: true } }}
                                                     render={({ field, fieldState }) => (
@@ -237,48 +315,52 @@ export default function SignUp() {
                                                             />
                                                         </Field>
                                                     )}
-                                                />
+                                                /> */}
+
+                                                <div className="col-span-2 items-start justify-center gap-2">
+                                                    <Controller
+                                                        rules={{
+                                                            required: {
+                                                                value: true,
+                                                                message: t("auth.fieldRequired")
+                                                            },
+                                                            pattern: {
+                                                                value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                                                                message: t("auth.invalidEmail")
+                                                            }
+                                                        }}
+                                                        name="email"
+                                                        control={control}
+                                                        render={({ field, fieldState }) => (
+                                                            <Field>
+                                                                <FieldLabel htmlFor="email">
+                                                                    {t("auth.email")}
+                                                                </FieldLabel>
+                                                                <Input
+                                                                    {...field}
+                                                                    id="email"
+                                                                    required
+                                                                    error={fieldState.error?.message}
+                                                                    value={field.value}
+                                                                    onChange={field.onChange}
+                                                                />
+                                                            </Field>
+                                                        )}
+                                                    />
+                                                </div>
+
                                                 <Controller
-                                                    rules={{
-                                                        required: {
-                                                            value: true,
-                                                            message: t("auth.fieldRequired")
-                                                        },
-                                                        pattern: {
-                                                            value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                                                            message: t("auth.invalidEmail")
-                                                        }
-                                                    }}
-                                                    name="email"
-                                                    control={control}
-                                                    render={({ field, fieldState }) => (
-                                                        <Field>
-                                                            <FieldLabel htmlFor="email">
-                                                                {t("auth.email")}
-                                                            </FieldLabel>
-                                                            <Input
-                                                                {...field}
-                                                                id="email"
-                                                                required
-                                                                error={fieldState.error?.message}
-                                                                value={field.value}
-                                                                onChange={field.onChange}
-                                                            />
-                                                        </Field>
-                                                    )}
-                                                />
-                                                <Controller
-                                                    name="password"
+                                                    name="passwordHash"
                                                     control={control}
                                                     rules={{ required: { message: t("auth.fieldRequired"), value: true } }}
                                                     render={({ field, fieldState }) => (
                                                         <Field>
-                                                            <FieldLabel htmlFor="password">
+                                                            <FieldLabel htmlFor="passwordHash">
                                                                 {t("auth.password")}
                                                             </FieldLabel>
                                                             <Input
                                                                 {...field}
-                                                                id="password"
+                                                                id="passwordHash"
                                                                 required
                                                                 error={fieldState.error?.message}
                                                                 value={field.value}
@@ -290,7 +372,10 @@ export default function SignUp() {
                                                 <Controller
                                                     name="confirmPassword"
                                                     control={control}
-                                                    rules={{ required: { message: t("auth.fieldRequired"), value: true } }}
+                                                    rules={{
+                                                        required: { message: t("auth.fieldRequired"), value: true }
+                                                        , validate: (value) => value === getValues("passwordHash") || t("auth.passwordsNotMatch")
+                                                    }}
                                                     render={({ field, fieldState }) => (
                                                         <Field>
                                                             <FieldLabel htmlFor="confirmPassword">

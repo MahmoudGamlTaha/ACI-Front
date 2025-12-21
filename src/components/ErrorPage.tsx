@@ -107,7 +107,7 @@ const ErrorPage: React.FC = () => {
                     }}
                 >
                     <button
-                        onClick={() => navigate("/dashboard")}
+                        onClick={() => navigate("/")}
                         style={{
                             padding: "12px 24px",
                             backgroundColor: "#1976d2",

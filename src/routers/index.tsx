@@ -7,6 +7,7 @@ const router = createBrowserRouter([
         path: "/*", // wildcard so HandleMainRoutes handles children
         element: <MainRoutes />,
         errorElement: <ErrorPage />,
+        
     },
 ]);
 
