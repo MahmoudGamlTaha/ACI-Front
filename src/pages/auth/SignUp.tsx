@@ -48,6 +48,10 @@ export default function SignUp() {
         }
     }
     const onSubmit = (data: UserRegistrationExt) => {
+        if (!data?.acceptTerms) {
+            toast.error(t("auth.acceptTermsError"))
+            return;
+        }
         const userData = {
             ...data,
             userType: accountType,
@@ -131,7 +135,7 @@ export default function SignUp() {
                                                     render={({ field, fieldState }) => (
                                                         <Field>
                                                             <FieldLabel htmlFor="fullName">
-                                                                {t("auth.companyEn")}
+                                                                {t("auth.fullName")}
                                                             </FieldLabel>
                                                             <Input
                                                                 {...field}
