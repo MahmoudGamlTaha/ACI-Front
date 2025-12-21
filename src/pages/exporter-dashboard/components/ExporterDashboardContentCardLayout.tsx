@@ -22,9 +22,11 @@ interface Iprops {
 }
 
 interface ICountry {
-  name: string;
+  id: number;      // ← ده اللي هيتبعت
+  name: string;    // ← ده اللي هيظهر
   codeChar: string;
 }
+
 // export interface AddAciInput {
 //     ChargerDocumentReference: string,
 //     ShippingPort: string,
@@ -52,15 +54,16 @@ interface ICountry {
 // }
 
 const countries: ICountry[] = [
-  { name: "United States", codeChar: "us" },
-  { name: "United Kingdom", codeChar: "uk" },
-  { name: "Canada", codeChar: "ca" },
-  { name: "Australia", codeChar: "au" },
-  { name: "Germany", codeChar: "de" },
-  { name: "France", codeChar: "fr" },
-  { name: "Japan", codeChar: "jp" },
-  { name: "India", codeChar: "in" },
+  { id: 1, name: "United States", codeChar: "us" },
+  { id: 2, name: "United Kingdom", codeChar: "uk" },
+  { id: 3, name: "Canada", codeChar: "ca" },
+  { id: 4, name: "Australia", codeChar: "au" },
+  { id: 5, name: "Germany", codeChar: "de" },
+  { id: 6, name: "France", codeChar: "fr" },
+  { id: 7, name: "Japan", codeChar: "jp" },
+  { id: 8, name: "India", codeChar: "in" },
 ];
+
 
  
 
@@ -163,7 +166,7 @@ export default function ContentCard({ title,   hr }: Iprops) {
                   {/* Content */}
                   <div className="grid grid-cols-2 items-center justify-center gap-2">
                     <div className="flex flex-col gap-2 ">
-                      <label className="text-sm font-medium"> 
+                      {/* <label className="text-sm font-medium"> 
                       {t("exporterDashboardAddAciRequestPopup.importer")}
                         
                          *</label>
@@ -187,33 +190,81 @@ export default function ContentCard({ title,   hr }: Iprops) {
                             {selectedCountry.name}
                           </span>
                         </p>
-                      )}
+                      )} */}
+                      <Controller
+  name="toUserId"
+  control={control}
+  rules={{
+    required: {
+      value: true,
+      message: t("auth.fieldRequired"),
+    },
+  }}
+  render={({ field, fieldState }) => (
+    <div className="flex flex-col gap-2">
+      <label className="text-sm font-medium">
+        {t("exporterDashboardAddAciRequestPopup.importer")} *
+      </label>
+
+      <SearchableSelect
+        inputClassName="min-w-sm"
+        displayKey="name"
+        valueKey="id"                 // ← أهم سطر
+        options={countries}
+        value={countries.find(c => c.id === field.value)}
+        onChange={(option) => field.onChange(option?.id)}
+        placeholder={t("exporterDashboardAddAciRequestPopup.select")}
+        searchPlaceholder="Search..."
+        emptyText="No data found"
+      />
+
+      {fieldState.error && (
+        <p className="text-sm text-red-500">
+          {fieldState.error.message}
+        </p>
+      )}
+    </div>
+  )}
+/>
+
                     </div>
                     <div className="flex flex-col gap-2 ">
-                      <label className="text-sm font-medium">
-                      {t("exporterDashboardAddAciRequestPopup.exporter")}
-                        
-                         *</label>
-                      <SearchableSelect
-                        disabled
-                        inputClassName="min-w-sm"
-                        displayKey={"name"}
-                        valueKey={"codeChar"}
-                        options={countries}
-                        value={selectedCountry}
-                        onChange={(st) => setSelectedCountry(st)}
-                        placeholder="manba alkaher (alqhadiahmed@gmail.com)"
-                        searchPlaceholder="Search countries..."
-                        emptyText="No country found."
-                      />
-                      {selectedCountry && (
-                        <p className="text-sm text-muted-foreground">
-                          Selected:{" "}
-                          <span className="font-medium text-foreground">
-                            {selectedCountry.name}
-                          </span>
-                        </p>
-                      )}
+                                   <Controller
+  name="fromUserId"
+  control={control}
+  rules={{
+    required: {
+      value: true,
+      message: t("auth.fieldRequired"),
+    },
+  }}
+  render={({ field, fieldState }) => (
+    <div className="flex flex-col gap-2">
+      <label className="text-sm font-medium">
+        {t("exporterDashboardAddAciRequestPopup.exporter")} *
+      </label>
+
+      <SearchableSelect
+      disabled
+        inputClassName="min-w-sm"
+        displayKey="name"
+        valueKey="id"                 // ← أهم سطر
+        options={countries}
+        value={countries.find(c => c.id === field.value)}
+        onChange={(option) => field.onChange(option?.id)}
+        placeholder="manba alkaher (alqhadiahmed@gmail.com)"
+        searchPlaceholder="Search..."
+        emptyText="No data found"
+      />
+
+      {fieldState.error && (
+        <p className="text-sm text-red-500">
+          {fieldState.error.message}
+        </p>
+      )}
+    </div>
+  )}
+/>
                     </div>
                   </div>
                 </div>
@@ -234,7 +285,7 @@ export default function ContentCard({ title,   hr }: Iprops) {
                   {/* Content */}
                   <div className="grid grid-cols-2 items-center justify-center gap-2">
                     <div className="flex flex-col gap-2 ">
-                      <label className="text-sm font-medium">
+                      {/* <label className="text-sm font-medium">
                         
                           *
                         {t("exporterDashboardAddAciRequestPopup.shipmentType")}
@@ -258,7 +309,45 @@ export default function ContentCard({ title,   hr }: Iprops) {
                             {selectedCountry.name}
                           </span>
                         </p>
-                      )}
+                      )} */}
+                                                         <Controller
+  name="shipTypeId"
+  control={control}
+  rules={{
+    required: {
+      value: true,
+      message: t("auth.fieldRequired"),
+    },
+  }}
+  render={({ field, fieldState }) => (
+    <div className="flex flex-col gap-2">
+     <label className="text-sm font-medium">
+                        
+                          *
+                        {t("exporterDashboardAddAciRequestPopup.shipmentType")}
+                      </label>
+
+      <SearchableSelect
+        inputClassName="min-w-sm"
+        displayKey="name"
+        valueKey="id"                 // ← أهم سطر
+        options={countries}
+        value={countries.find(c => c.id === field.value)}
+        onChange={(option) => field.onChange(option?.id)}
+        placeholder=
+                          {t('exporterDashboardAddAciRequestPopup.seashipment')}
+                        searchPlaceholder="Search countries..."
+        emptyText="No data found"
+      />
+
+      {fieldState.error && (
+        <p className="text-sm text-red-500">
+          {fieldState.error.message}
+        </p>
+      )}
+    </div>
+  )}
+/>
                     </div>
                     <Controller
                       rules={{
