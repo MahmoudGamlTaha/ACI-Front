@@ -140,7 +140,8 @@
         "username": "اسم المستخدم",
         "confirmPassword": "تأكيد كلمة المرور",
         "acceptTerms": "اوافق على الشروط والأحكام",
-        "reviewAfterSubmit": "يرجى مراجعة معلوماتك قبل الإرسال"
+        "reviewAfterSubmit": "يرجى مراجعة معلوماتك قبل الإرسال",
+        "acceptTermsError": "يجب الموافقة على الشروط والأحكام"
     },
     "welcome": "مرحبا بك في تطبيقي!",
     "description": "هذا تطبيق تجريبي يستخدم i18n.",
