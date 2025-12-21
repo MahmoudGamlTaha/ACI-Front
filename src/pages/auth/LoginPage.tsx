@@ -22,6 +22,7 @@ export default function LoginPage() {
     const { t } = useTranslation();
     const navigate = useNavigate();
     const { setLoading } = useLoading();
+    
     const handleLogin = useCallback(async (data: LoginInput) => {
         try {
             setLoading(true);
