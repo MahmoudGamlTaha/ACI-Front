@@ -25,7 +25,6 @@ export interface RegisterInput {
     acceptTerms?: boolean,
 }
 
-
 export interface UserAuthority {
     authority: string;
 }
@@ -75,6 +74,8 @@ export interface RegisterResponse {
 
     authorities: UserAuthority[];
 }
+
+
 
 
 export interface AuthResponse {
