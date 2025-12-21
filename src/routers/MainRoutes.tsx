@@ -18,14 +18,6 @@ export default function MainRoutes() {
                     element: <LazyHome />,
                 },
                 {
-                    path: "/login",
-                    element: <LazyLogin />,
-                },
-                {
-                    path: "/sign-up",
-                    element: <LazySignUp />,
-                },
-                {
                     path: "/exporter-dashboard",
                     element: <LazySideTabsLayout />
                 }
@@ -34,6 +26,10 @@ export default function MainRoutes() {
     ];
 
     const authRoutes: RouteObject[] = [
+        {
+            path: "/",
+            element: <LazyLogin />,
+        },
         {
             path: "/login",
             element: <LazyLogin />,
