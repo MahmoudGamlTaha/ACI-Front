@@ -80,15 +80,10 @@ export default function ContentCard({ title,   hr }: Iprops) {
   const { control, handleSubmit } = useForm<ICreateRequestPayload>();  
   const { t } = useTranslation();
   const [selectedCountry, setSelectedCountry] = useState<ICountry>();
-    const [showTable, setShowTable] = useState(false);
     const navigate = useNavigate();
     const { setLoading } = useLoading();
 
 
-  const handleAddClause = () => {
-    setShowTable(true);
-    console.log('Add Clause clicked');
-  };
 
 
           const handleCreateRequest = useCallback(async (data: ICreateRequestPayload) => {
@@ -615,7 +610,7 @@ export default function ContentCard({ title,   hr }: Iprops) {
                         )}
                       />
                     </div>
-                    <Button onClick={handleAddClause} variant="primary" type="button">
+                    <Button variant="primary" type="button">
     + {t("exporterDashboardAddAciRequestPopup.addClause")}
                     </Button>
                   </div>
