@@ -1,4 +1,6 @@
-import Layout from "@/layout";
+import ErrorPage from "@/components/ErrorPage";
+import PrivateLayout from "@/layout/privateLayout";
+import PublicLayout from "@/layout/publicLayout";
 import { getToken } from "@/lib/getToken";
 import { lazy } from "react";
 const LazyHome = lazy(() => import("@/pages/home"));
@@ -11,7 +13,7 @@ export default function MainRoutes() {
     const mainRoutes: RouteObject[] = [
         {
             path: "/",
-            element: <Layout />,
+            element: <PrivateLayout />,
             children: [
                 {
                     path: "/",
@@ -23,22 +25,38 @@ export default function MainRoutes() {
                 }
             ],
         },
+        {
+            path: "*",
+            element: <ErrorPage />
+        }
     ];
 
     const authRoutes: RouteObject[] = [
+
         {
             path: "/",
-            element: <LazyLogin />,
+            element: <PublicLayout />,
+            children: [
+                {
+                    path: "/",
+                    element: <LazyLogin />,
+                },
+                {
+                    path: "/login",
+                    element: <LazyLogin />,
+                },
+                {
+                    path: "/sign-up",
+                    element: <LazySignUp />,
+                },
+
+            ]
         },
         {
-            path: "/login",
-            element: <LazyLogin />,
-        },
-        {
-            path: "/sign-up",
-            element: <LazySignUp />,
-        },
-    ];
+            path: "*",
+            element: <ErrorPage />
+        }
+    ]
 
     return useRoutes(getToken() ? mainRoutes : authRoutes);
 

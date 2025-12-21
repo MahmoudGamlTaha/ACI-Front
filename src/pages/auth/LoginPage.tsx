@@ -16,13 +16,15 @@ import { useTranslation } from "react-i18next"
 import { useNavigate } from "react-router-dom"
 import toast from "react-hot-toast"
 import { useLoading } from "@/contexts/LoadingContext"
+import { useUserStore } from "@/stores/useUserStores"
 
 export default function LoginPage() {
     const { control, handleSubmit } = useForm<LoginInput>({ defaultValues: { email: "", password: "" } })
     const { t } = useTranslation();
     const navigate = useNavigate();
     const { setLoading } = useLoading();
-    
+    const { setUser } = useUserStore();
+
     const handleLogin = useCallback(async (data: LoginInput) => {
         try {
             setLoading(true);
@@ -31,6 +33,10 @@ export default function LoginPage() {
                 localStorage.setItem("token", result.payload?.token || "");
                 navigate("/");
                 setLoading(false);
+                setUser({
+                    userEmail: result.payload?.email || "",
+                    userType: result.payload?.userType || "",
+                })
             } else {
                 setLoading(false);
                 toast.error(result?.error || '');

@@ -1,19 +1,24 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
-import { Languages, Moon, Sun } from "lucide-react";
-import Logo from '../../public/images/logo.png'
+import { Languages, LogOut, Moon, Sun } from "lucide-react";
+import Logo from '../../../public/images/logo.png'
 import { ThemeContext } from "@/contexts/ThemeContext";
 import { useNavigate } from "react-router-dom";
+import { useUserStore } from "@/stores/useUserStores";
+import NotificationMenu from "./NotificationMenu";
 
 const Header: React.FC = () => {
+    const { user, clearUser } = useUserStore();
     const { t, i18n } = useTranslation();
     const { darkMode, toggleDarkMode } = useContext(ThemeContext);
     const [showLangMenu, setShowLangMenu] = useState(false);
+    const [showNotificationMenu, setShowNotificationMenu] = useState(false);
     const menuRef = useRef<HTMLDivElement>(null);
     const buttonRef = useRef<HTMLButtonElement>(null);
 
     const navigate = useNavigate();
+
     const changeLanguage = (lng: string) => {
         i18n.changeLanguage(lng);
         localStorage.setItem('i18nextLng', lng);
@@ -35,7 +40,7 @@ const Header: React.FC = () => {
         function handleClickOutside(event: MouseEvent) {
             const target = event.target as Node;
 
-            // If click is NOT inside menu AND not on the button → close
+            // Close language menu if clicked outside
             if (
                 menuRef.current &&
                 !menuRef.current.contains(target) &&
@@ -53,7 +58,6 @@ const Header: React.FC = () => {
         };
     }, []);
 
-
     return (
         <header className="dark:bg-card shadow-md sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/60">
             <div className="container mx-auto flex h-22 items-center justify-between px-4">
@@ -62,18 +66,20 @@ const Header: React.FC = () => {
                     <img className="dark:invert" src={Logo} alt="Logo" width={150} />
                 </div>
 
-                {/* Right Section - Language & Sign In */}
+                {/* Right Section - Notifications, User Info, Dark Mode, Language & Logout */}
                 <div className="flex items-center gap-2">
-                    <Button variant="ghost" size="default" onClick={() => navigate('/')}>
-                        {t('header.commercialGate') || 'Commercial Gate'}
-                    </Button>
-                    {/* Sign In Button */}
-                    <Button variant="primary" size="default" onClick={() => navigate('/login')}>
-                        {t('header.signIn') || 'Sign In'}
-                    </Button>
-                    <Button variant="ghost" size="default" onClick={() => navigate('/sign-up')}>
-                        {t('header.signUp') || 'Sign Up'}
-                    </Button>
+                    {/* Notification Menu Component */}
+                    <NotificationMenu
+                        open={showNotificationMenu}
+                        onOpenChange={setShowNotificationMenu}
+                    />
+
+                    {/* User Welcome */}
+                    <p className="grow me-2 font-bold text-foreground">
+                        {t('header.welcome')}
+                        <span className="ms-2 text-foreground text-sm font-normal">{user?.userEmail || "user"}</span>
+                    </p>
+
                     {/* Dark Mode Toggle */}
                     <Button
                         variant="ghost"
@@ -89,7 +95,7 @@ const Header: React.FC = () => {
                     </Button>
 
                     {/* Language Selector */}
-                    <div className="relative">
+                    <div className="relative flex gap-2">
                         <Button
                             ref={buttonRef}
                             variant="ghost"
@@ -129,10 +135,14 @@ const Header: React.FC = () => {
                                 </div>
                             </div>
                         )}
+
+                        {/* Logout Button */}
+                        <Button variant="destructive" size="default"
+                            onClick={clearUser}>
+                            {t('header.logOut')}
+                            <LogOut className="ms-2 size-4" />
+                        </Button>
                     </div>
-
-
-
                 </div>
             </div>
         </header>

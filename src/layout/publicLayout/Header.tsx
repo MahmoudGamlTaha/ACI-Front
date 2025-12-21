@@ -1,0 +1,142 @@
+import React, { useContext, useEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { Button } from "@/components/ui/button";
+import { Languages, Moon, Sun } from "lucide-react";
+import Logo from '../../../public/images/logo.png'
+import { ThemeContext } from "@/contexts/ThemeContext";
+import { useNavigate } from "react-router-dom";
+
+const Header: React.FC = () => {
+    const { t, i18n } = useTranslation();
+    const { darkMode, toggleDarkMode } = useContext(ThemeContext);
+    const [showLangMenu, setShowLangMenu] = useState(false);
+    const menuRef = useRef<HTMLDivElement>(null);
+    const buttonRef = useRef<HTMLButtonElement>(null);
+
+    const navigate = useNavigate();
+    const changeLanguage = (lng: string) => {
+        i18n.changeLanguage(lng);
+        localStorage.setItem('i18nextLng', lng);
+        document.documentElement.lang = lng;
+        document.documentElement.dir = lng === 'ar' ? 'rtl' : 'ltr';
+        setShowLangMenu(false);
+    };
+
+    useEffect(() => {
+        const storedLng = localStorage.getItem('i18nextLng');
+        if (storedLng) {
+            i18n.changeLanguage(storedLng);
+            document.documentElement.lang = storedLng;
+            document.documentElement.dir = storedLng === 'ar' ? 'rtl' : 'ltr';
+        }
+    }, []);
+
+    useEffect(() => {
+        function handleClickOutside(event: MouseEvent) {
+            const target = event.target as Node;
+
+            // If click is NOT inside menu AND not on the button → close
+            if (
+                menuRef.current &&
+                !menuRef.current.contains(target) &&
+                buttonRef.current &&
+                !buttonRef.current.contains(target)
+            ) {
+                setShowLangMenu(false);
+            }
+        }
+
+        document.addEventListener("mousedown", handleClickOutside);
+
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, []);
+
+
+    return (
+        <header className="dark:bg-card shadow-md sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/60">
+            <div className="container mx-auto flex h-22 items-center justify-between px-4">
+                {/* Logo Section */}
+                <div className="flex items-center gap-2">
+                    <img className="dark:invert" src={Logo} alt="Logo" width={150} />
+                </div>
+
+                {/* Right Section - Language & Sign In */}
+                <div className="flex items-center gap-2">
+                    <Button variant="ghost" size="default" onClick={() => navigate('/')}>
+                        {t('header.commercialGate') || 'Commercial Gate'}
+                    </Button>
+                    {/* Sign In Button */}
+                    <Button variant="primary" size="default" onClick={() => navigate('/login')}>
+                        {t('header.signIn') || 'Sign In'}
+                    </Button>
+                    <Button variant="ghost" size="default" onClick={() => navigate('/sign-up')}>
+                        {t('header.signUp') || 'Sign Up'}
+                    </Button>
+                    {/* Dark Mode Toggle */}
+                    <Button
+                        variant="ghost"
+                        size="icon-lg"
+                        onClick={toggleDarkMode}
+                    >
+                        {darkMode ? (
+                            <Moon className="size-6" />
+                        ) : (
+                            <Sun className="size-6" />
+                        )}
+                        <span className="sr-only">Toggle theme</span>
+                    </Button>
+
+                    {/* Language Selector */}
+                    <div className="relative">
+                        <Button
+                            ref={buttonRef}
+                            variant="ghost"
+                            size="icon-lg"
+                            onClick={() => setShowLangMenu(!showLangMenu)}
+                            className="relative"
+                        >
+                            <Languages className="size-6" />
+                            <span className="sr-only">Change language</span>
+                        </Button>
+
+                        {showLangMenu && (
+                            <div
+                                ref={menuRef}
+                                className="absolute right-0 mt-2 w-40 rounded-lg border border-border bg-popover shadow-lg animate-in fade-in-0 zoom-in-95"
+                            >
+                                <div className="p-1">
+                                    <button
+                                        onClick={() => changeLanguage("en")}
+                                        className={`w-full text-left px-3 py-2 rounded-md text-sm transition-colors hover:bg-accent hover:text-accent-foreground ${i18n.language === "en"
+                                            ? "bg-accent text-accent-foreground"
+                                            : ""
+                                            }`}
+                                    >
+                                        🇺🇸 English
+                                    </button>
+
+                                    <button
+                                        onClick={() => changeLanguage("ar")}
+                                        className={`w-full text-left px-3 py-2 rounded-md text-sm transition-colors hover:bg-accent hover:text-accent-foreground ${i18n.language === "ar"
+                                            ? "bg-accent text-accent-foreground"
+                                            : ""
+                                            }`}
+                                    >
+                                        🇸🇦 العربية
+                                    </button>
+                                </div>
+                            </div>
+                        )}
+                    </div>
+
+
+
+                </div>
+            </div>
+        </header>
+    );
+};
+
+export default Header;

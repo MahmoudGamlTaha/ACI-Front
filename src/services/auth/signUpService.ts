@@ -1,23 +1,9 @@
-import { LoginInput } from "@/models/auth";
+import { RegisterResponse, UserRegistration } from "@/models/auth";
 import { apiFetch, IResponse } from "../client";
 
-
-
-
-export interface LoginResponse {
-    token: string;
-}
-loadingMessage: 'Fetching users...'
-
-// export interface IFunProps<T> {
-//     onSuccess?: (res: T) => void;
-//     onError?: (err: Error) => void;
-// }
-
-export async function loginApi(data: LoginInput): Promise<IResponse<LoginResponse>> {
-    return apiFetch("/api/auth/login", {
+export async function RegistrationApi(data: UserRegistration): Promise<IResponse<RegisterResponse>> {
+    return apiFetch("/aci/user/create", {
         method: "POST",
-        loadingMessage: 'Fetching...',
         body: data,
     });
 }

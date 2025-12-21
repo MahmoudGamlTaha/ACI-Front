@@ -1,10 +1,27 @@
 {
     "header": {
+        "logOut": "Log Out",
+        "welcome": "Welcome",
         "signIn": "Sign In",
         "signUp": "Sign Up",
         "language": "Language",
         "darkMode": "Dark Mode",
-        "commercialGate": "Commercial Gate"
+        "commercialGate": "Commercial Gate",
+        "notifications": {
+            "title": "Notifications",
+            "markAllAsRead": "Mark All As Read",
+            "unread": "Unread",
+            "viewAll": "View All",
+            "markAsRead": "Mark As Read",
+            "markAsUnread": "Mark As Unread",
+            "delete": "Delete",
+            "deleteAll": "Delete All",
+            "deleteAllConfirm": "Are you sure you want to delete all notifications?",
+            "deleteConfirm": "Are you sure you want to delete this notification?",
+            "markAllAsReadConfirm": "Are you sure you want to mark all notifications as read?",
+            "markAsReadConfirm": "Are you sure you want to mark this notification as read?",
+            "markAsUnreadConfirm": "Are you sure you want to mark this notification as unread?"
+        }
     },
     "home": {
        "welcome": "Welcome to ACI Libya",
@@ -91,6 +108,8 @@
 
     },
     "auth":{
+        "passwordsNotMatch": "Passwords Not Match",
+        "RegistrationSuccessMsg": "Registration Success",
         "emailPattern": "Email Invalid",
         "signIn":"Sign In",
         "signUp":"Sign Up",
@@ -121,7 +140,8 @@
         "zipCode": "Zip Code",
         "username": "Username",
         "confirmPassword": "Confirm Password",
-        "reviewAfterSubmit": "Please review your information before submitting"
+        "reviewAfterSubmit": "Please review your information before submitting",
+        "acceptTermsError": "You must accept the terms and conditions."
     },
     "welcome": "Welcome to my app!",
     "description": "This is a sample app using i18n.",
