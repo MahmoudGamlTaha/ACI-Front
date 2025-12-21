@@ -1,4 +1,8 @@
 {
+    "common": {
+        "add": "إضافة",
+        "delete": "حذف"
+    },
     "header": {
         "logOut": "تسجيل الخروج",
         "welcome": "مرحبا بك",
@@ -141,7 +145,13 @@
         "confirmPassword": "تأكيد كلمة المرور",
         "acceptTerms": "اوافق على الشروط والأحكام",
         "reviewAfterSubmit": "يرجى مراجعة معلوماتك قبل الإرسال",
-        "acceptTermsError": "يجب الموافقة على الشروط والأحكام"
+        "acceptTermsError": "يجب الموافقة على الشروط والأحكام",
+        "bankName": "اسم البنك",
+        "accountNumber": "رقم حساب البنك",
+        "ibanNumber": "IBAN البنك",
+        "swiftCode": "SWIFT/BIC البنك",
+        "referenceBank": "مرجع البنك",
+        "noFinancialDetails": "لا توجد معلومات مالية"
     },
     "welcome": "مرحبا بك في تطبيقي!",
     "description": "هذا تطبيق تجريبي يستخدم i18n.",

@@ -3,28 +3,6 @@ export interface LoginInput {
     password: string
 }
 
-export interface RegisterInput {
-    companyNameAr: string,
-    companyNameEn: string,
-    idNumber: string,
-    statisticalCode: string,
-    responsibleNameAr: string,
-    fullName: string,
-    phoneNumber: string,
-    gender: string,
-    dateOfBirth: string,
-    address: string,
-    city: string,
-    state: string,
-    country: string,
-    zipCode: string,
-    username: string,
-    email: string,
-    password: string,
-    confirmPassword: string,
-    acceptTerms?: boolean,
-}
-
 export interface UserAuthority {
     authority: string;
 }
@@ -86,6 +64,15 @@ export interface AuthResponse {
 }
 
 
+export interface FinancialDetail {
+    bankName: string;
+    referenceBank: string;
+    swiftCode: string;
+    accountNumber: string;
+    ibanNumber: string;
+}
+
+
 export interface UserRegistration {
     fullName: string;
     email: string;
@@ -97,4 +84,5 @@ export interface UserRegistration {
     taxNumber: string;
     address: string;
     registrationStatus: "PENDING" | "APPROVED" | "REJECTED";
+    financialDetails: FinancialDetail[];
 }

@@ -17,8 +17,9 @@ import { useNavigate } from "react-router-dom"
 import { useLoading } from "@/contexts/LoadingContext"
 import { RegistrationApi } from "@/services/auth/signUpService"
 import toast from "react-hot-toast"
+import FinancialDetailsSection from "./FinancialDetailsSection"
 
-interface UserRegistrationExt extends UserRegistration {
+export interface UserRegistrationExt extends UserRegistration {
     confirmPassword: string;
     acceptTerms: boolean;
 }
@@ -185,6 +186,19 @@ export default function SignUp() {
                                                     )}
                                                 />
                                             </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="relative mb-5">
+                                    {/* Vertical line */}
+                                    <div className="absolute start-8 top-0 bottom-0 w-0.5 bg-border"></div>
+
+                                    {/* Timeline items */}
+                                    <div className="space-y-10">
+                                        <div className="relative ps-18">
+                                            {/* Circle marker */}
+                                            <div className="absolute start-5 top-0 w-4 h-4 bg-background border-2 border-foreground rounded-full transform -translate-x-1.5"></div>
+                                            <FinancialDetailsSection control={control} />
                                         </div>
                                     </div>
                                 </div>

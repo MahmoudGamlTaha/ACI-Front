@@ -22,6 +22,7 @@ export interface TableColumn<T = any> {
 export interface TableAction<T = any> {
     key: string
     label: string
+    type?: "button" | "submit" | "reset" | undefined
     translationKey?: string | ((item: T) => string)
     onClick: (item: T, event: React.MouseEvent) => void
     className?: string | ((item: T) => string)
@@ -289,6 +290,7 @@ export function SharedTable<T extends Record<string, any>>({
 
                                                     return (
                                                         <Button
+                                                            type={action.type}
                                                             key={action.key}
                                                             variant="outline"
                                                             size="xs"
