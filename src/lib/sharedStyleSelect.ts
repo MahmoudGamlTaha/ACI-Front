@@ -2,7 +2,7 @@ export const getCustomSelectStyles = (hasError: boolean = false) => ({
     control: (provided: any, state: any) => ({
         ...provided,
         minHeight: '44px',
-        backgroundColor: 'var(--background)',
+        backgroundColor: 'var(--sidebar)',
         borderColor: hasError ? 'var(--destructive)' : state.isFocused ? 'var(--color-primary-500)' : 'var(--input)',
         boxShadow: state.isFocused ? (hasError ? '0 0 0 1px var(--destructive)' : '0 0 0 1px var(--color-primary-500)') : provided.boxShadow,
         '&:hover': {

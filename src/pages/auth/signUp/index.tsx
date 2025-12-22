@@ -37,7 +37,7 @@ export default function SignUp() {
             const result = await RegistrationApi(data);
             if (result?.success) {
                 setLoading(false);
-                toast.success(t("auth.RegistrationSuccessMsg"))
+                toast.success(t("auth.signUpMsg"))
                 navigate('/login')
             } else {
                 setLoading(false);

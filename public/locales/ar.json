@@ -195,7 +195,8 @@
         "ibanNumber": "IBAN البنك",
         "swiftCode": "SWIFT/BIC البنك",
         "referenceBank": "مرجع البنك",
-        "noFinancialDetails": "لا توجد معلومات مالية"
+        "noFinancialDetails": "لا توجد معلومات مالية",
+        "signUpMsg": "تم انشاء المستخدم بنجاح لكن يرجى الانتظار حتى يتم تفعيل الحساب"
     },
     "welcome": "مرحبا بك في تطبيقي!",
     "description": "هذا تطبيق تجريبي يستخدم i18n.",
