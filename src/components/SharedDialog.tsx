@@ -216,13 +216,10 @@ export function ConfirmDialog({
             open={open}
             onOpenChange={onOpenChange}
             title={title}
-            description={description}
+            // description={description}
             size={size}
             footer={
                 <div className="flex w-full justify-end gap-2">
-                    <Button variant="outline" onClick={() => onOpenChange(false)} disabled={isLoading}>
-                        {cancelLabel}
-                    </Button>
                     <Button
                         variant={variant === "destructive" ? "destructive" : "primary"}
                         onClick={handleConfirm}
@@ -230,10 +227,14 @@ export function ConfirmDialog({
                     >
                         {isLoading ? "Processing..." : confirmLabel}
                     </Button>
+                    <Button variant="outline" onClick={() => onOpenChange(false)} disabled={isLoading}>
+                        {cancelLabel}
+                    </Button>
+
                 </div>
             }
         >
-            <div className="text-sm text-muted-foreground">{description}</div>
+            <div className="text-sm text-muted-foreground my-7">{description}</div>
         </SharedDialog>
     )
 }

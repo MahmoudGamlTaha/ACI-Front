@@ -2,7 +2,15 @@
     "common": {
         "add": "Add",
         "delete": "Delete",
-        "actions": "Actions"
+        "actions": "Actions",
+        "accept": "Accept",
+        "reject": "Reject",
+        "userType": "User Type",
+        "activationStatus": "Activation Status",
+        "warning": "Warning",
+        "confirmAction": "Are you sure you want to perform this action?",
+        "yes": "Yes",
+        "no": "No"
     },
     "header": {
         "logOut": "Log Out",
@@ -62,6 +70,8 @@
         "GOVerfication": "Validate"
     },
     "loggedInHome": {
+        "usersActivation": "Users Activations",
+        "appReport": "Report Requests",
         "exporterDashboard": "Dashbord (Exporter)",
         "totalRequests": "Total Requests",
         "requiredSteps": "Required Steps",
@@ -71,6 +81,10 @@
         "pendingCustomsReview": "Pending Customs Review",
         "rejectedRequests": "Rejected Requests",
         "newRequest": "+ New ACI Request"
+    },
+    "adminDashboard": {
+        "approveUserMsg": "User Approved",
+        "rejectUserMsg": "User Rejected"
     },
     "exporterDashboard": {
         "partners": "Partners",

@@ -281,7 +281,7 @@ export function SharedTable<T extends Record<string, any>>({
                                     {hasVisibleActions && showActionsColumn && (
                                         <TableCell className={actionsColumnClassName}>
                                             <div
-                                                className={cn("flex items-center gap-2", actionsContainerClassName)}
+                                                className={cn("flex items-end justify-end gap-2", actionsContainerClassName)}
                                                 onClick={(e) => e.stopPropagation()}
                                             >
                                                 {actions?.map((action) => {

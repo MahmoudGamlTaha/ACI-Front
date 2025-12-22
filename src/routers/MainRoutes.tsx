@@ -1,64 +1,95 @@
+import { lazy } from "react";
+import { RouteObject, useRoutes } from "react-router-dom";
+
 import ErrorPage from "@/components/ErrorPage";
 import PrivateLayout from "@/layout/privateLayout";
 import PublicLayout from "@/layout/publicLayout";
 import { getToken } from "@/lib/getToken";
-import { lazy } from "react";
+import { useUserStore } from "@/stores/useUserStores";
+import ProtectedRoute from "./ProtectedRoute";
+
+// Lazy pages
 const LazyHome = lazy(() => import("@/pages/home"));
 const LazyLogin = lazy(() => import("@/pages/auth/LoginPage"));
 const LazySignUp = lazy(() => import("@/pages/auth/signUp"));
-const LazySideTabsLayout = lazy(() => import("@/pages/exporter-dashboard"));
-// const LazySideTabsLayout = lazy(() => import("@/pages/exporter-dashboard/SideTabsLayout"));
-import { RouteObject, useRoutes } from "react-router-dom";
+const LazyAdminDashboard = lazy(() => import("@/pages/admin-dashboard"));
+const LazyExporterDashboard = lazy(
+    () => import("@/pages/exporter-dashboard")
+);
 
 export default function MainRoutes() {
+    const userType = useUserStore((s) => s.user.userType);
+
+    // ⛔ IMPORTANT: wait until userType is ready
+    if (getToken() && !userType) {
+        return <div>Loading...</div>;
+    }
+
     const mainRoutes: RouteObject[] = [
         {
             path: "/",
             element: <PrivateLayout />,
+            action: () => {
+                if (getToken() && !userType) {
+                    return <div>Loading...</div>;
+                }
+            },
             children: [
                 {
-                    path: "/",
-                    element: <LazySideTabsLayout />,
+                    index: true,
+                    element:
+                        userType === "admin"
+                            ? <LazyAdminDashboard />
+                            : <LazyExporterDashboard />,
                 },
                 {
-                    path: "/exporter-dashboard",
-                    element: <LazySideTabsLayout />
-                }
+                    path: "admin-dashboard",
+                    element: (
+                        <ProtectedRoute byType={["admin"]}>
+                            <LazyAdminDashboard />
+                        </ProtectedRoute>
+                    ),
+                },
+                {
+                    path: "exporter-dashboard",
+                    element: (
+                        <ProtectedRoute byType={["exporter", "importer"]}>
+                            <LazyExporterDashboard />
+                        </ProtectedRoute>
+                    ),
+                },
             ],
         },
         {
             path: "*",
-            element: <ErrorPage />
-        }
+            element: <ErrorPage />,
+        },
     ];
 
     const authRoutes: RouteObject[] = [
-
         {
             path: "/",
             element: <PublicLayout />,
             children: [
                 {
-                    path: "/",
+                    index: true,
                     element: <LazyHome />,
                 },
                 {
-                    path: "/login",
+                    path: "login",
                     element: <LazyLogin />,
                 },
                 {
-                    path: "/sign-up",
+                    path: "sign-up",
                     element: <LazySignUp />,
                 },
-
-            ]
+            ],
         },
         {
             path: "*",
-            element: <ErrorPage />
-        }
-    ]
+            element: <ErrorPage />,
+        },
+    ];
 
     return useRoutes(getToken() ? mainRoutes : authRoutes);
-
 }
