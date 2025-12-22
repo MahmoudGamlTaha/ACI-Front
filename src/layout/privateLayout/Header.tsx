@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button";
 import { Languages, LogOut, Moon, Sun } from "lucide-react";
 import Logo from '../../../public/images/logo.png'
 import { ThemeContext } from "@/contexts/ThemeContext";
-import { useNavigate } from "react-router-dom";
 import { useUserStore } from "@/stores/useUserStores";
 import NotificationMenu from "./NotificationMenu";
 
@@ -17,7 +16,6 @@ const Header: React.FC = () => {
     const menuRef = useRef<HTMLDivElement>(null);
     const buttonRef = useRef<HTMLButtonElement>(null);
 
-    const navigate = useNavigate();
 
     const changeLanguage = (lng: string) => {
         i18n.changeLanguage(lng);

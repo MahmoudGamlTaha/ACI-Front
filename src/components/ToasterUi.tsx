@@ -1,5 +1,5 @@
 import { CircleCheck, Info, X } from "lucide-react";
-import toast, { LoaderIcon, resolveValue, Toaster } from "react-hot-toast";
+import { LoaderIcon, resolveValue, Toaster } from "react-hot-toast";
 
 export default function ToasterUi() {
     return (

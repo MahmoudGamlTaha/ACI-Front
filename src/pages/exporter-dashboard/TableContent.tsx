@@ -1,5 +1,5 @@
-import { Edit, Eye, PlusIcon, Trash2 } from "lucide-react";
-import { SharedTable, TableAction, TableColumn } from "@/components/SharedTabel";
+import { PlusIcon } from "lucide-react";
+import { SharedTable, TableColumn } from "@/components/SharedTabel";
 import { useEffect, useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { useTranslation } from "react-i18next";
@@ -66,37 +66,37 @@ export default function TableContent({ status }: Iprops) {
         
     ]
 
-    const actions: TableAction<ICreateRequestPayload>[] = [
-        {
-            key: "view",
-            label: "View",
-            icon: <Eye className="h-3 w-3" />,
-            onClick: (row) => {
-                console.log("Viewing request:", row)
-            },
-            className: "hover:bg-primary-50 hover:text-primary-500",
-        },
-        {
-            key: "edit",
-            label: "Edit",
-            icon: <Edit className="h-3 w-3" />,
-            onClick: (row) => {
-                console.log("Editing request:", row)
-            },
-            condition: (row) => row.status === "PENDING",
-        },
-        {
-            key: "delete",
-            label: "Delete",
-            icon: <Trash2 className="h-3 w-3" />,
-            onClick: (row) => {
-                if (confirm(`Are you sure you want to delete request ${row.referenceNumber}?`)) {
-                    console.log("Deleted request:", row)
-                }
-            },
-            className: "hover:bg-red-50 hover:text-red-600",
-        },
-    ]
+    // const actions: TableAction<ICreateRequestPayload>[] = [
+    //     {
+    //         key: "view",
+    //         label: "View",
+    //         icon: <Eye className="h-3 w-3" />,
+    //         onClick: (row) => {
+    //             console.log("Viewing request:", row)
+    //         },
+    //         className: "hover:bg-primary-50 hover:text-primary-500",
+    //     },
+    //     {
+    //         key: "edit",
+    //         label: "Edit",
+    //         icon: <Edit className="h-3 w-3" />,
+    //         onClick: (row) => {
+    //             console.log("Editing request:", row)
+    //         },
+    //         condition: (row) => row.status === "PENDING",
+    //     },
+    //     {
+    //         key: "delete",
+    //         label: "Delete",
+    //         icon: <Trash2 className="h-3 w-3" />,
+    //         onClick: (row) => {
+    //             if (confirm(`Are you sure you want to delete request ${row.referenceNumber}?`)) {
+    //                 console.log("Deleted request:", row)
+    //             }
+    //         },
+    //         className: "hover:bg-red-50 hover:text-red-600",
+    //     },
+    // ]
 
     useEffect(() => {
         const fetchRequests = async () => {

@@ -2,15 +2,28 @@ import { useTranslation } from "react-i18next";
 import MainPoster from "./components/MainPosterCard";
 import { BookDown, CalendarClock, ChartScatter, CircleCheckBig, FilePlus, Folders, ShieldEllipsis } from "lucide-react";
 import TabButton from "./components/TabButtonLayout";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import TableContent from "./TableContent";
 import { useUserStore } from "@/stores/useUserStores";
+import { GetRequestCounts } from "@/services/create-request/counts";
+import { ICountsApi } from "@/models/createRequest";
 
 export default function ExporterDashboard() {
     const { t } = useTranslation();
     const [activeTab, setActiveTab] = useState("draftsRequests");
     const { user: userStore } = useUserStore();
 
+    const [counts, setCounts] = useState<ICountsApi | undefined>(undefined);
+
+    useEffect(() => {
+        const fetchCounts = async () => {
+            const response = await GetRequestCounts();
+            if (response.success) {
+                setCounts(response?.payload);
+            }
+        };
+        fetchCounts();
+    }, []);
     return (
         <div>
             <h3 className="py-2">
@@ -26,21 +39,24 @@ export default function ExporterDashboard() {
                             <Folders className="size-8" />
                         </div>
                     }
-                    title={t('loggedInHome.totalRequests')} num={24} />
+                    title={t('loggedInHome.totalRequests')}
+                    num={counts?.totalRequest || 0} />
                 <MainPoster icon={
                     <div
                         className="p-3 rounded-full  text-secondary-500 bg-secondary-100">
                         <CalendarClock className="size-8" />
                     </div>
                 }
-                    title={t('loggedInHome.requiredSteps')} num={3} />
+                    title={t('loggedInHome.requiredSteps')}
+                    num={counts?.fromRequest || 0} />
                 <MainPoster
                     icon={
                         <div className="p-3 rounded-full text-green-500 bg-green-100">
                             <CircleCheckBig className="size-8" />
                         </div>
                     }
-                    title={t('loggedInHome.compeletedShipments')} num={9}
+                    title={t('loggedInHome.compeletedShipments')}
+                    num={counts?.toRequest || 0}
                 />
             </section>
             <div className="mt-6 grid grid-cols-12 gap-3">

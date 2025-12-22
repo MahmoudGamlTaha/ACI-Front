@@ -11,8 +11,7 @@ import RequestDetails from "./RequestDetails";
 import { useCallback, useEffect, useState } from "react";
 import { IUserRequestPayload } from "@/models/users";
 import { GetUsers } from "@/services/user/userRequest";
-import { CountryResponse, PortResponse, ShipmentTypeResponse } from "@/models/loockup";
-import { GetAllCountries } from "@/services/lockups/countries";
+import { PortResponse, ShipmentTypeResponse } from "@/models/loockup";
 import { GetShipmentTypes } from "@/services/lockups/shipmentTypes";
 import { createRequestApi } from "@/services/create-request/createRequestService";
 import toast from "react-hot-toast";
@@ -75,13 +74,7 @@ export default function AddRequestForm({ formDialog, setFormDialog }: Iprops) {
 
     useEffect(() => {
         const fetchUsers = async () => {
-            const response = await GetUsers({
-                id: 0,
-                limit: 10,
-                page: 1,
-                sortDirection: "DESC",
-                sortBy: "id",
-            });
+            const response = await GetUsers();
             if (response?.success) {
                 console.log(response?.payload?.content, "SSSSS");
                 setUsers(response?.payload?.content as IUserRequestPayload[]);

@@ -25,3 +25,14 @@ export interface ICreateRequestPayload {
   requestDetails: IRequestDetails[];
 }
 
+
+export interface ICountsApi {
+  id: number | null;
+  createdAt: string | null;
+  updatedAt: string | null;
+  createdBy: number | null;
+  updatedBy: number | null;
+  toRequest: number;
+  fromRequest: number;
+  totalRequest: number;
+}
