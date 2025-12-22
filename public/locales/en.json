@@ -1,6 +1,7 @@
 {
     "common": {
         "add": "Add",
+        "view": "View",
         "delete": "Delete",
         "actions": "Actions",
         "accept": "Accept",
@@ -84,7 +85,12 @@
     },
     "adminDashboard": {
         "approveUserMsg": "User Approved",
-        "rejectUserMsg": "User Rejected"
+        "rejectUserMsg": "User Rejected",
+        "personalInfo": "Personal Info",
+        "companyInfo": "Company Info",
+        "financialInfo": "Financial Info",
+        "bankInfo": "Bank Info",
+        "userDetails": "User Details"
     },
     "exporterDashboard": {
         "partners": "Partners",
@@ -138,6 +144,11 @@
         "currency": "Currency"
     },
     "auth": {
+        "attachment": "Attachment",
+        "companyLicense": "Company License",
+        "comRegister": "Commercial Register",
+        "commissionerName": "Commissioner Name",
+        "activityType": "Activity Type",
         "passwordsNotMatch": "Passwords Not Match",
         "RegistrationSuccessMsg": "Registration Success",
         "emailPattern": "Email Invalid",

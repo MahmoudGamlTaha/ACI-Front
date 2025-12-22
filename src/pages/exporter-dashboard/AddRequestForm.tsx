@@ -1,10 +1,10 @@
 import { SharedDialog } from "@/components/SharedDialog";
+import Select from "react-select";
 import { useTranslation } from "react-i18next";
 import { useForm, Controller } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Field, FieldLabel } from "@/components/ui/field";
-import { SearchableSelect } from "@/components/CustomSelect";
 import { useUserStore } from "@/stores/useUserStores";
 import { ICreateRequestPayload } from "@/models/createRequest";
 import RequestDetails from "./RequestDetails";
@@ -16,6 +16,7 @@ import { GetShipmentTypes } from "@/services/lockups/shipmentTypes";
 import { createRequestApi } from "@/services/create-request/createRequestService";
 import toast from "react-hot-toast";
 import { GetAllPorts } from "@/services/lockups/countries copy";
+import { getCustomSelectStyles } from "@/lib/sharedStyleSelect";
 
 interface Iprops {
     formDialog: boolean;
@@ -29,7 +30,9 @@ interface Iprops {
 //     { id: 2, name: "Partner 2", codeChar: "P2" },
 // ];
 
+
 export default function AddRequestForm({ formDialog, setFormDialog }: Iprops) {
+
     const { t } = useTranslation();
     const { user } = useUserStore();
 
@@ -145,17 +148,18 @@ export default function AddRequestForm({ formDialog, setFormDialog }: Iprops) {
                                                         {t("exporterDashboard.importer")} *
                                                     </label>
 
-                                                    <SearchableSelect
-                                                        disabled={user?.userType === "importer"}
-                                                        inputClassName="min-w-sm"
-                                                        displayKey="fullName"
-                                                        valueKey="id"
+                                                    <Select
+                                                        required
+                                                        styles={getCustomSelectStyles(!!fieldState.error)}
+                                                        isDisabled={user?.userType === "importer"}
                                                         options={users}
+                                                        getOptionLabel={(option) => option.fullName}
+                                                        getOptionValue={(option) => option.id.toString()}
                                                         value={users.find(c => c.id === Number(field.value))}
                                                         onChange={(option) => field.onChange(option?.id)}
-                                                        placeholder={user?.userType === "importer" ? (user?.userEmail || "") : ""}
-                                                        searchPlaceholder="Search..."
-                                                        emptyText="No data found"
+                                                        placeholder={user?.userType === "importer" ? (user?.userEmail || "") : t("exporterDashboard.select")}
+                                                        className="min-w-sm"
+                                                        classNamePrefix="select"
                                                     />
 
                                                     {fieldState.error && (
@@ -176,21 +180,23 @@ export default function AddRequestForm({ formDialog, setFormDialog }: Iprops) {
                                                         {t("exporterDashboard.exporter")} *
                                                     </label>
 
-                                                    <SearchableSelect
-                                                        disabled={user?.userType === "exporter"}
-                                                        inputClassName="min-w-sm"
-                                                        displayKey="fullName"
-                                                        valueKey="id"
+                                                    <Select
+                                                        styles={getCustomSelectStyles(!!fieldState.error)}
+                                                        isDisabled={user?.userType === "exporter"}
                                                         options={users}
+                                                        getOptionLabel={(option) => option.fullName}
+                                                        getOptionValue={(option) => option.id.toString()}
                                                         value={users.find(c => c.id === Number(field.value))}
                                                         onChange={(option) => field.onChange(option?.id)}
-                                                        placeholder={user?.userType === "exporter" ? (user?.userEmail || "") : ""}
-                                                        searchPlaceholder="Search..."
-                                                        emptyText="No data found"
+                                                        placeholder={user?.userType === "exporter" ? (user?.userEmail || "") : t("exporterDashboard.select")}
+                                                        className="min-w-sm"
+                                                        classNamePrefix="select"
+                                                        isSearchable
+                                                        required
                                                     />
 
                                                     {fieldState.error && (
-                                                        <p className="text-sm text-red-500">
+                                                        <p className="text-xs text-red-500">
                                                             {fieldState.error.message}
                                                         </p>
                                                     )}
@@ -212,7 +218,7 @@ export default function AddRequestForm({ formDialog, setFormDialog }: Iprops) {
                                         </p>
                                     </div>
 
-                                    <div className="grid grid-cols-1 md:grid-cols-2 items-center justify-center gap-4">
+                                    <div className="grid grid-cols-1 md:grid-cols-2 items-start justify-center gap-4">
                                         <Controller
                                             name="shipTypeId"
                                             control={control}
@@ -228,16 +234,16 @@ export default function AddRequestForm({ formDialog, setFormDialog }: Iprops) {
                                                         {t("exporterDashboard.shipmentType")} *
                                                     </label>
 
-                                                    <SearchableSelect
-                                                        inputClassName="min-w-sm"
-                                                        displayKey="name"
-                                                        valueKey="id"
+                                                    <Select
+                                                        styles={getCustomSelectStyles(!!fieldState.error)}
                                                         options={shipmentTypes}
+                                                        getOptionLabel={(option) => option.name}
+                                                        getOptionValue={(option) => option.id.toString()}
                                                         value={shipmentTypes.find(c => c.id === Number(field.value))}
                                                         onChange={(option) => field.onChange(option?.id)}
                                                         placeholder={t('exporterDashboard.seashipment')}
-                                                        searchPlaceholder="Search countries..."
-                                                        emptyText="No data found"
+                                                        className="min-w-sm"
+                                                        classNamePrefix="select"
                                                     />
 
                                                     {fieldState.error && (
@@ -289,16 +295,16 @@ export default function AddRequestForm({ formDialog, setFormDialog }: Iprops) {
                                                         {t("exporterDashboard.shipmentPort")} *
                                                     </label>
 
-                                                    <SearchableSelect
-                                                        inputClassName="min-w-sm"
-                                                        displayKey="nameEn"
-                                                        valueKey="id"
+                                                    <Select
+                                                        styles={getCustomSelectStyles(!!fieldState.error)}
                                                         options={ports}
+                                                        getOptionLabel={(option) => option.nameEn}
+                                                        getOptionValue={(option) => option.id.toString()}
                                                         value={ports.find(p => p.id === Number(field.value))}
                                                         onChange={(option) => field.onChange(option?.id)}
                                                         placeholder={t("exporterDashboard.select")}
-                                                        searchPlaceholder="Search..."
-                                                        emptyText="No data found"
+                                                        className="min-w-sm"
+                                                        classNamePrefix="select"
                                                     />
 
                                                     {fieldState.error && (
@@ -323,17 +329,16 @@ export default function AddRequestForm({ formDialog, setFormDialog }: Iprops) {
                                                     <label className="text-sm font-medium">
                                                         {t("exporterDashboard.unloadingPort")} *
                                                     </label>
-
-                                                    <SearchableSelect
-                                                        inputClassName="min-w-sm"
-                                                        displayKey="nameEn"
-                                                        valueKey="id"
+                                                    <Select
+                                                        styles={getCustomSelectStyles(!!fieldState.error)}
                                                         options={ports}
+                                                        getOptionLabel={(option) => option.nameEn}
+                                                        getOptionValue={(option) => option.id.toString()}
                                                         value={ports.find(p => p.id === Number(field.value))}
                                                         onChange={(option) => field.onChange(option?.id)}
                                                         placeholder={t("exporterDashboard.select")}
-                                                        searchPlaceholder="Search..."
-                                                        emptyText="No data found"
+                                                        className="min-w-sm"
+                                                        classNamePrefix="select"
                                                     />
 
                                                     {fieldState.error && (

@@ -2,13 +2,13 @@ import { SharedTable, TableColumn, TableAction } from "@/components/SharedTabel"
 import { useEffect, useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { useTranslation } from "react-i18next";
-import { RegisterResponse } from "@/models/auth";
+import { UserRegistration } from "@/models/auth";
 import { GetAllUsers } from "@/services/user/getAllUsers";
-import { UpdateUserStatus } from "@/services/user/updateUserStatus";
-import { CheckCircle, XCircle } from "lucide-react";
-import { ConfirmDialog } from "@/components/SharedDialog";
+import { CheckCircle, XCircle, Eye } from "lucide-react";
+import { ConfirmDialog, SharedDialog } from "@/components/SharedDialog";
 import { ApproveUser } from "@/services/user/userApprovments";
 import toast from "react-hot-toast";
+import UsersDetails from "./UsersDetails";
 
 interface Iprops {
     status: string;
@@ -16,13 +16,17 @@ interface Iprops {
 
 export default function UsersActivations({ status }: Iprops) {
     const { t } = useTranslation()
-    const [users, setUsers] = useState<RegisterResponse[]>([])
+    const [users, setUsers] = useState<UserRegistration[]>([])
     const [loading, setLoading] = useState(false)
 
     // Dialog state
     const [confirmOpen, setConfirmOpen] = useState(false)
-    const [selectedUser, setSelectedUser] = useState<RegisterResponse | null>(null)
+    const [selectedUser, setSelectedUser] = useState<UserRegistration | null>(null)
     const [pendingStatus, setPendingStatus] = useState<string>("")
+
+    // View Dialog state
+    const [viewDialogOpen, setViewDialogOpen] = useState(false)
+    const [userToView, setUserToView] = useState<UserRegistration | null>(null)
 
     const renderStatusBadge = (status: string) => {
         switch (status) {
@@ -37,7 +41,7 @@ export default function UsersActivations({ status }: Iprops) {
         }
     };
 
-    const columns: TableColumn<RegisterResponse>[] = [
+    const columns: TableColumn<UserRegistration>[] = [
         {
             key: "fullName",
             header: t("auth.fullName"),
@@ -76,6 +80,10 @@ export default function UsersActivations({ status }: Iprops) {
                 toast.success(t("adminDashboard.approveUserMsg"))
                 // Refresh users list
                 fetchUsers()
+                // Close view dialog if open and it's the same user
+                if (viewDialogOpen && userToView?.id === selectedUser.id) {
+                    setViewDialogOpen(false)
+                }
             } else {
                 toast.error(t("adminDashboard.rejectUserMsg"))
             }
@@ -84,13 +92,25 @@ export default function UsersActivations({ status }: Iprops) {
         }
     }
 
-    const openConfirmDialog = (user: RegisterResponse, newStatus: string) => {
+    const openConfirmDialog = (user: UserRegistration, newStatus: string) => {
         setSelectedUser(user)
         setPendingStatus(newStatus)
         setConfirmOpen(true)
     }
 
-    const actions: TableAction<RegisterResponse>[] = [
+    const openViewDialog = (user: UserRegistration) => {
+        setUserToView(user)
+        setViewDialogOpen(true)
+    }
+
+    const actions: TableAction<UserRegistration>[] = [
+        {
+            key: "view",
+            label: t("common.view"),
+            icon: <Eye className="h-4 w-4" />,
+            onClick: (row) => openViewDialog(row),
+            className: "text-sm text-blue-600 hover:text-blue-700 hover:bg-blue-50 border-blue-200",
+        },
         {
             key: "approve",
             label: t("common.accept"),
@@ -154,6 +174,17 @@ export default function UsersActivations({ status }: Iprops) {
                 onConfirm={handleUpdateStatus}
                 variant={pendingStatus === "REJECTED" ? "destructive" : "primary"}
             />
+
+            <SharedDialog
+                open={viewDialogOpen}
+                onOpenChange={setViewDialogOpen}
+                title={t("adminDashboard.userDetails") || "User Details"}
+                size="lg"
+            >
+                <div className="space-y-4">
+                    {userToView && <UsersDetails user={userToView as any} />}
+                </div>
+            </SharedDialog>
         </div>
     );
 }

@@ -2,6 +2,7 @@
     "common": {
         "add": "إضافة",
         "delete": "حذف",
+        "view": "عرض",
         "actions": "إجراءات",
         "accept": "قبول",
         "reject": "رفض",
@@ -85,7 +86,12 @@
     },
     "adminDashboard": {
         "approveUserMsg": "تم الموافقة على تفعيل المستخدم",
-        "rejectUserMsg": "تم رفض تفعيل المستخدم"
+        "rejectUserMsg": "تم رفض تفعيل المستخدم",
+        "personalInfo": "معلومات شخصية",
+        "companyInfo": "معلومات الشركة",
+        "financialInfo": "معلومات المالية",
+        "bankInfo": "معلومات البنك",
+        "userDetails": "تفاصيل المستخدم"
     },
     "exporterDashboard": {
         "partners": "الشركاء",
@@ -139,6 +145,11 @@
         "currency": "العملة"
     },
     "auth": {
+        "attachment": "المرفقات",
+        "companyLicense": "ترخيص الشركة",
+        "comRegister": "السجل التجاري",
+        "commissionerName": "اسم المفوض",
+        "activityType": "نوع النشاط",
         "passwordsNotMatch": "كلمه التأكيد غير مطابق",
         "RegistrationSuccessMsg": "تم التسجيل بنجاح",
         "emailPattern": "البريد الالكتروني غير صحيح",

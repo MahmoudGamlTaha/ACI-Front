@@ -7,44 +7,51 @@ export interface UserAuthority {
     authority: string;
 }
 
-export interface RegisterResponse {
+export interface FinancialDetail {
+    bankName: string;
+    referenceBank: string;
+    swiftCode: string;
+    accountNumber: string;
+    ibanNumber: string;
+}
+
+export interface UserRegistration {
     id: number;
     createdAt: string;
-    updatedAt: string | null;
-    createdBy: string | null;
-    updatedBy: string | null;
+    updatedAt?: string;
+    createdBy?: string;
+    updatedBy?: string;
     fullName: string;
     email: string;
     passwordHash: string;
     password: string;
     username: string;
-    userType: "importer" | "exporter" | string;
+    userType: "importer" | "exporter" | "admin";
     phone: string;
     active: boolean;
     enabled: boolean;
     isLoggedOut: boolean;
-    countryName: string | null;
-    companyName: string | null;
-    address: string | null;
-    comRegister: string | null;
-    taxNumber: string | null;
-    accountNumber: string | null;
-    activityType: string | null;
-    commissionerName: string | null;
-    statNumber: string | null;
-    companyLicense: string | null;
-    attachment: string | null;
-    failedLoginCount: number;
-    lastLoginDate: string | null;
-    userPreferredLanguage: string | null;
-    registrationStatus: "PENDING" | "APPROVED" | "REJECTED" | string;
-    credentialsNonExpired: boolean;
-    accountNonExpired: boolean;
-    accountNonLocked: boolean;
-    authorities: UserAuthority[];
-    financialDetails: FinancialDetail[];
+    countryName: string;
+    companyName: string;
+    address: string;
+    comRegister: string;
+    taxNumber: string;
+    accountNumber: string;
+    activityType?: string;
+    commissionerName?: string;
+    statNumber?: string;
+    companyLicense?: string;
+    attachment?: string;
+    failedLoginCount?: number;
+    lastLoginDate?: string;
+    userPreferredLanguage?: string;
+    registrationStatus: "PENDING" | "APPROVED" | "REJECTED";
+    credentialsNonExpired?: boolean;
+    accountNonExpired?: boolean;
+    accountNonLocked?: boolean;
+    authorities?: UserAuthority[];
+    financialDetails?: FinancialDetail[];
 }
-
 
 
 
@@ -57,25 +64,6 @@ export interface AuthResponse {
 }
 
 
-export interface FinancialDetail {
-    bankName: string;
-    referenceBank: string;
-    swiftCode: string;
-    accountNumber: string;
-    ibanNumber: string;
-}
 
 
-export interface UserRegistration {
-    fullName: string;
-    email: string;
-    passwordHash: string;
-    userType: "importer" | "exporter" | string;
-    phone: string;
-    countryName: string;
-    companyName: string;
-    taxNumber: string;
-    address: string;
-    registrationStatus: "PENDING" | "APPROVED" | "REJECTED";
-    financialDetails: FinancialDetail[];
-}
+
