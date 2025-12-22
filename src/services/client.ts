@@ -8,6 +8,7 @@ interface FetchOptions extends RequestInit {
   showLoading?: boolean;
   loadingMessage?: string;
   showError?: boolean;
+  requiredToken?: boolean;
 }
 export interface IResponse<T = any> {
   success: boolean;
@@ -29,6 +30,7 @@ export async function apiFetch<T>(
   const {
     body,
     headers,
+    requiredToken,
     showLoading = true,
     loadingMessage = 'جاري التحميل...',
     showError = true,
@@ -42,14 +44,26 @@ export async function apiFetch<T>(
   }
 
   try {
+    const headerWithAuth = {
+      "Content-Type": "application/json",
+      "Accept": "application/json",
+      "Authorization": `Bearer ${localStorage.getItem("token")}`
+    }
+    const headerWithoutAuth = {
+      "Content-Type": "application/json",
+      "Accept": "application/json",
+    }
     const isFormData = body instanceof FormData;
     const res = await fetch(`${API_BASE_URL}${url}`, {
       ...rest,
-      headers: {
+      headers: requiredToken ? {
         ...(!isFormData && {
-          "Content-Type": "application/json",
-          "Accept": "application/json",
-          "Authorization": `Bearer ${localStorage.getItem("token")}`
+          ...headerWithAuth,
+        }),
+        ...headers,
+      } : {
+        ...(!isFormData && {
+          ...headerWithoutAuth,
         }),
         ...headers,
       },

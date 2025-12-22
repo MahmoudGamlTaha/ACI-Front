@@ -115,7 +115,13 @@
         "aciNumber": "ACI Number",
         "tableSearch": "Search For App Number, Importer, Aci Number, ...",
         "emptyText": "No requests found",
-        "sendForApproval": "Sending For Approval"
+        "sendForApproval": "Sending For Approval",
+        "productName": "Product Name",
+        "unitOfWeight": "Unit of Weight",
+        "quantity": "Quantity",
+        "unitOfQuantity": "Unit of Quantity",
+        "unitValue": "Unit Value",
+        "currency": "Currency"
     },
     "auth": {
         "passwordsNotMatch": "Passwords Not Match",

@@ -57,6 +57,7 @@ export interface RegisterResponse {
 
 
 export interface AuthResponse {
+    id?: number;
     email: string;
     token: string;
     expireIn: string; // ISO date string

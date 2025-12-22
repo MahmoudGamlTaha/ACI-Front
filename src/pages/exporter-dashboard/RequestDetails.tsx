@@ -22,12 +22,17 @@ const RequestDetails: React.FC<IRequestDetailsProps> = ({ control }) => {
     const { control: localControl, handleSubmit: handleLocalSubmit, reset: resetLocal } = useForm<IRequestDetails>({
         defaultValues: {
             hsCode: "",
+            productName: "",
             productDescription: "",
             numberOfParcels: 0,
             parcelType: "",
             netWeight: 0,
             grossWeight: 0,
             unitOfWeight: "",
+            quantity: 0,
+            unitOfQuantity: "",
+            unitValue: 0,
+            currency: "",
         }
     });
 
@@ -78,7 +83,6 @@ const RequestDetails: React.FC<IRequestDetailsProps> = ({ control }) => {
         }
     ];
 
-    console.log(fields, "ff")
     return (
         <div className="space-y-6">
             <div className="mb-3">
@@ -109,7 +113,21 @@ const RequestDetails: React.FC<IRequestDetailsProps> = ({ control }) => {
                             render={({ field, fieldState }) => (
                                 <Field>
                                     <FieldLabel htmlFor="hsCode">{t("exporterDashboard.hsCode")} *</FieldLabel>
-                                    <Input {...field} error={fieldState.error?.message} id="hsCode" className="bg-white" />
+                                    <Input
+                                        {...field}
+                                        error={fieldState.error?.message}
+                                        id="hsCode" className="bg-white" />
+                                </Field>
+                            )}
+                        />
+                        <Controller
+                            rules={{ required: { message: t("auth.fieldRequired"), value: true } }}
+                            name="productName"
+                            control={localControl}
+                            render={({ field, fieldState }) => (
+                                <Field>
+                                    <FieldLabel htmlFor="productName">{t("exporterDashboard.productName") || "Product Name"} *</FieldLabel>
+                                    <Input {...field} error={fieldState.error?.message} id="productName" className="bg-white" />
                                 </Field>
                             )}
                         />
@@ -131,7 +149,14 @@ const RequestDetails: React.FC<IRequestDetailsProps> = ({ control }) => {
                             render={({ field, fieldState }) => (
                                 <Field>
                                     <FieldLabel htmlFor="numberOfParcels">{t("exporterDashboard.parcels")} *</FieldLabel>
-                                    <Input {...field} type="number" error={fieldState.error?.message} id="numberOfParcels" className="bg-white" />
+                                    <Input
+                                        {...field}
+                                        type="number"
+                                        onChange={(e) => field.onChange(e.target.value === "" ? "" : Number(e.target.value))}
+                                        error={fieldState.error?.message}
+                                        id="numberOfParcels"
+                                        className="bg-white"
+                                    />
                                 </Field>
                             )}
                         />
@@ -153,7 +178,14 @@ const RequestDetails: React.FC<IRequestDetailsProps> = ({ control }) => {
                             render={({ field, fieldState }) => (
                                 <Field>
                                     <FieldLabel htmlFor="netWeight">{t("exporterDashboard.netWeight")} *</FieldLabel>
-                                    <Input {...field} type="number" error={fieldState.error?.message} id="netWeight" className="bg-white" />
+                                    <Input
+                                        {...field}
+                                        type="number"
+                                        onChange={(e) => field.onChange(e.target.value === "" ? "" : Number(e.target.value))}
+                                        error={fieldState.error?.message}
+                                        id="netWeight"
+                                        className="bg-white"
+                                    />
                                 </Field>
                             )}
                         />
@@ -164,7 +196,83 @@ const RequestDetails: React.FC<IRequestDetailsProps> = ({ control }) => {
                             render={({ field, fieldState }) => (
                                 <Field>
                                     <FieldLabel htmlFor="grossWeight">{t("exporterDashboard.grossWeight")} *</FieldLabel>
-                                    <Input {...field} type="number" error={fieldState.error?.message} id="grossWeight" className="bg-white" />
+                                    <Input
+                                        {...field}
+                                        type="number"
+                                        onChange={(e) => field.onChange(e.target.value === "" ? "" : Number(e.target.value))}
+                                        error={fieldState.error?.message}
+                                        id="grossWeight"
+                                        className="bg-white"
+                                    />
+                                </Field>
+                            )}
+                        />
+                        <Controller
+                            rules={{ required: { message: t("auth.fieldRequired"), value: true } }}
+                            name="unitOfWeight"
+                            control={localControl}
+                            render={({ field, fieldState }) => (
+                                <Field>
+                                    <FieldLabel htmlFor="unitOfWeight">{t("exporterDashboard.unitOfWeight") || "Unit of Weight"} *</FieldLabel>
+                                    <Input {...field} error={fieldState.error?.message} id="unitOfWeight" className="bg-white" />
+                                </Field>
+                            )}
+                        />
+                        <Controller
+                            rules={{ required: { message: t("auth.fieldRequired"), value: true } }}
+                            name="quantity"
+                            control={localControl}
+                            render={({ field, fieldState }) => (
+                                <Field>
+                                    <FieldLabel htmlFor="quantity">{t("exporterDashboard.quantity") || "Quantity"} *</FieldLabel>
+                                    <Input
+                                        {...field}
+                                        type="number"
+                                        onChange={(e) => field.onChange(e.target.value === "" ? "" : Number(e.target.value))}
+                                        error={fieldState.error?.message}
+                                        id="quantity"
+                                        className="bg-white"
+                                    />
+                                </Field>
+                            )}
+                        />
+                        <Controller
+                            rules={{ required: { message: t("auth.fieldRequired"), value: true } }}
+                            name="unitOfQuantity"
+                            control={localControl}
+                            render={({ field, fieldState }) => (
+                                <Field>
+                                    <FieldLabel htmlFor="unitOfQuantity">{t("exporterDashboard.unitOfQuantity") || "Unit of Quantity"} *</FieldLabel>
+                                    <Input {...field} error={fieldState.error?.message} id="unitOfQuantity" className="bg-white" />
+                                </Field>
+                            )}
+                        />
+                        <Controller
+                            rules={{ required: { message: t("auth.fieldRequired"), value: true } }}
+                            name="unitValue"
+                            control={localControl}
+                            render={({ field, fieldState }) => (
+                                <Field>
+                                    <FieldLabel htmlFor="unitValue">{t("exporterDashboard.unitValue") || "Unit Value"} *</FieldLabel>
+                                    <Input
+                                        {...field}
+                                        type="number"
+                                        onChange={(e) => field.onChange(e.target.value === "" ? "" : Number(e.target.value))}
+                                        error={fieldState.error?.message}
+                                        id="unitValue"
+                                        className="bg-white"
+                                    />
+                                </Field>
+                            )}
+                        />
+                        <Controller
+                            rules={{ required: { message: t("auth.fieldRequired"), value: true } }}
+                            name="currency"
+                            control={localControl}
+                            render={({ field, fieldState }) => (
+                                <Field>
+                                    <FieldLabel htmlFor="currency">{t("exporterDashboard.currency") || "Currency"} *</FieldLabel>
+                                    <Input {...field} error={fieldState.error?.message} id="currency" className="bg-white" />
                                 </Field>
                             )}
                         />

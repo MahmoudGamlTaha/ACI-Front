@@ -5,5 +5,6 @@ export async function createRequestApi(data: ICreateRequestPayload): Promise<IRe
     return apiFetch("/aci/request/create", {
         method: "POST",
         body: data,
+        requiredToken: true,
     });
 }

@@ -8,9 +8,15 @@ import { SearchableSelect } from "@/components/CustomSelect";
 import { useUserStore } from "@/stores/useUserStores";
 import { ICreateRequestPayload } from "@/models/createRequest";
 import RequestDetails from "./RequestDetails";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { IUserRequestPayload } from "@/models/users";
 import { GetUsers } from "@/services/user/userRequest";
+import { CountryResponse, PortResponse, ShipmentTypeResponse } from "@/models/loockup";
+import { GetAllCountries } from "@/services/lockups/countries";
+import { GetShipmentTypes } from "@/services/lockups/shipmentTypes";
+import { createRequestApi } from "@/services/create-request/createRequestService";
+import toast from "react-hot-toast";
+import { GetAllPorts } from "@/services/lockups/countries copy";
 
 interface Iprops {
     formDialog: boolean;
@@ -19,15 +25,20 @@ interface Iprops {
 
 // Dummy data for countries/partners
 
-const countries = [
-    { id: 1, name: "Partner 1", codeChar: "P1" },
-    { id: 2, name: "Partner 2", codeChar: "P2" },
-];
+// const countries = [
+//     { id: 1, name: "Partner 1", codeChar: "P1" },
+//     { id: 2, name: "Partner 2", codeChar: "P2" },
+// ];
 
 export default function AddRequestForm({ formDialog, setFormDialog }: Iprops) {
     const { t } = useTranslation();
     const { user } = useUserStore();
+
     const [users, setUsers] = useState<IUserRequestPayload[]>([]);
+    // const [countries, setCountries] = useState<CountryResponse[]>([]);
+    const [shipmentTypes, setShipmentTypes] = useState<ShipmentTypeResponse[]>([]);
+    const [ports, setPorts] = useState<PortResponse[]>([]);
+
     const { control, handleSubmit, reset } = useForm<ICreateRequestPayload>(
         {
             defaultValues: {
@@ -36,10 +47,30 @@ export default function AddRequestForm({ formDialog, setFormDialog }: Iprops) {
         }
     );
 
+    const handleCreateRequest = useCallback(async (data: ICreateRequestPayload) => {
+        try {
+            const result = await createRequestApi(data)
+            if (result?.success) {
+                toast.success("تم اضافة الطلب بنجاح")
+                setFormDialog(false);
+                reset();
+            } else {
+                toast.error(result?.error as string)
+            }
+        } catch (errorMsg: any) {
+            toast.error(errorMsg.error as string)
+        }
+    }, [])
+
     const onSubmit = (data: ICreateRequestPayload) => {
-        console.log(data);
-        setFormDialog(false);
-        reset();
+        let tempData: ICreateRequestPayload = data;
+        if (user?.userType === 'importer') {
+            tempData.toUserId = Number(user.id);
+        } else if (user?.userType === 'exporter') {
+            tempData.fromUserId = Number(user.id);
+        }
+        console.log(tempData);
+        handleCreateRequest(tempData);
     };
 
     useEffect(() => {
@@ -53,10 +84,28 @@ export default function AddRequestForm({ formDialog, setFormDialog }: Iprops) {
             });
             if (response?.success) {
                 console.log(response?.payload?.content, "SSSSS");
-                // setUsers(response?.payload?.content);
+                setUsers(response?.payload?.content as IUserRequestPayload[]);
+            }
+        };
+
+        const fetchShipmentTypes = async () => {
+            const response = await GetShipmentTypes();
+            if (response?.success) {
+                console.log(response?.payload?.content, "SSSSS");
+                setShipmentTypes(response?.payload?.content as ShipmentTypeResponse[]);
+            }
+        };
+
+        const fetchPorts = async () => {
+            const response = await GetAllPorts();
+            if (response?.success) {
+                console.log(response?.payload?.content, "SSSSS");
+                setPorts(response?.payload?.content as PortResponse[]);
             }
         };
         fetchUsers();
+        fetchShipmentTypes();
+        fetchPorts();
     }, []);
 
     return (
@@ -86,7 +135,8 @@ export default function AddRequestForm({ formDialog, setFormDialog }: Iprops) {
                                         </p>
                                     </div>
 
-                                    <div className="grid grid-cols-1 md:grid-cols-2 items-center justify-center gap-4">
+                                    <div className="grid grid-cols-1 md:grid-cols-2 items-start justify-center gap-4">
+                                        {/* Importer */}
                                         <Controller
                                             name="toUserId"
                                             control={control}
@@ -103,13 +153,14 @@ export default function AddRequestForm({ formDialog, setFormDialog }: Iprops) {
                                                     </label>
 
                                                     <SearchableSelect
+                                                        disabled={user?.userType === "importer"}
                                                         inputClassName="min-w-sm"
-                                                        displayKey="name"
+                                                        displayKey="fullName"
                                                         valueKey="id"
-                                                        options={countries}
-                                                        value={countries.find(c => c.id === Number(field.value))}
+                                                        options={users}
+                                                        value={users.find(c => c.id === Number(field.value))}
                                                         onChange={(option) => field.onChange(option?.id)}
-                                                        placeholder={t("exporterDashboard.select")}
+                                                        placeholder={user?.userType === "importer" ? (user?.userEmail || "") : ""}
                                                         searchPlaceholder="Search..."
                                                         emptyText="No data found"
                                                     />
@@ -122,7 +173,7 @@ export default function AddRequestForm({ formDialog, setFormDialog }: Iprops) {
                                                 </div>
                                             )}
                                         />
-
+                                        {/* Exporter */}
                                         <Controller
                                             name="fromUserId"
                                             control={control}
@@ -133,14 +184,14 @@ export default function AddRequestForm({ formDialog, setFormDialog }: Iprops) {
                                                     </label>
 
                                                     <SearchableSelect
-                                                        disabled
+                                                        disabled={user?.userType === "exporter"}
                                                         inputClassName="min-w-sm"
-                                                        displayKey="name"
+                                                        displayKey="fullName"
                                                         valueKey="id"
-                                                        options={countries}
-                                                        value={countries.find(c => c.id === Number(field.value))}
+                                                        options={users}
+                                                        value={users.find(c => c.id === Number(field.value))}
                                                         onChange={(option) => field.onChange(option?.id)}
-                                                        placeholder={user?.userEmail || "manba alkaher (alqhadiahmed@gmail.com)"}
+                                                        placeholder={user?.userType === "exporter" ? (user?.userEmail || "") : ""}
                                                         searchPlaceholder="Search..."
                                                         emptyText="No data found"
                                                     />
@@ -188,8 +239,8 @@ export default function AddRequestForm({ formDialog, setFormDialog }: Iprops) {
                                                         inputClassName="min-w-sm"
                                                         displayKey="name"
                                                         valueKey="id"
-                                                        options={countries}
-                                                        value={countries.find(c => c.id === Number(field.value))}
+                                                        options={shipmentTypes}
+                                                        value={shipmentTypes.find(c => c.id === Number(field.value))}
                                                         onChange={(option) => field.onChange(option?.id)}
                                                         placeholder={t('exporterDashboard.seashipment')}
                                                         searchPlaceholder="Search countries..."
@@ -221,6 +272,8 @@ export default function AddRequestForm({ formDialog, setFormDialog }: Iprops) {
                                                     <Input
                                                         className="bg-white"
                                                         {...field}
+                                                        type="number"
+                                                        value={field.value}
                                                         error={fieldState.error?.message}
                                                         id="referenceNumber"
                                                         required
@@ -238,18 +291,29 @@ export default function AddRequestForm({ formDialog, setFormDialog }: Iprops) {
                                             }}
                                             control={control}
                                             render={({ field, fieldState }) => (
-                                                <Field>
-                                                    <FieldLabel htmlFor="fromPortId">
+                                                <div className="flex flex-col gap-2">
+                                                    <label className="text-sm font-medium">
                                                         {t("exporterDashboard.shipmentPort")} *
-                                                    </FieldLabel>
-                                                    <Input
-                                                        className="bg-white"
-                                                        {...field}
-                                                        error={fieldState.error?.message}
-                                                        id="fromPortId"
-                                                        required
+                                                    </label>
+
+                                                    <SearchableSelect
+                                                        inputClassName="min-w-sm"
+                                                        displayKey="nameEn"
+                                                        valueKey="id"
+                                                        options={ports}
+                                                        value={ports.find(p => p.id === Number(field.value))}
+                                                        onChange={(option) => field.onChange(option?.id)}
+                                                        placeholder={t("exporterDashboard.select")}
+                                                        searchPlaceholder="Search..."
+                                                        emptyText="No data found"
                                                     />
-                                                </Field>
+
+                                                    {fieldState.error && (
+                                                        <p className="text-sm text-red-500">
+                                                            {fieldState.error.message}
+                                                        </p>
+                                                    )}
+                                                </div>
                                             )}
                                         />
                                         <Controller
@@ -262,18 +326,29 @@ export default function AddRequestForm({ formDialog, setFormDialog }: Iprops) {
                                                 },
                                             }}
                                             render={({ field, fieldState }) => (
-                                                <Field>
-                                                    <FieldLabel htmlFor="toPortId">
+                                                <div className="flex flex-col gap-2">
+                                                    <label className="text-sm font-medium">
                                                         {t("exporterDashboard.unloadingPort")} *
-                                                    </FieldLabel>
-                                                    <Input
-                                                        className="bg-white"
-                                                        {...field}
-                                                        error={fieldState.error?.message}
-                                                        id="toPortId"
-                                                        required
+                                                    </label>
+
+                                                    <SearchableSelect
+                                                        inputClassName="min-w-sm"
+                                                        displayKey="nameEn"
+                                                        valueKey="id"
+                                                        options={ports}
+                                                        value={ports.find(p => p.id === Number(field.value))}
+                                                        onChange={(option) => field.onChange(option?.id)}
+                                                        placeholder={t("exporterDashboard.select")}
+                                                        searchPlaceholder="Search..."
+                                                        emptyText="No data found"
                                                     />
-                                                </Field>
+
+                                                    {fieldState.error && (
+                                                        <p className="text-sm text-red-500">
+                                                            {fieldState.error.message}
+                                                        </p>
+                                                    )}
+                                                </div>
                                             )}
                                         />
                                     </div>

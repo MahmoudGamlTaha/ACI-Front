@@ -17,6 +17,7 @@ export const buildQueryParams = (data: UserRequest) => {
 export async function GetUsers(data: UserRequest): Promise<IResponse<PaginatedResponse<IUserRequestPayload>>> {
     return apiFetch(`/aci/user/clients`, {
         method: "GET",
-        body: data,
+        // body: data,
+        requiredToken: true,
     });
 }

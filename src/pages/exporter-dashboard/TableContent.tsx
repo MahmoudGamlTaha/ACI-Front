@@ -1,64 +1,78 @@
 import { Edit, Eye, PlusIcon, Trash2 } from "lucide-react";
 import { SharedTable, TableAction, TableColumn } from "@/components/SharedTabel";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import AddRequestForm from "./AddRequestForm";
-
-interface User {
-    id: number
-    name: string
-    email: string
-    role: string
-    status: "active" | "inactive"
-    joinedDate: string
-}
-
-
+import { ICreateRequestPayload } from "@/models/createRequest";
+import { getAllRequests } from "@/services/create-request/getAllRequests";
+import { useUserStore } from "@/stores/useUserStores";
 
 interface Iprops {
     status: string;
 }
+
 export default function TableContent({ status }: Iprops) {
+    const { user: userStore } = useUserStore()
     const { t } = useTranslation()
-    const [selectedUser, setSelectedUser] = useState<User | null>(null)
+    const [request, setRequests] = useState<ICreateRequestPayload[]>([])
     const [formDialog, setFormDialog] = useState(false)
 
-    const columns: TableColumn<User>[] = [
+    const renderStatusBadge = (status: string) => {
+        switch (status) {
+            case "ISSUED":
+                return <Badge variant="default" className="bg-chart-2/10 text-chart-2 hover:chart-2/80">{status}</Badge>;
+            case "PENDING":
+                return <Badge variant="secondary" className="bg-chart-4/10 text-chart-4 hover:bg-chart-4/80">{status}</Badge>;
+            case "APPROVED":
+                return <Badge variant="default" className="bg-chart-6/10 hover:bg-chart-6/80">{status}</Badge>;
+            case "REJECTED":
+                return <Badge variant="destructive" className="bg-chart-7/10 hover:bg-chart-7/80">{status}</Badge>;
+            default:
+                return <Badge variant="outline" className="bg-chart-8 hover:bg-chart-8/80">{status}</Badge>;
+        }
+    };
+
+    const columns: TableColumn<ICreateRequestPayload>[] = [
         {
-            key: "appNumber",
+            key: "id",
             header: t("exporterDashboard.appNumber"),
             sortable: true,
             className: "font-medium",
         },
         {
-            key: "importer",
-            header: t("exporterDashboard.importer"),
+            key: userStore?.userType === 'exporter' ? "toUserId" : "fromUserId",
+            header: userStore?.userType === 'exporter' ? t("exporterDashboard.importer") : t("exporterDashboard.exporter"),
             sortable: true,
+        },
+         {
+            key: "productName",
+            header: t("exporterDashboard.productName"),
+            sortable: true,
+            render: (row) => row?.requestDetails[0]?.productName,
         },
         {
             key: "status",
             header: t("exporterDashboard.status"),
             sortable: true,
-            render: (user) => <Badge variant={user.role === "Admin" ? "default" : "secondary"}>{user.role}</Badge>,
+            render: (row) => renderStatusBadge(row.status || ""),
         },
         {
-            key: "aciNumber",
+            key: "referenceNumber",
             header: t("exporterDashboard.aciNumber"),
             sortable: true,
-            render: (user) => <Badge variant={user.status === "active" ? "default" : "outline"}>{user.status}</Badge>,
         },
+        
     ]
 
-    const actions: TableAction<User>[] = [
+    const actions: TableAction<ICreateRequestPayload>[] = [
         {
             key: "view",
             label: "View",
             icon: <Eye className="h-3 w-3" />,
-            onClick: (user) => {
-                setSelectedUser(user)
-                alert(`Viewing user: ${user.name}`)
+            onClick: (row) => {
+                console.log("Viewing request:", row)
             },
             className: "hover:bg-primary-50 hover:text-primary-500",
         },
@@ -66,24 +80,37 @@ export default function TableContent({ status }: Iprops) {
             key: "edit",
             label: "Edit",
             icon: <Edit className="h-3 w-3" />,
-            onClick: (user) => {
-                alert(`Editing user: ${user.name}`)
+            onClick: (row) => {
+                console.log("Editing request:", row)
             },
-            condition: (user) => user.status === "active",
+            condition: (row) => row.status === "PENDING",
         },
         {
             key: "delete",
             label: "Delete",
             icon: <Trash2 className="h-3 w-3" />,
-            onClick: (user) => {
-                if (confirm(`Are you sure you want to delete ${user.name}?`)) {
-                    alert(`Deleted user: ${user.name}`)
+            onClick: (row) => {
+                if (confirm(`Are you sure you want to delete request ${row.referenceNumber}?`)) {
+                    console.log("Deleted request:", row)
                 }
             },
             className: "hover:bg-red-50 hover:text-red-600",
-            disabled: (user) => user.role === "Admin",
         },
     ]
+
+    useEffect(() => {
+        const fetchRequests = async () => {
+            try {
+                const response = await getAllRequests()
+                if (response?.success) {
+                    setRequests(response?.payload?.content || [])
+                }
+            } catch (error) {
+                console.log(error)
+            }
+        }
+        fetchRequests()
+    }, [])
 
     return (
         <div className="bg-background p-6 rounded-xl shadow-lg  ">
@@ -95,19 +122,17 @@ export default function TableContent({ status }: Iprops) {
                 </Button>
             </div>
             <SharedTable
-                data={[]}
+                data={request}
                 columns={columns}
-                actions={actions}
+                // actions={actions}
                 searchable={true}
                 searchPlaceholder={t("exporterDashboard.tableSearch")}
                 showRowNumbers={true}
-                onRowClick={(user) => console.log("Row clicked:", user)}
+                onRowClick={(row) => console.log("Row clicked:", row)}
                 emptyText={t("exporterDashboard.emptyText")}
             />
 
             <AddRequestForm formDialog={formDialog} setFormDialog={setFormDialog} />
         </div>
-
-
     );
 }

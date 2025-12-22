@@ -35,7 +35,8 @@ export default function LoginPage() {
                 setLoading(false);
                 setUser({
                     userEmail: result.payload?.email || "",
-                    userType: result.payload?.userType || "",
+                    userType: result.payload?.userType || "",   
+                    id: result.payload?.id || 0                 
                 })
             } else {
                 setLoading(false);

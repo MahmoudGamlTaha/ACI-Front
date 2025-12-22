@@ -4,14 +4,20 @@ import { BookDown, CalendarClock, ChartScatter, CircleCheckBig, FilePlus, Folder
 import TabButton from "./components/TabButtonLayout";
 import { useState } from "react";
 import TableContent from "./TableContent";
+import { useUserStore } from "@/stores/useUserStores";
 
 export default function ExporterDashboard() {
     const { t } = useTranslation();
     const [activeTab, setActiveTab] = useState("draftsRequests");
+    const { user: userStore } = useUserStore();
 
     return (
         <div>
-            <h3 className="py-2">{t('loggedInHome.exporterDashboard')}</h3>
+            <h3 className="py-2">
+                {
+                    userStore?.userType === "exporter" ? t('loggedInHome.exporterDashboard') : t('loggedInHome.importerDashboard')
+                }
+            </h3>
             <section className="top-sectopn grid grid-cols-1 md:grid-cols-3 gap-6 ">
                 <MainPoster
                     icon={
