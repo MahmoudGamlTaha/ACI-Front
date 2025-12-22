@@ -10,7 +10,7 @@ import { ICountsApi } from "@/models/createRequest";
 
 export default function ExporterDashboard() {
     const { t } = useTranslation();
-    const [activeTab, setActiveTab] = useState("draftsRequests");
+    const [activeTab, setActiveTab] = useState<"ISSUED" | "PENDING" | "APPROVED" | "REJECTED" | "DRAFT">("DRAFT");
     const { user: userStore } = useUserStore();
 
     const [counts, setCounts] = useState<ICountsApi | undefined>(undefined);
@@ -79,36 +79,36 @@ export default function ExporterDashboard() {
                 >
                     <TabButton
                         label={t("loggedInHome.draftsRequests")}
-                        isActive={activeTab === "draftsRequests"}
-                        onClick={() => setActiveTab("draftsRequests")}
+                        isActive={activeTab === "DRAFT"}
+                        onClick={() => setActiveTab("DRAFT")}
                         icon={<FilePlus />}
                     />
 
                     <TabButton
                         label={t("loggedInHome.waitingForImporterAgree")}
-                        isActive={activeTab === "waitingForImporterAgree"}
-                        onClick={() => setActiveTab("waitingForImporterAgree")}
+                        isActive={activeTab === "ISSUED"}
+                        onClick={() => setActiveTab("ISSUED")}
                         icon={<CalendarClock />}
                     />
 
                     <TabButton
                         label={t("loggedInHome.pendingCustomsReview")}
-                        isActive={activeTab === "pendingCustomsReview"}
-                        onClick={() => setActiveTab("pendingCustomsReview")}
+                        isActive={activeTab === "PENDING"}
+                        onClick={() => setActiveTab("PENDING")}
                         icon={<ShieldEllipsis />}
                     />
 
                     <TabButton
                         label={t("loggedInHome.compeletedShipments")}
-                        isActive={activeTab === "compeletedShipments"}
-                        onClick={() => setActiveTab("compeletedShipments")}
+                        isActive={activeTab === "APPROVED"}
+                        onClick={() => setActiveTab("APPROVED")}
                         icon={<BookDown />}
                     />
 
                     <TabButton
                         label={t("loggedInHome.rejectedRequests")}
-                        isActive={activeTab === "rejectedRequests"}
-                        onClick={() => setActiveTab("rejectedRequests")}
+                        isActive={activeTab === "REJECTED"}
+                        onClick={() => setActiveTab("REJECTED")}
                         icon={<ChartScatter />}
                     />
                 </section>

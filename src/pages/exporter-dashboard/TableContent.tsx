@@ -1,6 +1,6 @@
 import { PlusIcon } from "lucide-react";
 import { SharedTable, TableColumn } from "@/components/SharedTabel";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
@@ -10,7 +10,7 @@ import { getAllRequests } from "@/services/create-request/getAllRequests";
 import { useUserStore } from "@/stores/useUserStores";
 
 interface Iprops {
-    status: string;
+    status: "ISSUED" | "PENDING" | "APPROVED" | "REJECTED" | "DRAFT";
 }
 
 export default function TableContent({ status }: Iprops) {
@@ -19,18 +19,18 @@ export default function TableContent({ status }: Iprops) {
     const [request, setRequests] = useState<ICreateRequestPayload[]>([])
     const [formDialog, setFormDialog] = useState(false)
 
-    const renderStatusBadge = (status: string) => {
+    const renderStatusBadge = (status: "ISSUED" | "PENDING" | "APPROVED" | "REJECTED" | "DRAFT") => {
         switch (status) {
             case "ISSUED":
-                return <Badge variant="default" className="bg-chart-2/10 text-chart-2 hover:chart-2/80">{status}</Badge>;
+                return <Badge variant="default" className="bg-chart-2/10 text-chart-2 hover:chart-2/80">{t(`common.${status}`)}</Badge>;
             case "PENDING":
-                return <Badge variant="secondary" className="bg-chart-4/10 text-chart-4 hover:bg-chart-4/80">{status}</Badge>;
+                return <Badge variant="secondary" className="bg-chart-4/10 text-chart-4 hover:bg-chart-4/80">{t(`common.${status}`)}</Badge>;
             case "APPROVED":
-                return <Badge variant="default" className="bg-chart-6/10 hover:bg-chart-6/80">{status}</Badge>;
+                return <Badge variant="default" className="bg-chart-6/10 hover:bg-chart-6/80">{t(`common.${status}`)}</Badge>;
             case "REJECTED":
-                return <Badge variant="destructive" className="bg-chart-7/10 hover:bg-chart-7/80">{status}</Badge>;
+                return <Badge variant="destructive" className="bg-chart-7/10 hover:bg-chart-7/80">{t(`common.${status}`)}</Badge>;
             default:
-                return <Badge variant="outline" className="bg-chart-8 hover:bg-chart-8/80">{status}</Badge>;
+                return <Badge variant="outline" className="bg-chart-8 hover:bg-chart-8/80">{t(`common.${status}`)}</Badge>;
         }
     };
 
@@ -46,20 +46,20 @@ export default function TableContent({ status }: Iprops) {
             header: userStore?.userType === 'exporter' ? t("exporterDashboard.importer") : t("exporterDashboard.exporter"),
             sortable: true,
         },
-         {
-            key: "productName",
-            header: t("exporterDashboard.productName"),
-            sortable: true,
-            render: (row) => row?.requestDetails[0]?.productName,
-        },
+        //  {
+        //     key: "productName",
+        //     header: t("exporterDashboard.productName"),
+        //     sortable: true,
+        //     render: (row) => row?.requestDetails[0]?.productName,
+        // },
         {
             key: "status",
             header: t("exporterDashboard.status"),
             sortable: true,
-            render: (row) => renderStatusBadge(row.status || ""),
+            render: (row) => renderStatusBadge(row?.status),
         },
         {
-            key: "referenceNumber",
+            key: "aciNumber",
             header: t("exporterDashboard.aciNumber"),
             sortable: true,
         },
@@ -98,6 +98,10 @@ export default function TableContent({ status }: Iprops) {
     //     },
     // ]
 
+    const filteredRequests = useMemo(() => {
+        return request.filter((req) => req.status === status)
+    }, [request, status])
+
     useEffect(() => {
         const fetchRequests = async () => {
             try {
@@ -115,14 +119,14 @@ export default function TableContent({ status }: Iprops) {
     return (
         <div className="bg-background p-6 rounded-xl shadow-lg  ">
             <div className="flex items-center justify-between">
-                <h3 className="py-2">{t(`loggedInHome.${status}`)}</h3>
+                <h3 className="py-2">{t(`common.${status}`)}</h3>
                 <Button variant="primary" onClick={() => setFormDialog(true)}>
                     {t("loggedInHome.newRequest")}
                     <PlusIcon className="size-5 ml-3" />
                 </Button>
             </div>
             <SharedTable
-                data={request}
+                data={filteredRequests}
                 columns={columns}
                 // actions={actions}
                 searchable={true}

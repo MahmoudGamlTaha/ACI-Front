@@ -21,7 +21,7 @@ export interface ICreateRequestPayload {
   toUserId: number;
   shipTypeId: number;
   description: string;
-  status?: "ISSUED" | "PENDING" | "APPROVED" | "REJECTED" | string;
+  status: "ISSUED" | "PENDING" | "APPROVED" | "REJECTED" | "DRAFT";
   requestDetails: IRequestDetails[];
 }
 

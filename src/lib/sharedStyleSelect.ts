@@ -2,15 +2,38 @@ export const getCustomSelectStyles = (hasError: boolean = false) => ({
     control: (provided: any, state: any) => ({
         ...provided,
         minHeight: '44px',
-        borderColor: hasError ? '#ef4444' : state.isFocused ? '#0e7490' : provided.borderColor,
-        boxShadow: state.isFocused ? (hasError ? '0 0 0 1px #ef4444' : '0 0 0 1px #0e7490') : provided.boxShadow,
+        backgroundColor: 'var(--background)',
+        borderColor: hasError ? 'var(--destructive)' : state.isFocused ? 'var(--color-primary-500)' : 'var(--input)',
+        boxShadow: state.isFocused ? (hasError ? '0 0 0 1px var(--destructive)' : '0 0 0 1px var(--color-primary-500)') : provided.boxShadow,
         '&:hover': {
-            borderColor: hasError ? '#ef4444' : state.isFocused ? '#0e7490' : provided.borderColor
+            borderColor: hasError ? 'var(--destructive)' : state.isFocused ? 'var(--color-primary-500)' : 'var(--ring)'
         }
+    }),
+    menu: (provided: any) => ({
+        ...provided,
+        backgroundColor: 'var(--popover)',
+        border: '1px solid var(--border)',
+        zIndex: 9999
     }),
     option: (provided: any, state: any) => ({
         ...provided,
-        backgroundColor: state.isSelected ? '#0e7490' : state.isFocused ? '#cffafe' : provided.backgroundColor,
-        color: state.isSelected ? 'white' : provided.color,
-    })
+        backgroundColor: state.isSelected ? 'var(--color-primary-500)' : state.isFocused ? 'var(--accent)' : 'transparent',
+        color: state.isSelected ? 'white' : 'var(--foreground)',
+        cursor: 'pointer',
+        ':active': {
+            backgroundColor: 'var(--color-primary-500)',
+        }
+    }),
+    singleValue: (provided: any) => ({
+        ...provided,
+        color: 'var(--foreground)',
+    }),
+    placeholder: (provided: any) => ({
+        ...provided,
+        color: 'var(--muted-foreground)',
+    }),
+    input: (provided: any) => ({
+        ...provided,
+        color: 'var(--foreground)',
+    }),
 });

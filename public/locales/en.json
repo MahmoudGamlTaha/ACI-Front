@@ -11,7 +11,12 @@
         "warning": "Warning",
         "confirmAction": "Are you sure you want to perform this action?",
         "yes": "Yes",
-        "no": "No"
+        "no": "No",
+        "ISSUED": "Waiting For Importer Agree",
+        "PENDING": "Pending Customs Review",
+        "REJECTED": "Rejected",
+        "APPROVED": "Approved",
+        "DRAFT": "Draft"
     },
     "header": {
         "logOut": "Log Out",

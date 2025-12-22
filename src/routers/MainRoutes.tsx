@@ -1,47 +1,48 @@
 import { lazy } from "react";
 import { RouteObject, useRoutes } from "react-router-dom";
 
-import ErrorPage from "@/components/ErrorPage";
-import PrivateLayout from "@/layout/privateLayout";
-import PublicLayout from "@/layout/publicLayout";
 import { getToken } from "@/lib/getToken";
 import { useUserStore } from "@/stores/useUserStores";
 import ProtectedRoute from "./ProtectedRoute";
+import LoadingSpinner from "@/components/LoadingSpinner";
 
 // Lazy pages
 const LazyHome = lazy(() => import("@/pages/home"));
 const LazyLogin = lazy(() => import("@/pages/auth/LoginPage"));
 const LazySignUp = lazy(() => import("@/pages/auth/signUp"));
+const LazyPrivateLayout = lazy(() => import("@/layout/privateLayout"));
+const LazyPublicLayout = lazy(() => import("@/layout/publicLayout"));
 const LazyAdminDashboard = lazy(() => import("@/pages/admin-dashboard"));
 const LazyExporterDashboard = lazy(
     () => import("@/pages/exporter-dashboard")
 );
 
 export default function MainRoutes() {
-    const userType = useUserStore((s) => s.user.userType);
+    const { user: userStore } = useUserStore();
 
-    // ⛔ IMPORTANT: wait until userType is ready
-    if (getToken() && !userType) {
-        return <div>Loading...</div>;
+    if (getToken() && !userStore?.userType) {
+        return <LoadingSpinner />;
     }
 
     const mainRoutes: RouteObject[] = [
         {
             path: "/",
-            element: <PrivateLayout />,
-            action: () => {
-                if (getToken() && !userType) {
-                    return <div>Loading...</div>;
-                }
-            },
+            element: <LazyPrivateLayout />,            
             children: [
                 {
                     index: true,
                     element:
-                        userType === "admin"
-                            ? <LazyAdminDashboard />
-                            : <LazyExporterDashboard />,
+                        userStore?.userType === "admin" ? (
+                            <ProtectedRoute byType={["admin"]}>
+                                <LazyAdminDashboard />
+                            </ProtectedRoute>
+                        ) : (
+                            <ProtectedRoute byType={["exporter", "importer"]}>
+                                <LazyExporterDashboard />
+                            </ProtectedRoute>
+                        ),
                 },
+
                 {
                     path: "admin-dashboard",
                     element: (
@@ -60,16 +61,17 @@ export default function MainRoutes() {
                 },
             ],
         },
-        {
-            path: "*",
-            element: <ErrorPage />,
-        },
+        // {
+        //     path: "*",
+        //     element: <ErrorPage />,
+        // }
+
     ];
 
     const authRoutes: RouteObject[] = [
         {
             path: "/",
-            element: <PublicLayout />,
+            element: <LazyPublicLayout />,
             children: [
                 {
                     index: true,
@@ -85,10 +87,10 @@ export default function MainRoutes() {
                 },
             ],
         },
-        {
-            path: "*",
-            element: <ErrorPage />,
-        },
+        // {
+        //     path: "*",
+        //     element: <ErrorPage />,
+        // },
     ];
 
     return useRoutes(getToken() ? mainRoutes : authRoutes);
