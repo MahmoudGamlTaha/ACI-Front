@@ -41,7 +41,7 @@ export interface UserRegistration {
     commissionerName?: string;
     statNumber?: string;
     companyLicense?: string;
-    attachment?: string;
+    attachment?: File;
     failedLoginCount?: number;
     lastLoginDate?: string;
     userPreferredLanguage?: string;

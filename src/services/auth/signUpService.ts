@@ -1,9 +1,18 @@
-import { RegisterResponse, UserRegistration } from "@/models/auth";
+import { UserRegistration } from "@/models/auth";
 import { apiFetch, IResponse } from "../client";
 
-export async function RegistrationApi(data: UserRegistration): Promise<IResponse<RegisterResponse>> {
-    return apiFetch("/aci/user/create", {
+export async function RegistrationApi(data: UserRegistration): Promise<IResponse<UserRegistration>> {
+    const formData = new FormData();
+    const { attachment, ...jsonData } = data;
+
+    formData.append("user", JSON.stringify(jsonData));
+
+    if (attachment) {
+        formData.append("file", attachment);
+    }
+
+    return apiFetch("/aci/user/create-with-file", {
         method: "POST",
-        body: data,
+        body: formData,
     });
 }

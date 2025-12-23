@@ -194,7 +194,8 @@
         "swiftCode": "SWIFT/BIC Number",
         "referenceBank": "Reference Bank",
         "noFinancialDetails": "No Financial Details",
-        "signUpMsg": "The user has been created successfully, but please wait until the account is activated."
+        "signUpMsg": "The user has been created successfully, but please wait until the account is activated.",
+        "fileSizeError": "File size must be less than 1MB"
     },
     "welcome": "Welcome to my app!",
     "description": "This is a sample app using i18n.",

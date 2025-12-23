@@ -573,6 +573,15 @@ export default function SignUp() {
                                                 <Controller
                                                     name="attachment"
                                                     control={control}
+                                                    rules={{
+                                                        required: { message: t("auth.fieldRequired"), value: true },
+                                                        validate: (value) => {
+                                                            if (value && value instanceof File && value.size > 1024 * 1024) {
+                                                                return t("auth.fileSizeError");
+                                                            }
+                                                            return true;
+                                                        }
+                                                    }}
                                                     render={({ field, fieldState }) => (
                                                         <Field>
                                                             <FieldLabel htmlFor="attachment">
@@ -586,11 +595,7 @@ export default function SignUp() {
                                                                 onChange={(e) => {
                                                                     const file = e.target.files?.[0];
                                                                     if (file) {
-                                                                        const reader = new FileReader();
-                                                                        reader.onloadend = () => {
-                                                                            field.onChange(reader.result as string);
-                                                                        };
-                                                                        reader.readAsDataURL(file);
+                                                                        field.onChange(file);
                                                                     }
                                                                 }}
                                                             />
