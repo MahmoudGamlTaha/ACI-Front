@@ -68,7 +68,6 @@ const sampleData: User[] = [
 
 export default function Table({ searchable = true }: TableWrapperProps) {
   const { t } = useTranslation();
-  const [selectedUser, setSelectedUser] = useState<User | null>(null);
   const [formDialog, setFormDialog] = useState(false);
 
   const columns: TableColumn<User>[] = [
@@ -391,7 +390,7 @@ export default function Table({ searchable = true }: TableWrapperProps) {
                               بواسطة: manba alkaher
                             </p>
                           </div>
-                          <div style={{color:'var(--text-gray-500)'}} className="text-sm flex-shrink-0">
+                          <div style={{ color: 'var(--text-gray-500)' }} className="text-sm shrink-0">
                             <time dateTime="2025-10-29T11:48:47.654793+00:00">
                               Oct 29, 2025, 2:48 PM
                             </time>

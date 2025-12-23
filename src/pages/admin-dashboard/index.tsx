@@ -4,7 +4,7 @@ import { CalendarClock, CircleCheckBig, FilePlus, Folders } from "lucide-react";
 import TabButton from "./components/TabButtonLayout";
 import { useEffect, useState } from "react";
 import TableContent from "./TableContent";
-import { useUserStore } from "@/stores/useUserStores";
+// import { useUserStore } from "@/stores/useUserStores";
 import { GetRequestCounts } from "@/services/create-request/counts";
 import { ICountsApi } from "@/models/createRequest";
 import UsersActivations from "./UsersActivations";
@@ -12,7 +12,7 @@ import UsersActivations from "./UsersActivations";
 export default function AdminDashboard() {
     const { t } = useTranslation();
     const [activeTab, setActiveTab] = useState("usersActivation");
-    const { user: userStore } = useUserStore();
+    // const { user: userStore } = useUserStore();
 
     const [counts, setCounts] = useState<ICountsApi | undefined>(undefined);
 
