@@ -44,32 +44,24 @@ export async function apiFetch<T>(
   }
 
   try {
-    const headerWithAuth = {
-      "Content-Type": "application/json",
-      "Accept": "application/json",
-      "Authorization": `Bearer ${localStorage.getItem("token")}`
-    }
-    const headerWithoutAuth = {
-      "Content-Type": "application/json",
-      "Accept": "application/json",
-    }
     const isFormData = body instanceof FormData;
+
     const res = await fetch(`${API_BASE_URL}${url}`, {
       ...rest,
-      headers: requiredToken ? {
-        ...(!isFormData && {
-          ...headerWithAuth,
+      headers: {
+        ...(requiredToken && {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         }),
-        ...headers,
-      } : {
-        ...(!isFormData && {
-          ...headerWithoutAuth,
-        }),
-        ...headers,
+    ...(!isFormData && {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    }),
+        ...headers, // allow custom headers if needed
       },
-      body: isFormData ? body : (body ? JSON.stringify(body) : undefined),
+      body: isFormData ? body : body ? JSON.stringify(body) : undefined,
       cache: "no-store",
     });
+
 
     if (!res.ok) {
       const errorData = await res.json().catch(() => ({ message: "Unknown error" }));

@@ -16,7 +16,8 @@
         "PENDING": "بانتظار مراجعة الجمارك",
         "REJECTED": "مرفوض",
         "APPROVED": "مكتمل",
-        "DRAFT": "مسودة"
+        "DRAFT": "مسودة",
+        "close": "إغلاق"
     },
     "header": {
         "logOut": "تسجيل الخروج",
@@ -96,7 +97,8 @@
         "companyInfo": "معلومات الشركة",
         "financialInfo": "معلومات المالية",
         "bankInfo": "معلومات البنك",
-        "userDetails": "تفاصيل المستخدم"
+        "userDetails": "تفاصيل المستخدم",
+        "adminHeader": "مدير النظام"
     },
     "exporterDashboard": {
         "partners": "الشركاء",

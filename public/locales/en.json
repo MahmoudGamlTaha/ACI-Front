@@ -16,7 +16,8 @@
         "PENDING": "Pending Customs Review",
         "REJECTED": "Rejected",
         "APPROVED": "Approved",
-        "DRAFT": "Draft"
+        "DRAFT": "Draft",
+        "close": "Close"
     },
     "header": {
         "logOut": "Log Out",
@@ -95,7 +96,8 @@
         "companyInfo": "Company Info",
         "financialInfo": "Financial Info",
         "bankInfo": "Bank Info",
-        "userDetails": "User Details"
+        "userDetails": "User Details",
+        "adminHeader": "System Admin"
     },
     "exporterDashboard": {
         "partners": "Partners",

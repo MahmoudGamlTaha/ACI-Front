@@ -29,7 +29,7 @@ export default function AdminDashboard() {
         <div>
             <h3 className="py-2">
                 {
-                    userStore?.userType === "exporter" ? t('loggedInHome.exporterDashboard') : t('loggedInHome.importerDashboard')
+                    t('adminDashboard.adminHeader')
                 }
             </h3>
             <section className="top-sectopn grid grid-cols-1 md:grid-cols-3 gap-6 ">

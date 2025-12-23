@@ -13,6 +13,7 @@ export async function RegistrationApi(data: UserRegistration): Promise<IResponse
 
     return apiFetch("/aci/user/create-with-file", {
         method: "POST",
-        body: formData,
+        // requiredToken: true,
+        body: formData,      
     });
 }
