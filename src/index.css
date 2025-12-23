@@ -68,6 +68,8 @@
   --color-neutral-700: #404040;
   --color-neutral-800: #262626;
   --color-neutral-900: #171717;
+  --text-gray-500:#6B7280;
+  --bg-gray-50:oklch(98.5% 0.002 247.839);
 
   /* Semantic Colors */
   --color-success: #10b981;
@@ -446,6 +448,7 @@ a:hover {
   --sidebar-ring: oklch(0.556 0 0);
   --color-neutral-800:oklch(0.556 0 0);
   --color-neutral-50:#171717;
+  --bg-gray-50:oklch(16.5% 0.002 247.839);
 }
 
 @layer base {
