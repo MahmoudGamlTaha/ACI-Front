@@ -1,35 +1,51 @@
 import { useTranslation } from "react-i18next";
-import { CalendarClock, CircleCheckBig, DatabaseIcon, FilePlus, Folders } from "lucide-react";
-import { useEffect, useMemo, useState } from "react";
+import { BookDown, CalendarClock, ChartScatter, CircleCheckBig, FilePlus, Folders, ShieldEllipsis } from "lucide-react";
+import { useEffect, useState } from "react";
 import TableContent from "./TableContent";
-// import { useUserStore } from "@/stores/useUserStores";
+import { useUserStore } from "@/stores/useUserStores";
 import { GetRequestCounts } from "@/services/create-request/counts";
 import { ICountsApi } from "@/models/createRequest";
-import UsersActivations from "./UsersActivations";
 import MainPoster, { MainPosterItem } from "@/components/MainPosterCard";
 import TabButton, { DrawerMenuItem, TabStatus } from "@/components/TabButtonLayout";
 
-export default function AdminDashboard() {
-    const { t } = useTranslation();
-    const [activeTab, setActiveTab] = useState<TabStatus>("USERS");
-    const [counts, setCounts] = useState<ICountsApi | undefined>(undefined);
-    // const { user: userStore } = useUserStore();
 
-    const drawerMenuItems = useMemo((): DrawerMenuItem[] => [
+
+export default function ExporterDashboard() {
+    const { t } = useTranslation();
+    const [activeTab, setActiveTab] = useState<TabStatus>("DRAFT");
+    const { user: userStore } = useUserStore();
+
+    const [counts, setCounts] = useState<ICountsApi | undefined>(undefined);
+
+    const drawerMenuItems: DrawerMenuItem[] = [
         {
-            key: "USERS",
+            key: "DRAFT",
             label: t("loggedInHome.draftsRequests"),
             icon: <FilePlus />,
         },
         {
-            key: "ACI_TABLE",
+            key: "ISSUED",
             label: t("loggedInHome.waitingForImporterAgree"),
-            icon: <DatabaseIcon />,
+            icon: <CalendarClock />,
         },
-    ], []);
+        {
+            key: "PENDING",
+            label: t("loggedInHome.pendingCustomsReview"),
+            icon: <ShieldEllipsis />,
+        },
+        {
+            key: "APPROVED",
+            label: t("loggedInHome.compeletedShipments"),
+            icon: <BookDown />,
+        },
+        {
+            key: "REJECTED",
+            label: t("loggedInHome.rejectedRequests"),
+            icon: <ChartScatter />,
+        },
+    ];
 
-
-    const posterItems = useMemo((): MainPosterItem[] => [
+    const posterItems: MainPosterItem[] = [
         {
             icon: (
                 <div className="p-3 rounded-full text-primary-500 bg-primary-50">
@@ -57,10 +73,7 @@ export default function AdminDashboard() {
             title: t('loggedInHome.compeletedShipments'),
             num: counts?.toRequest || 0,
         },
-
-    ], [counts])
-
-
+    ];
 
     useEffect(() => {
         const fetchCounts = async () => {
@@ -76,7 +89,7 @@ export default function AdminDashboard() {
         <div>
             <h3 className="py-2">
                 {
-                    t('adminDashboard.adminHeader')
+                    userStore?.userType === "exporter" ? t('loggedInHome.exporterDashboard') : t('loggedInHome.importerDashboard')
                 }
             </h3>
             <section className="top-sectopn grid grid-cols-1 md:grid-cols-3 gap-6 ">
@@ -89,7 +102,7 @@ export default function AdminDashboard() {
                     />
                 ))}
             </section>
-            <div className="mt-6 grid grid-cols-12 gap-3">
+            <main className="mt-6 grid grid-cols-12 gap-3">
                 {/* Sidebar */}
                 <section
                     className="
@@ -100,24 +113,24 @@ export default function AdminDashboard() {
                                 bg-background
                                 flex flex-col
                                 border-r
-                                space-y-2
                                 p-3
                                 rounded-xl
                                 shadow-lg
                                 items-start
                                 "
                 >
-                    {drawerMenuItems.map((item, index) => (
-                        <TabButton
-                            key={index}
-                            label={item.label}
-                            isActive={activeTab === item.key}
-                            onClick={() => setActiveTab(item.key)}
-                            icon={item.icon}
-                        />
-                    ))}
-
-
+                    <ul className="w-full space-y-2">
+                        {drawerMenuItems.map((item) => (
+                            <TabButton
+                                key={item.key}
+                                label={item.label}
+                                isActive={activeTab === item.key}
+                                onClick={() => setActiveTab(item.key)}
+                                icon={item.icon}
+                                hidden={item.hidden}
+                            />
+                        ))}
+                    </ul>
                 </section>
 
                 {/* Content */}
@@ -132,19 +145,10 @@ export default function AdminDashboard() {
                                 shadow-lg
                                 "
                 >
-                    {(() => {
-                        switch (activeTab) {
-                            case "USERS":
-                                return <UsersActivations status="USERS" />;
-                            case "ACI_TABLE":
-                                return <TableContent status="ACI_TABLE" />;
-                            default:
-                                return <UsersActivations status="USERS" />;
-                        }
-                    })()}
+                    <TableContent status={activeTab} />
                 </section>
-            </div>
+            </main>
+        </div>
 
-        </div >
     );
 }

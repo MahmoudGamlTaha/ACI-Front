@@ -77,8 +77,8 @@
         "GOVerfication": "تحقق"
     },
     "loggedInHome": {
-        "usersActivation": "تفعيلات المستخدمين",
-        "appReport": "مراقبة الشحنات",
+        "USERS": "تفعيلات المستخدمين",
+        "ACI_TABLE": "مراقبة الشحنات",
         "importerDashboard": "لوحة تحكم (مستورد)",
         "exporterDashboard": "لوحة تحكم (مصدر)",
         "totalRequests": "اجمالي الطلبات",

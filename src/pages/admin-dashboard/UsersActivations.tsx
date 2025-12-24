@@ -9,9 +9,10 @@ import { ConfirmDialog, SharedDialog } from "@/components/SharedDialog";
 import { ApproveUser } from "@/services/user/userApprovments";
 import toast from "react-hot-toast";
 import UsersDetails from "./UsersDetails";
+import { TabStatus } from "@/components/TabButtonLayout";
 
 interface Iprops {
-    status: string;
+    status: TabStatus;
 }
 
 export default function UsersActivations({ status }: Iprops) {
@@ -71,6 +72,32 @@ export default function UsersActivations({ status }: Iprops) {
         },
     ]
 
+    const actions: TableAction<UserRegistration>[] = [
+        {
+            key: "view",
+            label: t("common.view"),
+            icon: <Eye className="size-4" />,
+            onClick: (row) => openViewDialog(row),
+            className: "text-xs hover:bg-primary-50 hover:text-primary-500",
+        },
+        {
+            key: "approve",
+            label: t("common.accept"),
+            icon: <CheckCircle className="size-4" />,
+            onClick: (row) => openConfirmDialog(row, "APPROVED"),
+            condition: (row) => row.registrationStatus === "PENDING",
+            className: "text-xs hover:bg-green-50 hover:text-green-600",
+        },
+        {
+            key: "reject",
+            label: t("common.reject"),
+            icon: <XCircle className="size-4" />,
+            onClick: (row) => openConfirmDialog(row, "REJECTED"),
+            condition: (row) => row.registrationStatus === "PENDING",
+            className: "text-xs hover:bg-red-50 hover:text-red-600",
+        },
+    ]
+
     const handleUpdateStatus = async () => {
         if (!selectedUser || !pendingStatus) return
 
@@ -103,31 +130,6 @@ export default function UsersActivations({ status }: Iprops) {
         setViewDialogOpen(true)
     }
 
-    const actions: TableAction<UserRegistration>[] = [
-        {
-            key: "view",
-            label: t("common.view"),
-            icon: <Eye className="h-4 w-4" />,
-            onClick: (row) => openViewDialog(row),
-            className: "text-sm text-blue-600 hover:text-blue-700 hover:bg-blue-50 border-blue-200",
-        },
-        {
-            key: "approve",
-            label: t("common.accept"),
-            icon: <CheckCircle className="h-4 w-4" />,
-            onClick: (row) => openConfirmDialog(row, "APPROVED"),
-            condition: (row) => row.registrationStatus === "PENDING",
-            className: "text-sm text-green-600 hover:text-green-700 hover:bg-green-50 border-green-200",
-        },
-        {
-            key: "reject",
-            label: t("common.reject"),
-            icon: <XCircle className="h-4 w-4" />,
-            onClick: (row) => openConfirmDialog(row, "REJECTED"),
-            condition: (row) => row.registrationStatus === "PENDING",
-            className: "text-sm text-red-600 hover:text-red-700 hover:bg-red-50 border-red-200",
-        },
-    ]
 
     const fetchUsers = async () => {
         setLoading(true)

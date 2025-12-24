@@ -14,7 +14,7 @@ const LazyPrivateLayout = lazy(() => import("@/layout/privateLayout"));
 const LazyPublicLayout = lazy(() => import("@/layout/publicLayout"));
 const LazyAdminDashboard = lazy(() => import("@/pages/admin-dashboard"));
 const LazyExporterDashboard = lazy(
-    () => import("@/pages/exporter-dashboard")
+    () => import("@/pages/exporter-importer-dashboard")
 );
 
 export default function MainRoutes() {
@@ -27,7 +27,7 @@ export default function MainRoutes() {
     const mainRoutes: RouteObject[] = [
         {
             path: "/",
-            element: <LazyPrivateLayout />,            
+            element: <LazyPrivateLayout />,
             children: [
                 {
                     index: true,

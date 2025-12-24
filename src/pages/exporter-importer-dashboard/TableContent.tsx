@@ -11,9 +11,10 @@ import { useUserStore } from "@/stores/useUserStores";
 import RequestDetailspopUp from "./RequestDetailspopUp";
 import { ConfirmDialog } from "@/components/SharedDialog";
 import { ApproveRequest, RejectRequest } from "@/services/create-request/requestApprovments";
+import { TabStatus } from "@/components/TabButtonLayout";
 
 interface Iprops {
-    status: "ISSUED" | "PENDING" | "APPROVED" | "REJECTED" | "DRAFT";
+    status: TabStatus;
 }
 
 export default function TableContent({ status }: Iprops) {
@@ -29,8 +30,8 @@ export default function TableContent({ status }: Iprops) {
     const [confirmTitle, setConfirmTitle] = useState("");
     const [confirmDescription, setConfirmDescription] = useState("");
 
-    const renderStatusBadge = (status: "ISSUED" | "PENDING" | "APPROVED" | "REJECTED" | "DRAFT") => {
-        switch (status) {   
+    const renderStatusBadge = (status: TabStatus) => {
+        switch (status) {
             case "ISSUED":
                 return <Badge variant="default" className="bg-chart-3/10 text-chart-3 hover:chart-3/80">{t(`common.${status}`)}</Badge>;
             case "PENDING":
@@ -125,25 +126,25 @@ export default function TableContent({ status }: Iprops) {
         {
             key: "view",
             label: t("common.view"),
-            icon: <Eye className="h-3 w-3" />,
+            icon: <Eye className="size-4" />,
             onClick: (row) => handleView(row),
-            className: "hover:bg-primary-50 hover:text-primary-500",
+            className: "text-xs hover:bg-primary-50 hover:text-primary-500",
         },
         {
             key: "accept",
             label: t("common.accept"),
-            icon: <CheckLineIcon className="h-3 w-3" />,
+            icon: <CheckLineIcon className="size-4" />,
             onClick: (row) => handleAccept(row),
             condition: (row) => row.status === "ISSUED" && userStore?.userType === 'importer',
-            className: "hover:bg-green-50 hover:text-green-600",
+            className: "text-xs hover:bg-green-50 hover:text-green-600",
         },
         {
             key: "reject",
             label: t("common.reject"),
-            icon: <X className="h-3 w-3" />,
+            icon: <X className="size-4" />,
             onClick: (row) => handleReject(row),
             condition: (row) => row.status === "ISSUED" && userStore?.userType === 'importer',
-            className: "hover:bg-red-50 hover:text-red-600",
+            className: "text-xs hover:bg-red-50 hover:text-red-600",
         },
     ]
 
