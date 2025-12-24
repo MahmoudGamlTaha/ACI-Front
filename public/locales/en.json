@@ -77,8 +77,8 @@
         "GOVerfication": "Validate"
     },
     "loggedInHome": {
-        "usersActivation": "Users Activations",
-        "appReport": "Report Requests",
+        "USERS": "Users Activations",
+        "ACI_TABLE": "Report Requests",
         "exporterDashboard": "Dashbord (Exporter)",
         "totalRequests": "Total Requests",
         "requiredSteps": "Required Steps",
