@@ -127,7 +127,7 @@ export default function TableContent({ status }: Iprops) {
             label: t("common.view"),
             icon: <Eye className="h-3 w-3" />,
             onClick: (row) => handleView(row),
-            className: "hover:bg-primary-50 hover:text-primary-500",
+            className: "text-xs text-chart-3 hover:text-chart-3 hover:bg-chart-3/10 border-chart-3",
         },
         {
             key: "accept",
@@ -135,7 +135,7 @@ export default function TableContent({ status }: Iprops) {
             icon: <CheckLineIcon className="h-3 w-3" />,
             onClick: (row) => handleAccept(row),
             condition: (row) => row.status === "ISSUED" && userStore?.userType === 'importer',
-            className: "hover:bg-green-50 hover:text-green-600",
+            className: "text-xs text-chart-2 hover:text-chart-2 hover:bg-chart-2/10 border-chart-2",
         },
         {
             key: "reject",
@@ -143,7 +143,7 @@ export default function TableContent({ status }: Iprops) {
             icon: <X className="h-3 w-3" />,
             onClick: (row) => handleReject(row),
             condition: (row) => row.status === "ISSUED" && userStore?.userType === 'importer',
-            className: "hover:bg-red-50 hover:text-red-600",
+            className: "text-xs text-destructive hover:text-destructive hover:bg-destructive/10 border-destructive",
         },
     ]
 
