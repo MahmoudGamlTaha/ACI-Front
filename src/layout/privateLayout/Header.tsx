@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
-import { Home, Languages, LogOut, Moon, Sun, User as UserIcon } from "lucide-react";
+import { Languages, LogOut, Moon, Sun } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
 import Logo from '../../../public/images/logo.png'
 import { ThemeContext } from "@/contexts/ThemeContext";

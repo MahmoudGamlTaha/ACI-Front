@@ -109,7 +109,7 @@ export default function UsersActivations({ status }: Iprops) {
             label: t("common.view"),
             icon: <Eye className="h-4 w-4" />,
             onClick: (row) => openViewDialog(row),
-            className: "text-sm text-blue-600 hover:text-blue-700 hover:bg-blue-50 border-blue-200",
+            className: "text-xs text-chart-3 hover:text-chart-3 hover:bg-chart-3/10 border-chart-3",
         },
         {
             key: "approve",
@@ -117,7 +117,7 @@ export default function UsersActivations({ status }: Iprops) {
             icon: <CheckCircle className="h-4 w-4" />,
             onClick: (row) => openConfirmDialog(row, "APPROVED"),
             condition: (row) => row.registrationStatus === "PENDING",
-            className: "text-sm text-green-600 hover:text-green-700 hover:bg-green-50 border-green-200",
+            className: "text-xs text-chart-2 hover:text-chart-2 hover:bg-chart-2/10 border-chart-2",
         },
         {
             key: "reject",
@@ -125,7 +125,7 @@ export default function UsersActivations({ status }: Iprops) {
             icon: <XCircle className="h-4 w-4" />,
             onClick: (row) => openConfirmDialog(row, "REJECTED"),
             condition: (row) => row.registrationStatus === "PENDING",
-            className: "text-sm text-red-600 hover:text-red-700 hover:bg-red-50 border-red-200",
+            className: "text-xs text-destructive hover:text-destructive hover:bg-destructive/10 border-destructive",
         },
     ]
 
