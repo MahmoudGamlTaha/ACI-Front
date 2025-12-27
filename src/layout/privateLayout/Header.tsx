@@ -1,7 +1,8 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
-import { Languages, LogOut, Moon, Sun } from "lucide-react";
+import { Home, Languages, LogOut, Moon, Sun, User as UserIcon } from "lucide-react";
+import { useNavigate, useLocation } from "react-router-dom";
 import Logo from '../../../public/images/logo.png'
 import { ThemeContext } from "@/contexts/ThemeContext";
 import { useUserStore } from "@/stores/useUserStores";
@@ -9,6 +10,8 @@ import NotificationMenu from "./NotificationMenu";
 
 const Header: React.FC = () => {
     const { user, clearUser } = useUserStore();
+    const navigate = useNavigate();
+    const location = useLocation();
     const { t, i18n } = useTranslation();
     const { darkMode, toggleDarkMode } = useContext(ThemeContext);
     const [showLangMenu, setShowLangMenu] = useState(false);
@@ -58,10 +61,26 @@ const Header: React.FC = () => {
 
     return (
         <header className="dark:bg-card shadow-md sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/60">
-            <div className="container mx-auto flex h-22 items-center justify-between px-4">
+            <div className="container mx-auto flex h-22 items-center justify-between px-4 relative">
                 {/* Logo Section */}
                 <div className="flex items-center gap-2">
                     <img className="dark:invert" src={Logo} alt="Logo" width={150} />
+                </div>
+
+                {/* Center Section - Navigation Buttons */}
+                <div className="absolute left-1/2 -translate-x-1/2 flex gap-2">
+                    <Button
+                        variant={location.pathname === '/' ? "primary" : "link"}
+                        onClick={() => navigate('/')}
+                    >
+                        {t('header.home')}
+                    </Button>
+                    <Button
+                        variant={location.pathname === '/profile' ? "primary" : "link"}
+                        onClick={() => navigate('/profile')}
+                    >
+                        {t('header.profile.title')}
+                    </Button>
                 </div>
 
                 {/* Right Section - Notifications, User Info, Dark Mode, Language & Logout */}
@@ -77,6 +96,7 @@ const Header: React.FC = () => {
                         {t('header.welcome')}
                         <span className="ms-2 text-foreground text-sm font-normal">{user?.userEmail || "user"}</span>
                     </p>
+
 
                     {/* Dark Mode Toggle */}
                     <Button

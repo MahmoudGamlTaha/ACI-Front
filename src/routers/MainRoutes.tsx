@@ -16,6 +16,8 @@ const LazyAdminDashboard = lazy(() => import("@/pages/admin-dashboard"));
 const LazyExporterDashboard = lazy(
     () => import("@/pages/exporter-dashboard")
 );
+const LazyProfile = lazy(() => import("@/pages/profile"));
+const LazyChangePassword = lazy(() => import("@/pages/auth/ChangePassword"));
 
 export default function MainRoutes() {
     const { user: userStore } = useUserStore();
@@ -59,6 +61,14 @@ export default function MainRoutes() {
                         </ProtectedRoute>
                     ),
                 },
+                {
+                    path: "profile",
+                    element: (
+                        <ProtectedRoute byType={["admin", "exporter", "importer"]}>
+                            <LazyProfile />
+                        </ProtectedRoute>
+                    ),
+                },
             ],
         },
         // {
@@ -84,6 +94,10 @@ export default function MainRoutes() {
                 {
                     path: "sign-up",
                     element: <LazySignUp />,
+                },
+                {
+                    path: "profile/reset-password",
+                    element: <LazyChangePassword />,
                 },
             ],
         },

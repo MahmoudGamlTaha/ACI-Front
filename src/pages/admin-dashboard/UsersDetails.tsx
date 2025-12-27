@@ -49,6 +49,7 @@ export default function UsersDetails({ user }: UsersDetailsProps) {
                     <InfoItem icon={Phone} label={t("auth.phoneNumber")} value={user.phone} />
                     <InfoItem icon={Globe} label={t("auth.country")} value={user.countryName} />
                     <InfoItem icon={MapPin} label={t("auth.address")} value={user.address} />
+                    <InfoItem icon={User} label={t("auth.username")} value={user.username} />
                     <InfoItem icon={User} label={t("common.userType")} value={user.userType} />
                 </CardContent>
             </Card>

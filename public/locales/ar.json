@@ -17,7 +17,9 @@
         "REJECTED": "مرفوض",
         "APPROVED": "مكتمل",
         "DRAFT": "مسودة",
-        "close": "إغلاق"
+        "close": "إغلاق",
+        "save": "حفظ التغييرات",
+        "cancel": "إلغاء"
     },
     "header": {
         "logOut": "تسجيل الخروج",
@@ -26,7 +28,11 @@
         "signUp": "تسجيل جديد",
         "language": "اللغة",
         "darkMode": "الوضع الداكن",
+        "home": "الرئيسية",
         "commercialGate": "البوابة التجارية",
+        "profile": {
+            "title": "الملف الشخصي"
+        },
         "notifications": {
             "title": "الإشعارات",
             "markAllAsRead": "تحديد الكل كمقروء",
@@ -152,6 +158,10 @@
         "currency": "العملة"
     },
     "auth": {
+        "forgetPasswordSentMsg": "تم ارسال كلمة المرور عبر بريدك الالكتروني، برجاء الذهاب الي بريدك الالكتروني",
+        "forgetPassword": "نسيت كلمة المرور",
+        "changePassword": "تغيير كلمة المرور",
+        "passwordChangedSuccess": "تم تغيير كلمة المرور بنجاح",
         "attachment": "المرفقات",
         "companyLicense": "ترخيص الشركة",
         "comRegister": "السجل التجاري",
@@ -164,6 +174,7 @@
         "signUp": "تسجيل جديد",
         "email": "البريد الالكتروني",
         "password": "كلمه المرور",
+        "newPassword": "كلمه المرور الجديدة",
         "youDontHaveAccount": "ليس لديك حساب؟",
         "youHaveAccount": "لدي حساب بالفعل؟",
         "signInNow": "سجل الان",
@@ -189,6 +200,7 @@
         "zipCode": "الرمز البريدي",
         "username": "اسم المستخدم",
         "confirmPassword": "تأكيد كلمة المرور",
+        "confirmNewPassword": "تأكيد كلمة المرور الجديدة",
         "acceptTerms": "اوافق على الشروط والأحكام",
         "reviewAfterSubmit": "يرجى مراجعة معلوماتك قبل الإرسال",
         "acceptTermsError": "يجب الموافقة على الشروط والأحكام",

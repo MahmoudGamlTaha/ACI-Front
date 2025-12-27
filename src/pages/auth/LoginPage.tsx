@@ -119,6 +119,13 @@ export default function LoginPage() {
                                 </Button>
                             </span>
                         </p>
+                        <div className="flex justify-start">
+                            <Button type="button" variant="link" className="text-sm" size={'sm'} onClick={() => {
+                                toast.success(t("auth.forgetPasswordSentMsg"))
+                            }}>
+                                {t("auth.forgetPassword")}
+                            </Button>
+                        </div>
                         <div className="dark:bg-gray-800 bg-gray-50 border border-gray-200 rounded-xl p-5 w-full max-w-md text-right leading-7">
                             <p className="font-semibold dark:text-white text-gray-700 mb-2">
                                 حسابات تجريبية <span className="font-normal">(كلمة المرور: 123456)</span>
@@ -128,22 +135,22 @@ export default function LoginPage() {
                                 <li className="flex gap-2">
                                     <span className="">•</span>
                                     <span className="font-semibold">مصدر:</span>
-                                    <span>exporter@test.com</span>
+                                    <span>ٍShadyEx@aci.com</span>
                                 </li>
 
                                 <li className="flex gap-2">
                                     <span>•</span>
                                     <span className="font-semibold">مستورد:</span>
-                                    <span>importer@test.com</span>
+                                    <span>MoImporter2@aci.com</span>
                                 </li>
 
                                 <li className="flex gap-2">
                                     <span>•</span>
                                     <span className="font-semibold">مسؤول النظام:</span>
-                                    <span>admin@aci.gov.ly</span>
+                                    <span>admin@trade.com</span>
                                 </li>
 
-                                <li className="flex gap-2">
+                                {/* <li className="flex gap-2">
                                     <span>•</span>
                                     <span className="font-semibold">البنك المركزي:</span>
                                     <span>bank@cbl.gov.ly</span>
@@ -159,11 +166,11 @@ export default function LoginPage() {
                                     <span>•</span>
                                     <span className="font-semibold">ضابط جمارك:</span>
                                     <span>customs-officer@aci.gov.ly</span>
-                                </li>
+                                </li> */}
                             </ul>
 
                             <p className="dark:text-white mt-3 text-xs font-semibold text-gray-700">
-                                كلمة المرور: <span className="font-normal">123456</span>
+                                كلمة المرور: <span className="font-normal">password</span>
                             </p>
                         </div>
                     </CardFooter>

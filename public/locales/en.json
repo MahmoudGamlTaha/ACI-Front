@@ -17,7 +17,9 @@
         "REJECTED": "Rejected",
         "APPROVED": "Approved",
         "DRAFT": "Draft",
-        "close": "Close"
+        "close": "Close",
+        "save": "Save Changes",
+        "cancel": "Cancel"
     },
     "header": {
         "logOut": "Log Out",
@@ -26,7 +28,11 @@
         "signUp": "Sign Up",
         "language": "Language",
         "darkMode": "Dark Mode",
+        "home": "Home",
         "commercialGate": "Commercial Gate",
+        "profile": {
+            "title": "Profile"
+        },
         "notifications": {
             "title": "Notifications",
             "markAllAsRead": "Mark All As Read",
@@ -151,6 +157,10 @@
         "currency": "Currency"
     },
     "auth": {
+        "forgetPasswordSentMsg": "We have sent you a password reset link to your email. Please check your email.",
+        "forgetPassword": "Forget Password",
+        "changePassword": "Change Password",
+        "passwordChangedSuccess": "Password changed successfully",
         "attachment": "Attachment",
         "companyLicense": "Company License",
         "comRegister": "Commercial Register",
@@ -163,6 +173,7 @@
         "signUp": "Sign Up",
         "email": "Email",
         "password": "Password",
+        "newPassword": "New Password",
         "youDontHaveAccount": "Don't have an account?",
         "youHaveAccount": "Do you have an account?",
         "signInNow": "Sign In Now",
@@ -188,6 +199,7 @@
         "zipCode": "Zip Code",
         "username": "Username",
         "confirmPassword": "Confirm Password",
+        "confirmNewPassword": "Confirm New Password",
         "reviewAfterSubmit": "Please review your information before submitting",
         "acceptTermsError": "You must accept the terms and conditions.",
         "bankName": "Bank Name",
