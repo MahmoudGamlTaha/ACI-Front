@@ -1,30 +1,23 @@
+import { UserRegistration } from "@/models/auth";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
-export interface IUserStore {
-  userEmail: string | null;
-  userType?: "admin" | "importer" | "exporter" | string;
-  id?: number;
-}
 
 type UserStore = {
-  user: IUserStore;
-  setUser: (user: IUserStore) => void;
+  user: UserRegistration;
+  setUser: (user: UserRegistration) => void;
   clearUser: () => void;
 };
 
 export const useUserStore = create<UserStore>()(
   persist(
     (set) => ({
-      user: {
-        userEmail: null,
-        userType: undefined,
-      },
+      user: {} as UserRegistration,
       setUser: (user) => set({ user }),
       clearUser: () => {
         localStorage.removeItem("token");
         set({
-          user: { userEmail: null, userType: undefined },
+          user: {} as UserRegistration,
         });
         window.location.href = "/";
       },

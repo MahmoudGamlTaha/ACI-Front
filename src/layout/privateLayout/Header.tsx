@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
-import { Languages, LogOut, Moon, Sun } from "lucide-react";
+import { Home, Languages, LogOut, Moon, Sun, User } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
 import Logo from '../../../public/images/logo.png'
 import { ThemeContext } from "@/contexts/ThemeContext";
@@ -72,13 +72,17 @@ const Header: React.FC = () => {
                     <Button
                         variant={location.pathname === '/' ? "primary" : "link"}
                         onClick={() => navigate('/')}
+                        className="flex items-center gap-2"
                     >
+                        <Home className="size-6" />
                         {t('header.home')}
                     </Button>
                     <Button
                         variant={location.pathname === '/profile' ? "primary" : "link"}
                         onClick={() => navigate('/profile')}
+                        className="flex items-center gap-2"
                     >
+                        <User className="size-6" />
                         {t('header.profile.title')}
                     </Button>
                 </div>
@@ -94,7 +98,7 @@ const Header: React.FC = () => {
                     {/* User Welcome */}
                     <p className="grow me-2 font-bold text-foreground">
                         {t('header.welcome')}
-                        <span className="ms-2 text-foreground text-sm font-normal">{user?.userEmail || "user"}</span>
+                        <span className="ms-2 text-foreground text-sm font-normal">{user?.fullName || "user"}</span>
                     </p>
 
 

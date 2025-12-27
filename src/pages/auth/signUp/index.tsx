@@ -11,7 +11,7 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { UserRegistration } from "@/models/auth"
 import { Controller, useForm } from "react-hook-form"
 import { useTranslation } from "react-i18next"
-import { ArrowDownFromLine, ArrowUpFromLine } from "lucide-react"
+import { ArrowDownFromLine, ArrowUpFromLine, Eye, EyeOff } from "lucide-react"
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { useLoading } from "@/contexts/LoadingContext"
@@ -30,6 +30,8 @@ export default function SignUp() {
     const { t } = useTranslation();
     const navigate = useNavigate()
     const { setLoading } = useLoading();
+    const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
     const handleRegister = async (data: UserRegistrationExt) => {
         setLoading(true);
@@ -512,14 +514,30 @@ export default function SignUp() {
                                                             <FieldLabel htmlFor="passwordHash">
                                                                 {t("auth.password")}
                                                             </FieldLabel>
-                                                            <Input
-                                                                {...field}
-                                                                id="passwordHash"
-                                                                required
-                                                                error={fieldState.error?.message}
-                                                                value={field.value}
-                                                                onChange={field.onChange}
-                                                            />
+                                                            <div className="relative w-full">
+                                                                <Input
+                                                                    {...field}
+                                                                    id="passwordHash"
+                                                                    type={showPassword ? "text" : "password"}
+                                                                    required
+                                                                    error={fieldState.error?.message}
+                                                                    value={field.value}
+                                                                    onChange={field.onChange}
+                                                                    className="pe-12"
+                                                                />
+                                                                <button
+                                                                    type="button"
+                                                                    onClick={() => setShowPassword(!showPassword)}
+                                                                    className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+                                                                    tabIndex={-1}
+                                                                >
+                                                                    {showPassword ? (
+                                                                        <EyeOff className="size-5" />
+                                                                    ) : (
+                                                                        <Eye className="size-5" />
+                                                                    )}
+                                                                </button>
+                                                            </div>
                                                         </Field>
                                                     )}
                                                 />
@@ -535,14 +553,30 @@ export default function SignUp() {
                                                             <FieldLabel htmlFor="confirmPassword">
                                                                 {t("auth.confirmPassword")}
                                                             </FieldLabel>
-                                                            <Input
-                                                                {...field}
-                                                                id="confirmPassword"
-                                                                required
-                                                                error={fieldState.error?.message}
-                                                                value={field.value}
-                                                                onChange={field.onChange}
-                                                            />
+                                                            <div className="relative w-full">
+                                                                <Input
+                                                                    {...field}
+                                                                    id="confirmPassword"
+                                                                    type={showConfirmPassword ? "text" : "password"}
+                                                                    required
+                                                                    error={fieldState.error?.message}
+                                                                    value={field.value}
+                                                                    onChange={field.onChange}
+                                                                    className="pe-12"
+                                                                />
+                                                                <button
+                                                                    type="button"
+                                                                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                                                                    className="absolute end-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+                                                                    tabIndex={-1}
+                                                                >
+                                                                    {showConfirmPassword ? (
+                                                                        <EyeOff className="size-5" />
+                                                                    ) : (
+                                                                        <Eye className="size-5" />
+                                                                    )}
+                                                                </button>
+                                                            </div>
                                                         </Field>
                                                     )}
                                                 />

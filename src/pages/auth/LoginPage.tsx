@@ -9,14 +9,16 @@ import {
 import { Field, FieldLabel } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
 import { loginApi } from "@/services/auth/loginService"
-import { LoginInput } from "@/models/auth"
-import { useCallback } from "react"
+import { LoginInput, UserRegistration } from "@/models/auth"
+import { useCallback, useState } from "react"
 import { Controller, useForm } from "react-hook-form"
 import { useTranslation } from "react-i18next"
 import { useNavigate } from "react-router-dom"
 import toast from "react-hot-toast"
 import { useLoading } from "@/contexts/LoadingContext"
 import { useUserStore } from "@/stores/useUserStores"
+import { GetUserById } from "@/services/user/getUserById"
+import { Eye, EyeOff } from "lucide-react"
 
 export default function LoginPage() {
     const { control, handleSubmit } = useForm<LoginInput>({ defaultValues: { email: "", password: "" } })
@@ -24,6 +26,7 @@ export default function LoginPage() {
     const navigate = useNavigate();
     const { setLoading } = useLoading();
     const { setUser } = useUserStore();
+    const [showPassword, setShowPassword] = useState(false);
 
     const handleLogin = useCallback(async (data: LoginInput) => {
         try {
@@ -33,11 +36,10 @@ export default function LoginPage() {
                 localStorage.setItem("token", result.payload?.token || "");
                 navigate("/");
                 setLoading(false);
-                setUser({
-                    userEmail: result.payload?.email || "",
-                    userType: result.payload?.userType || "",   
-                    id: result.payload?.id || 0                 
-                })
+                const userResult = await GetUserById(result.payload?.id || 0);
+                if (userResult?.success) {
+                    setUser(userResult.payload as UserRegistration)
+                }
             } else {
                 setLoading(false);
                 toast.error(result?.error || '');
@@ -93,14 +95,29 @@ export default function LoginPage() {
                                 render={({ field, fieldState }) => (
                                     <Field>
                                         <FieldLabel htmlFor="password">{t("auth.password")}</FieldLabel>
-                                        <Input
-                                            id="password"
-                                            value={field.value ?? ""}
-                                            onChange={field.onChange}
-                                            placeholder="Password"
-                                            type="password"
-                                            error={fieldState.error?.message}
-                                        />
+                                        <div className="relative w-full">
+                                            <Input
+                                                id="password"
+                                                value={field.value ?? ""}
+                                                onChange={field.onChange}
+                                                placeholder="Password"
+                                                type={showPassword ? "text" : "password"}
+                                                error={fieldState.error?.message}
+                                                className="pe-12"
+                                            />
+                                            <button
+                                                type="button"
+                                                onClick={() => setShowPassword(!showPassword)}
+                                                className="absolute end-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+                                                tabIndex={-1}
+                                            >
+                                                {showPassword ? (
+                                                    <EyeOff className="size-5" />
+                                                ) : (
+                                                    <Eye className="size-5" />
+                                                )}
+                                            </button>
+                                        </div>
                                     </Field>
                                 )}
                             />

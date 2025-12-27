@@ -2,13 +2,13 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useUserStore } from "@/stores/useUserStores";
 import { GetUserById } from "@/services/user/getUserById";
-import { UpdateProfileApi } from "@/services/user/updateProfile";
+
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Field, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Controller, useForm } from "react-hook-form";
-import { User, Building, CreditCard, Lock, FileText, ArrowUpFromLine, ArrowDownFromLine } from "lucide-react";
+import { User, Building, CreditCard, Lock, FileText, ArrowUpFromLine, ArrowDownFromLine, Eye, EyeOff } from "lucide-react";
 import FinancialDetailsSection from "../auth/signUp/FinancialDetailsSection";
 import { UserRegistrationExt } from "../auth/signUp";
 import toast from "react-hot-toast";
@@ -20,6 +20,8 @@ export default function ProfilePage() {
     const { setLoading } = useLoading();
     const [accountType, setAccountType] = useState<'exporter' | 'importer'>('exporter');
     const [activeTab, setActiveTab] = useState<'general' | 'commercial' | 'financial' | 'security'>('general');
+    const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
     const { control, handleSubmit, reset, getValues, watch } = useForm<UserRegistrationExt>({
         defaultValues: {
@@ -330,7 +332,28 @@ export default function ProfilePage() {
                                             render={({ field, fieldState }) => (
                                                 <Field>
                                                     <FieldLabel htmlFor="passwordHash">{t("auth.password")}</FieldLabel>
-                                                    <Input {...field} type="password" id="passwordHash" error={fieldState.error?.message} placeholder="••••••••" />
+                                                    <div className="relative w-full">
+                                                        <Input
+                                                            {...field}
+                                                            type={showPassword ? "text" : "password"}
+                                                            id="passwordHash"
+                                                            error={fieldState.error?.message}
+                                                            placeholder="••••••••"
+                                                            className="pe-12"
+                                                        />
+                                                        <button
+                                                            type="button"
+                                                            onClick={() => setShowPassword(!showPassword)}
+                                                            className="absolute end-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+                                                            tabIndex={-1}
+                                                        >
+                                                            {showPassword ? (
+                                                                <EyeOff className="size-5" />
+                                                            ) : (
+                                                                <Eye className="size-5" />
+                                                            )}
+                                                        </button>
+                                                    </div>
                                                 </Field>
                                             )}
                                         />
@@ -343,7 +366,29 @@ export default function ProfilePage() {
                                             render={({ field, fieldState }) => (
                                                 <Field>
                                                     <FieldLabel htmlFor="confirmPassword">{t("auth.confirmPassword")}</FieldLabel>
-                                                    <Input {...field} type="password" id="confirmPassword" error={fieldState.error?.message} placeholder="••••••••" />
+                                                    <div className="relative w-full">
+
+                                                        <Input
+                                                            {...field}
+                                                            type={showConfirmPassword ? "text" : "password"}
+                                                            id="confirmPassword"
+                                                            error={fieldState.error?.message}
+                                                            placeholder="••••••••"
+                                                            className="pe-12"
+                                                        />
+                                                        <button
+                                                            type="button"
+                                                            onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                                                            className="absolute end-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+                                                            tabIndex={-1}
+                                                        >
+                                                            {showConfirmPassword ? (
+                                                                <EyeOff className="size-5" />
+                                                            ) : (
+                                                                <Eye className="size-5" />
+                                                            )}
+                                                        </button>
+                                                    </div>
                                                 </Field>
                                             )}
                                         />
